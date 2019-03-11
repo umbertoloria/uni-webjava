@@ -34,4 +34,8 @@ public class Record implements Iterable<Object> {
 		return Arrays.asList(values).iterator();
 	}
 
+	public int getSize() {
+		return values.length;
+	}
+
 }

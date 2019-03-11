@@ -25,9 +25,13 @@ public class Database {
 		return "jdbc:mysql://" + url + ":" + port + "/" + db + configs;
 	}
 
-	public Table query(String query) throws SQLException {
-		Statement stmt = conn.createStatement();
-		ResultSet rs = stmt.executeQuery(query);
+	public Table query(String query, Object... data) throws SQLException {
+		PreparedStatement stmt = conn.prepareStatement(query);
+		int i = 1;
+		for (Object d : data) {
+			stmt.setString(i++, d.toString());
+		}
+		ResultSet rs = stmt.executeQuery();
 		return new Table(rs);
 	}
 

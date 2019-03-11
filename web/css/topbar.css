@@ -1,0 +1,88 @@
+#topbar {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #eee;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, .1);
+    z-index: 90;
+}
+
+#topbar div {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: auto;
+    width: 1000px;
+}
+
+#topbar div header {
+    display: block;
+}
+
+#topbar div header a {
+    display: block;
+    color: var(--cl);
+    font-size: 1.5em;
+    line-height: 80px;
+    text-decoration: none;
+}
+
+#topbar div form {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    height: 35px;
+}
+
+#topbar form input[type='text'] {
+    padding: 0 10px;
+    border-radius: 3px 0 0 3px;
+    border: 1px solid #aaa;
+    border-right: 0;
+    width: 300px;
+}
+
+#topbar form input[type='submit'] {
+    border-radius: 0 3px 3px 0;
+    border: 1px solid #aaa;
+    color: var(--cl);
+    font-weight: bold;
+    transition: .3s;
+}
+
+#topbar form input[type='submit']:hover {
+    color: #fff;
+    background: var(--cl);
+}
+
+#topbar div ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+#topbar div ul li {
+    display: block;
+}
+
+#topbar div ul li a {
+    display: block;
+    line-height: 80px;
+    padding: 0 15px;
+    text-decoration: none;
+    color: #666;
+    font-size: 1.1em;
+    transition: .3s;
+}
+
+#topbar div ul li:hover a {
+    color: #333;
+    /*text-shadow: 0 2px rgba(0, 0, 0, .2);*/
+    box-shadow: inset 0 -3px 0 rgba(0, 0, 0, .3);
+}

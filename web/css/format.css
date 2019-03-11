@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css?family=Overpass:400,400i,700,700i|Montserrat:400,400i,700,700i');
+
+body {
+    font-family: Overpass, sans-serif;
+    font-size: 16px;
+    background: #fff;
+    overflow-y: scroll;
+    padding-top: 80px;
+}
+
+:root {
+    --cl: #68e;
+    --title-font: Montserrat, sans-serif;
+}
+
+input[type='submit'] {
+    cursor: pointer;
+}

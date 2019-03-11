@@ -8,17 +8,26 @@ public class DB {
 
 	public static void init() {
 		try {
-			c = new Database("localhost", 3306, "root", "ciaociao", "blog");
-		} catch (SQLException e) {
+			c = new Database("localhost", 3306, "root", "ciaociao", "ecommerce");
+		} catch (SQLException ignored) {
 		}
 	}
 
-	public static Table query(String sql) {
+	public static Table query(String sql, Object... data) {
 		try {
-			return c.query(sql);
+			return c.query(sql, data);
 		} catch (SQLException e) {
 			return null;
 		}
 	}
+
+//	public static Table stm(Object... d) {
+//		String sql = (String) d[0];
+//		int i = 0;
+//		Object[] data = new Object[d.length - 1];
+//		for (Object o : d) {
+//			data[i++] = o;
+//		}
+//	}
 
 }
