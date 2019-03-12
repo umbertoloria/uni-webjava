@@ -1,17 +1,10 @@
 <%@ page import="database.DB" %>
 <%@ page import="model.Prodotto" %>
+<%@ page import="parts.Head" %>
 <%@ page import="parts.Topbar" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <% DB.init(); %>
-<html>
-<head>
-	<title>HomePage</title>
-	<link rel="stylesheet" href="css/format.css"/>
-	<link rel="stylesheet" href="css/topbar.css"/>
-	<link rel="stylesheet" href="css/prodotto.css"/>
-	<script type="text/javascript" src="js/Core.js"></script>
-</head>
-<body>
+<%= Head.put() %>
 <%= Topbar.put() %>
 <div id="prodotti">
 	<%
