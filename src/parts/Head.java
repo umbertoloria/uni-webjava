@@ -6,8 +6,10 @@ public class Head {
 		Resource[] resources = {
 				new CSSResource("css/format.css"),
 				new CSSResource("css/topbar.css"),
-				new CSSResource("css/prodotto.css"),
+				new CSSResource("css/dashboard.css"),
+				new JSResource("js/jQuery.min.js"),
 				new JSResource("js/core.js"),
+				new JSResource("js/topbar.js"),
 		};
 		StringBuilder res = new StringBuilder();
 		res.append("<!DOCTYPE html>");

@@ -1,29 +1,22 @@
 package controllers;
 
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import model.Prodotto;
 
-/**
- Simple servlet for testing. Generates HTML instead of plain text as with the HelloWorld servlet. */
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @WebServlet("/ricerca")
 public class Ricerca extends HttpServlet {
 
-	public void doGet(HttpServletRequest request,
-	                  HttpServletResponse response)
-			throws ServletException, IOException {
-		response.setContentType("text/xml");
-		PrintWriter out = response.getWriter();
-		out.println
-				("<!DOCTYPE html>\n" +
-						"<html>\n" +
-						"<head><title>A Test Servlet</title></head>\n" +
-						"<body bgcolor=\"#fdf5e6\">\n" +
-						"<h1>Test</h1>\n" +
-						"<p>Simple servlet for testing.</p>\n" +
-						"</body></html>");
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		resp.setContentType("text/html");
+		Prodotto[] prodotti = Prodotto.search(req.getParameter("q").trim());
+		for (Prodotto prodotto : prodotti) {
+			resp.getWriter().append(prodotto.makeList());
+		}
 	}
 
 }

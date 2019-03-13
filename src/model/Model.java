@@ -19,6 +19,6 @@ public abstract class Model {
 		return result;
 	}
 
-	public abstract String makeHTML();
+	public abstract String makeBox();
 
 }

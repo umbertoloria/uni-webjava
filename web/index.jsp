@@ -6,12 +6,10 @@
 <% DB.init(); %>
 <%= Head.put() %>
 <%= Topbar.put() %>
-<div id="prodotti">
+<div id="dashboard">
 	<%
 		for (Prodotto prodotto : Prodotto.getPosts()) {
-			out.println(prodotto.makeHTML());
+			out.println(prodotto.makeBox());
 		}
 	%>
 </div>
-</body>
-</html>

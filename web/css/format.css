@@ -1,18 +1,28 @@
-@import url('https://fonts.googleapis.com/css?family=Overpass:400,400i,700,700i|Montserrat:400,400i,700,700i');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Montserrat:400,400i,700,700i');
 
 body {
-    font-family: Overpass, sans-serif;
-    font-size: 16px;
-    background: #fff;
-    overflow-y: scroll;
-    padding-top: 80px;
+	font-family: Open Sans, sans-serif;
+	font-size: 16px;
+	background: #eee;
+	overflow-y: scroll;
+	padding-top: 80px;
 }
 
 :root {
-    --cl: #68e;
-    --title-font: Montserrat, sans-serif;
+	--cl: #78e;
+	--bg: #55b;
+	--price: #5b5;
+	--title-font: Montserrat, sans-serif;
+}
+
+a, input {
+	outline: 0;
+}
+
+input {
+	font-family: inherit;
 }
 
 input[type='submit'] {
-    cursor: pointer;
+	cursor: pointer;
 }

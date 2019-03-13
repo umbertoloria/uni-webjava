@@ -11,10 +11,11 @@ public class Topbar {
 		StringBuilder res = new StringBuilder();
 		res.append("<div id='topbar'><div class='wrapper'>");
 		res.append("<header><a href='./'> MCommerce </a></header>");
-		res.append("<form>");
-		res.append("<input type='text' id='search_input'/>");
+		res.append("<form id='search_form' action='cerca.jsp' method='get'>");
+		res.append("<input type='text' id='search_input' name='q' " +
+				"autocomplete='off' placeholder='Cerca uno strumento...'/>");
 		res.append("<input type='submit' value='Cerca'/>");
-		res.append("<div id='search_results'></div>");
+		res.append("<div class='results'></div>");
 		res.append("</form>");
 		res.append("<ul>");
 		for (TopbarItem item : items) {

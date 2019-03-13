@@ -21,13 +21,4 @@ public class DB {
 		}
 	}
 
-//	public static Table stm(Object... d) {
-//		String sql = (String) d[0];
-//		int i = 0;
-//		Object[] data = new Object[d.length - 1];
-//		for (Object o : d) {
-//			data[i++] = o;
-//		}
-//	}
-
 }
