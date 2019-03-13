@@ -22,6 +22,6 @@
 		}
 		out.println("</div>");
 	} else {
-
+		// TODO: Nessun prodotto.
 	}
 %>

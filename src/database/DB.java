@@ -8,7 +8,7 @@ public class DB {
 
 	public static void init() {
 		try {
-			c = new Database("localhost", 3306, "root", "ciaociao", "ecommerce");
+			c = new Database("localhost", 3306, "root", "Ciaociao98.", "ecommerce");
 		} catch (SQLException ignored) {
 		}
 	}

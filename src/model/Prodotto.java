@@ -30,7 +30,7 @@ public class Prodotto extends Model implements Box, List {
 		descrizione = r[5];
 	}
 
-	public static Prodotto[] getPosts() {
+	public static Prodotto[] getAll() {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Table t = DB.query("SELECT id FROM prodotti ORDER BY nome");
 		for (Record record : t) {

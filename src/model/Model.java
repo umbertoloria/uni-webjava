@@ -6,7 +6,7 @@ import database.Table;
 
 public abstract class Model {
 
-	protected String[] take(String sql, Object data) {
+	protected String[] take(String sql, Object... data) {
 		Table t = DB.query(sql, data);
 		if (t == null) {
 			return null;
@@ -18,7 +18,5 @@ public abstract class Model {
 		}
 		return result;
 	}
-
-	public abstract String makeBox();
 
 }

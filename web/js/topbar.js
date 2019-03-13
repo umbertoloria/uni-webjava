@@ -29,10 +29,10 @@ $(function () {
 
 	let timeout;
 	$("#search_form input[name=q]").keyup(function () {
-		const form = this;
+		const input = this;
 		clearTimeout(timeout);
 		timeout = setTimeout(function () {
-			refreshSearch(form);
+			refreshSearch(input);
 		}, 300);
 	}).focus(function () {
 		refreshSearch(this);

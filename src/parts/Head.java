@@ -2,15 +2,16 @@ package parts;
 
 public class Head {
 
+	private static Resource[] resources = {
+			new CSSResource("css/format.css"),
+			new CSSResource("css/topbar.css"),
+			new CSSResource("css/dashboard.css"),
+			new JSResource("js/jQuery.min.js"),
+			new JSResource("js/core.js"),
+			new JSResource("js/topbar.js"),
+	};
+
 	public static String put() {
-		Resource[] resources = {
-				new CSSResource("css/format.css"),
-				new CSSResource("css/topbar.css"),
-				new CSSResource("css/dashboard.css"),
-				new JSResource("js/jQuery.min.js"),
-				new JSResource("js/core.js"),
-				new JSResource("js/topbar.js"),
-		};
 		StringBuilder res = new StringBuilder();
 		res.append("<!DOCTYPE html>");
 		res.append("<html><head>");

@@ -8,7 +8,7 @@
 <%= Topbar.put() %>
 <div id="dashboard">
 	<%
-		for (Prodotto prodotto : Prodotto.getPosts()) {
+		for (Prodotto prodotto : Prodotto.getAll()) {
 			out.println(prodotto.makeBox());
 		}
 	%>
