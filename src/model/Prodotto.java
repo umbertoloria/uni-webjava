@@ -11,23 +11,25 @@ import java.util.ArrayList;
 
 public class Prodotto extends Model implements Box, List {
 
-	private int id;
+	private int id, sottocategoria;
 	private String nome;
-	private float prezzo;
 	private int produttore;
+	private float prezzo;
 	private String immagine, descrizione;
 
 	public Prodotto(int id) {
-		String[] r = take("SELECT id, nome, prezzo, produttore, immagine, descrizione FROM prodotti WHERE id = ?", id);
+		String[] r = take("SELECT id, sottocategoria, nome, produttore, prezzo, immagine, descrizione " +
+				"FROM prodotti WHERE id = ?", id);
 		if (r == null) {
 			return;
 		}
 		this.id = Integer.parseInt(r[0]);
-		nome = r[1];
-		prezzo = Float.parseFloat(r[2]);
+		sottocategoria = Integer.parseInt(r[1]);
+		nome = r[2];
 		produttore = Integer.parseInt(r[3]);
-		immagine = r[4];
-		descrizione = r[5];
+		prezzo = Float.parseFloat(r[4]);
+		immagine = r[5];
+		descrizione = r[6];
 	}
 
 	public static Prodotto[] getAll() {
@@ -51,10 +53,13 @@ public class Prodotto extends Model implements Box, List {
 	}
 
 	public String makeBox() {
-		return "<a href='prodotto.jsp?id=" + id + "'>" +
+		String part = "<a class='prebox' href='sottocategoria.jsp?id=" + sottocategoria + "'>" +
+				new Sottocategoria(sottocategoria).getNome() + "</a>";
+		return "<div>" + part + "<a class='box' href='prodotto.jsp?id=" + id + "'> " +
 				"<header>" + nome + "</header>" +
 				"<span> " + Formats.euro(prezzo) + "</span>" +
-				"<img src='" + immagine + "'/></a>";
+				"<img src='" + immagine + "'/></a>" +
+				"</div>";
 	}
 
 	public String makeList() {

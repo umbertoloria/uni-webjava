@@ -1,15 +1,9 @@
 #topbar {
-	display: flex;
-	align-items: center;
+	display: block;
 	position: fixed;
 	top: 0;
 	left: 0;
 	right: 0;
-	height: 80px;
-	/*background: var(--cl);*/
-	border-bottom: 2px solid var(--bg);
-	background: #fff;
-	border-bottom-color: #ddd;
 	z-index: 90;
 }
 
@@ -17,24 +11,26 @@
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin: auto;
-	width: 1200px;
 }
 
-#topbar header {
+#firstbar {
+	width: 100%;
+	background: #fff;
+}
+
+#firstbar header {
 	display: block;
-	font-family: var(--title-font);
 }
 
-#topbar header a {
+#firstbar header a {
 	display: block;
 	color: var(--cl);
-	font-size: 1.2em;
-	line-height: 80px;
-	text-decoration: none;
+	font-family: var(--title-font);
+	font-size: 1.3em;
+	line-height: 70px;
 }
 
-#topbar form {
+#firstbar form {
 	display: flex;
 	margin: 0;
 	padding: 0;
@@ -42,7 +38,7 @@
 	position: relative;
 }
 
-#topbar form input[type='text'] {
+#firstbar form input[type='text'] {
 	padding: 0 10px;
 	border-radius: 3px 0 0 3px;
 	border: 1px solid #aaa;
@@ -50,7 +46,7 @@
 	width: 300px;
 }
 
-#topbar form input[type='submit'] {
+#firstbar form input[type='submit'] {
 	border-radius: 0 3px 3px 0;
 	border: 1px solid #aaa;
 	color: var(--cl);
@@ -58,12 +54,12 @@
 	transition: .3s;
 }
 
-#topbar form input[type='submit']:hover {
+#firstbar form input[type='submit']:hover {
 	color: #fff;
 	background: var(--cl);
 }
 
-#topbar form .results {
+#firstbar form .results {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -77,16 +73,15 @@
 	opacity: 0;
 	visibility: hidden;
 	transition: .3s;
+	z-index: 95;
 }
 
-#topbar form .results.shown {
+#firstbar form .results.shown {
 	opacity: 1;
 	visibility: visible;
 }
 
-#topbar form .results a {
-	color: inherit;
-	text-decoration: none;
+#firstbar form .results a {
 	display: flex;
 	height: 40px;
 	padding: 5px;
@@ -94,47 +89,98 @@
 	transition: .3s;
 }
 
-#topbar form .results a:hover {
+#firstbar form .results a:hover {
 	padding-left: 10px;
 	box-shadow: inset 5px 0 0 var(--cl);
 }
 
-#topbar form .results a img {
+#firstbar form .results a img {
 	width: 30px;
 	height: 30px;
 	margin-right: 10px;
 	object-fit: cover;
 }
 
-#topbar form .results a span {
+#firstbar form .results a span {
 	display: block;
 	font-size: .9em;
 	line-height: 30px;
 }
 
-#topbar ul {
+#lastbar {
+	width: 100%;
+	background: #ddd;
+}
+
+#lastbar ul {
 	padding: 0;
 	margin: 0;
 	list-style: none;
 	display: flex;
-	justify-content: center;
+	justify-content: flex-start;
 }
 
-#topbar ul li {
+#lastbar ul li {
 	display: block;
 }
 
-#topbar ul li a {
+#lastbar ul li a {
 	display: block;
-	line-height: 80px;
+	line-height: 35px;
 	padding: 0 15px;
-	text-decoration: none;
+	margin: 10px 10px 10px 0;
+	border-radius: 10px;
 	color: #666;
 	font-size: 1.1em;
 	transition: .3s;
 }
 
-#topbar ul li:hover a {
+#lastbar ul li:hover > a {
 	color: #333;
-	box-shadow: inset 0 -3px 0 var(--bg);
+	background: #eee;
+	box-shadow: 0 3px 0 #ccc;
+}
+
+#lastbar ul li ul:before {
+	content: "";
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-bottom: 12px solid #fff;
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-top: -12px;
+	margin-left: 10px;
+}
+
+#lastbar ul li ul {
+	display: block;
+	padding: 10px 0;
+	background: #fff;
+	border-radius: 3px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, .2);
+	opacity: 0;
+	visibility: hidden;
+	position: absolute;
+	transition: .5s;
+}
+
+#lastbar ul li:hover ul {
+	opacity: 1;
+	visibility: visible;
+}
+
+#lastbar ul li ul li a {
+	line-height: 35px;
+	padding: 0 15px;
+	margin: 0;
+	border-radius: 0;
+	font-size: .95em;
+}
+
+#lastbar ul li ul li:hover > a {
+	background: #ddd;
+	padding-left: 20px;
+	padding-right: 10px;
+	box-shadow: inset 5px 0 0 var(--bg);
 }

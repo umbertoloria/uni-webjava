@@ -8,16 +8,16 @@ public class DB {
 
 	public static void init() {
 		try {
-			c = new Database("localhost", 3306, "root", "Ciaociao98.", "ecommerce");
+			c = new Database("localhost", 3306, "root", "ciaociao", "ecommerce");
 		} catch (SQLException ignored) {
 		}
 	}
 
-	public static Table query(String sql, Object... data) {
+	public static Table query(String sql, Object... data) throws RuntimeException {
 		try {
 			return c.query(sql, data);
 		} catch (SQLException e) {
-			return null;
+			throw new RuntimeException();
 		}
 	}
 

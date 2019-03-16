@@ -16,7 +16,7 @@
 <%
 	Prodotto[] prodotti = Prodotto.search(s);
 	if (prodotti.length > 0) {
-		out.println("<div id='dashboard'>");
+		out.println("<div class='wrapper' id='dashboard'>");
 		for (Prodotto prodotto : prodotti) {
 			out.println(prodotto.makeBox());
 		}

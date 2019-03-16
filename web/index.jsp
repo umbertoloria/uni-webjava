@@ -6,7 +6,7 @@
 <% DB.init(); %>
 <%= Head.put() %>
 <%= Topbar.put() %>
-<div id="dashboard">
+<div class="wrapper" id="dashboard">
 	<%
 		for (Prodotto prodotto : Prodotto.getAll()) {
 			out.println(prodotto.makeBox());

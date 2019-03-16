@@ -5,7 +5,7 @@ body {
 	font-size: 16px;
 	background: #eee;
 	overflow-y: scroll;
-	padding-top: 80px;
+	padding-top: 125px;
 }
 
 :root {
@@ -13,6 +13,11 @@ body {
 	--bg: #55b;
 	--price: #5b5;
 	--title-font: Montserrat, sans-serif;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
 }
 
 a, input {
@@ -25,4 +30,10 @@ input {
 
 input[type='submit'] {
 	cursor: pointer;
+}
+
+.wrapper {
+	position: relative;
+	margin: auto;
+	width: 1200px;
 }
