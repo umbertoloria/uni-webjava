@@ -20,9 +20,6 @@ public class Prodotto extends Model implements Box, List {
 	public Prodotto(int id) {
 		String[] r = take("SELECT id, sottocategoria, nome, produttore, prezzo, immagine, descrizione " +
 				"FROM prodotti WHERE id = ?", id);
-		if (r == null) {
-			return;
-		}
 		this.id = Integer.parseInt(r[0]);
 		sottocategoria = Integer.parseInt(r[1]);
 		nome = r[2];
@@ -32,6 +29,9 @@ public class Prodotto extends Model implements Box, List {
 		descrizione = r[6];
 	}
 
+	/**
+	 Restituisce tutti i prodotti ordinati per nome.
+	 */
 	public static Prodotto[] getAll() {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Table t = DB.query("SELECT id FROM prodotti ORDER BY nome");
@@ -41,6 +41,9 @@ public class Prodotto extends Model implements Box, List {
 		return prodotti.toArray(new Prodotto[0]);
 	}
 
+	/**
+	 Ricerca tutti i prodotti con il nome fornito, ordinati per nome.
+	 */
 	public static Prodotto[] search(String query) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		if (query.length() >= 3) {
@@ -55,10 +58,11 @@ public class Prodotto extends Model implements Box, List {
 	public String makeBox() {
 		String part = "<a class='prebox' href='sottocategoria.jsp?id=" + sottocategoria + "'>" +
 				new Sottocategoria(sottocategoria).getNome() + "</a>";
+		// TODO: Inserire nome produttore.
 		return "<div>" + part + "<a class='box' href='prodotto.jsp?id=" + id + "'> " +
 				"<header>" + nome + "</header>" +
-				"<span> " + Formats.euro(prezzo) + "</span>" +
-				"<img src='" + immagine + "'/></a>" +
+				"<img src='" + immagine + "'/>" +
+				"<span> " + Formats.euro(prezzo) + "</span></a>" +
 				"</div>";
 	}
 

@@ -4,14 +4,15 @@ import database.DB;
 import database.Record;
 import database.Table;
 
-public abstract class Model {
+abstract class Model {
 
-	protected String[] take(String sql, Object... data) {
+	String[] take(String sql, Object... data) {
 		Table t = DB.query(sql, data);
 		Record r = t.get(0);
 		String[] result = new String[r.getSize()];
-		for (int i = 0; i < result.length; i++) {
-			result[i] = r.get(i).toString();
+		int i = 0;
+		for (Object o : r) {
+			result[i++] = o.toString();
 		}
 		return result;
 	}

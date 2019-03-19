@@ -13,9 +13,6 @@ public class Categoria extends Model {
 
 	public Categoria(int id) {
 		String[] r = take("SELECT id, nome FROM categorie WHERE id = ?", id);
-		if (r == null) {
-			return;
-		}
 		this.id = Integer.parseInt(r[0]);
 		nome = r[1];
 	}

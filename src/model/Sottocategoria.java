@@ -13,9 +13,6 @@ public class Sottocategoria extends Model {
 
 	public Sottocategoria(int id) {
 		String[] r = take("SELECT id, categoria, nome FROM sottocategorie WHERE id = ?", id);
-		if (r == null) {
-			return;
-		}
 		this.id = Integer.parseInt(r[0]);
 		categoria = Integer.parseInt(r[1]);
 		nome = r[2];
