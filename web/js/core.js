@@ -13,8 +13,8 @@ function ajaxPostRequest(url, queryString, success) {
 function dataForm(form) {
 	const formData = new FormData(form);
 	let queryString = "";
-	for (let entry of formData.keys()) {
-		queryString += entry + "=" + formData.get(entry) + "&";
+	for (let entry of formData.entries()) {
+		queryString += entry[0] + "=" + entry[1] + "&";
 	}
 	return queryString;
 }
