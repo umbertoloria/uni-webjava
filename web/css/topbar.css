@@ -7,7 +7,10 @@
 	z-index: 90;
 }
 
-#topbar .wrapper {
+#topbar #firstbar > div,
+#topbar #lastbar > div {
+	width: 1200px;
+	margin: auto;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -131,7 +134,7 @@
 	margin: 10px 10px 10px 0;
 	border-radius: 10px;
 	color: #666;
-	font-size: 1.1em;
+	font-size: 1.2em;
 	transition: .3s;
 }
 
@@ -171,11 +174,11 @@
 }
 
 #lastbar ul li ul li a {
-	line-height: 35px;
+	line-height: 30px;
 	padding: 0 15px;
 	margin: 0;
 	border-radius: 0;
-	font-size: .95em;
+	font-size: 1em;
 }
 
 #lastbar ul li ul li:hover > a {

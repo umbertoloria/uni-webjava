@@ -8,7 +8,7 @@
 <% DB.init(); %>
 <%= Head.put() %>
 <%= Topbar.put() %>
-<div class="wrapper">
+<div id="wrapper">
 	<header>Errore 500: <%= exception.getMessage() %>
 	</header>
 	<pre><%

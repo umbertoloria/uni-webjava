@@ -6,7 +6,7 @@
 <% DB.init(); %>
 <%= Head.put() %>
 <%= Topbar.put() %>
-<div class="wrapper">
+<div id="wrapper">
 	<header>Errore 404</header>
 	<p>La pagina richiesta non è stata trovata.</p>
 </div>

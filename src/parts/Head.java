@@ -6,9 +6,12 @@ public class Head {
 			new CSSResource("css/format.css"),
 			new CSSResource("css/topbar.css"),
 			new CSSResource("css/dashboard.css"),
+			new CSSResource("css/forms.css"),
+			new CSSResource("css/layout.css"),
 			new JSResource("js/jQuery.min.js"),
 			new JSResource("js/core.js"),
 			new JSResource("js/topbar.js"),
+			new JSResource("js/forms.js"),
 	};
 
 	public static String put() {

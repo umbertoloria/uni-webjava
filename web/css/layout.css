@@ -1,0 +1,40 @@
+#sidebar {
+	display: block;
+	width: 200px;
+	margin-left: 20px;
+}
+
+#sidebar .sidebox {
+	background: #fff;
+	border-radius: 3px;
+}
+
+#sidebar .sidebox header {
+	font-size: 1.2em;
+	padding: 20px 20px 10px 20px;
+	border-bottom: 2px dashed #ccc;
+}
+
+#sidebar .sidebox ul {
+	display: block;
+	margin: 0;
+	padding: 10px 0;
+	list-style: none;
+}
+
+#sidebar .sidebox ul li {
+	display: block;
+}
+
+#sidebar .sidebox ul li a {
+	display: block;
+	padding: 0 20px;
+	line-height: 30px;
+	transition: .3s;
+}
+
+#sidebar .sidebox ul li:hover a {
+	background: #eee;
+	padding-left: 15px;
+	box-shadow: inset -5px 0 0 #ccc;
+}

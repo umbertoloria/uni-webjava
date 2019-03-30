@@ -1,7 +1,7 @@
 create table categorie (
-  id   int auto_increment
-    primary key,
-  nome varchar(50) not null
+    id   int auto_increment
+        primary key,
+    nome varchar(50) not null
 );
 
 INSERT INTO ecommerce.categorie (id, nome) VALUES (1, 'Chitarra');
@@ -11,27 +11,27 @@ INSERT INTO ecommerce.categorie (id, nome) VALUES (4, 'Pianoforte');
 INSERT INTO ecommerce.categorie (id, nome) VALUES (5, 'Tastiera');
 INSERT INTO ecommerce.categorie (id, nome) VALUES (6, 'Microfono');
 create table prodotti (
-  id             int auto_increment
-    primary key,
-  sottocategoria int           not null,
-  nome           varchar(50)   not null,
-  produttore     int           not null,
-  prezzo         decimal(5, 2) not null,
-  immagine       varchar(500)  not null,
-  descrizione    text          not null,
-  constraint prodotti_ibfk_1
-    foreign key (produttore) references produttori (id)
-      on update cascade,
-  constraint prodotti_ibfk_2
-    foreign key (sottocategoria) references sottocategorie (id)
-      on update cascade
+    id             int auto_increment
+        primary key,
+    sottocategoria int           not null,
+    nome           varchar(50)   not null,
+    produttore     int           not null,
+    prezzo         decimal(5, 2) not null,
+    immagine       varchar(500)  not null,
+    descrizione    text          not null,
+    constraint prodotti_ibfk_1
+        foreign key (produttore) references produttori (id)
+            on update cascade,
+    constraint prodotti_ibfk_2
+        foreign key (sottocategoria) references sottocategorie (id)
+            on update cascade
 );
 
 create index produttore
-  on prodotti (produttore);
+    on prodotti (produttore);
 
 create index sottocategoria
-  on prodotti (sottocategoria);
+    on prodotti (sottocategoria);
 
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione) VALUES (1, 7, 'Sonor 507', 1, 550.00, 'https://d1aeri3ty3izns.cloudfront.net/media/9/9349/1200/preview.jpg', 'Ottima batteria per cominciare!');
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione) VALUES (2, 3, 'Fender Stratocaster', 2, 900.00, 'https://dzpybaqldk5xx.cloudfront.net/prod/spree/1086/products/974/product/EKO_-_S-300_SUNBURST_MODELLO_FENDER_STRATOCASTER_01.jpg?1506678297', 'Chitarra assolutamente epica.');
@@ -50,9 +50,9 @@ INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, im
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione) VALUES (15, 12, 'DM800', 13, 20.00, 'https://images-na.ssl-images-amazon.com/images/I/41nRRbAIMML._SX425_.jpg', 'Microfono cardioide per voce.');
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione) VALUES (16, 12, 'XM8500', 14, 30.00, 'https://www.bhphotovideo.com/images/images500x500/Behringer_Behringer_XM8500_15_XLR_Cable_Foam_890290.jpg', 'Microfono cardioide dinamico.');
 create table produttori (
-  id   int auto_increment
-    primary key,
-  nome varchar(20) not null
+    id   int auto_increment
+        primary key,
+    nome varchar(20) not null
 );
 
 INSERT INTO ecommerce.produttori (id, nome) VALUES (1, 'Sonor');
@@ -70,19 +70,19 @@ INSERT INTO ecommerce.produttori (id, nome) VALUES (12, 'Casio');
 INSERT INTO ecommerce.produttori (id, nome) VALUES (13, 'Proel');
 INSERT INTO ecommerce.produttori (id, nome) VALUES (14, 'Behringer');
 create table sottocategorie (
-  id        int auto_increment
-    primary key,
-  categoria int         not null,
-  nome      varchar(50) not null,
-  constraint nome
-    unique (nome),
-  constraint sottocategorie_ibfk_1
-    foreign key (categoria) references sottocategorie (id)
-      on update cascade
+    id        int auto_increment
+        primary key,
+    categoria int         not null,
+    nome      varchar(50) not null,
+    constraint nome
+        unique (nome),
+    constraint sottocategorie_ibfk_1
+        foreign key (categoria) references sottocategorie (id)
+            on update cascade
 );
 
 create index categoria
-  on sottocategorie (categoria);
+    on sottocategorie (categoria);
 
 INSERT INTO ecommerce.sottocategorie (id, categoria, nome) VALUES (1, 1, 'Chitarra Classica');
 INSERT INTO ecommerce.sottocategorie (id, categoria, nome) VALUES (2, 1, 'Chitarra Acustica');
@@ -96,3 +96,13 @@ INSERT INTO ecommerce.sottocategorie (id, categoria, nome) VALUES (9, 4, 'Pianof
 INSERT INTO ecommerce.sottocategorie (id, categoria, nome) VALUES (10, 4, 'Pianoforte digitale');
 INSERT INTO ecommerce.sottocategorie (id, categoria, nome) VALUES (11, 5, 'Arranger');
 INSERT INTO ecommerce.sottocategorie (id, categoria, nome) VALUES (12, 6, 'Microfono vocale');
+create table utenti (
+    id       int auto_increment
+        primary key,
+    email    varchar(40) not null,
+    password varchar(40) not null,
+    nome     varchar(40) not null,
+    constraint email
+        unique (email)
+);
+

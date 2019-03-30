@@ -27,7 +27,7 @@ public class Topbar {
 		res.append("<div id='topbar'>");
 
 		res.append("<div id='firstbar'>");
-		res.append("<div class='wrapper'>");
+		res.append("<div>");
 		res.append("<header><a href='./'> MCommerce </a></header>");
 		res.append("<form id='search_form' action='cerca.jsp' method='get'>");
 		res.append("<input type='text' id='search_input' name='q' " +
@@ -39,7 +39,7 @@ public class Topbar {
 		res.append("</div>");
 
 		res.append("<div id='lastbar'>");
-		res.append("<div class='wrapper'>");
+		res.append("<div>");
 		res.append("<ul>");
 		for (TopbarItem item : items) {
 			res.append(item.makeHTML());

@@ -1,0 +1,75 @@
+form {
+	width: 400px;
+	margin: 0 auto 50px auto;
+}
+
+form fieldset {
+	padding: 30px;
+	background: #fff;
+	border: 0;
+	border-radius: 3px;
+	margin: 0 auto 30px auto;
+}
+
+form fieldset label {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 0 auto 10px auto;
+}
+
+form fieldset label span {
+	width: 250px;
+	line-height: 35px;
+}
+
+form fieldset label .input {
+	width: 250px;
+	height: 35px;
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #aaa;
+	border-radius: 3px;
+	transition: .3s;
+}
+
+form fieldset label .input:hover {
+	border-color: #999;
+}
+
+form fieldset label .input:focus {
+	border-color: var(--bg);
+	box-shadow: 0 0 5px rgba(0, 0, 0, .3);
+}
+
+form .button {
+	display: block;
+	margin: auto;
+	font-size: 1.3em;
+	font-weight: bold;
+	color: rgba(255, 255, 255, .8);
+	background: var(--cl);
+	border-radius: 3px;
+	border: 2px solid var(--bg);
+	padding: 5px 10px;
+	box-sizing: border-box;
+	transition: .3s;
+}
+
+form .button:hover {
+	color: #fff;
+}
+
+form .msg {
+	display: none;
+	color: #fff;
+	background: #f63;
+	border-radius: 3px;
+	line-height: 1.1em;
+	padding: 5px;
+	margin-top: 20px;
+}
+
+form .msg.shown {
+	display: block;
+}
