@@ -1,12 +1,10 @@
 <%@ page isErrorPage="true" %>
 <%@ page import="database.DB" %>
-<%@ page import="parts.Head" %>
-<%@ page import="parts.Topbar" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <% DB.init(); %>
-<%= Head.put() %>
-<%= Topbar.put() %>
-<div id="wrapper">
+<%@ include file="parts/Head.jsp" %>
+<%@ include file="parts/Topbar.jsp" %>
+<div id="fullwrapper">
 	<header>Errore 404</header>
 	<p>La pagina richiesta non è stata trovata.</p>
 </div>

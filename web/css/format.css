@@ -5,7 +5,7 @@ body {
 	font-size: 15px;
 	background: #eee;
 	overflow-y: scroll;
-	padding-top: 170px;
+	padding: 170px 0 50px 0;
 }
 
 :root {
@@ -36,6 +36,13 @@ input[type='submit'] {
 	display: grid;
 	grid-template-columns: auto auto;
 	grid-column-gap: 20px;
+	position: relative;
+	margin: auto;
+	width: 1200px;
+}
+
+#fullwrapper {
+	display: block;
 	position: relative;
 	margin: auto;
 	width: 1200px;

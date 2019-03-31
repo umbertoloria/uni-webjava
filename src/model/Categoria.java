@@ -1,37 +1,13 @@
 package model;
 
-import database.DB;
-import database.Record;
-import database.Table;
+public final class Categoria {
 
-import java.util.ArrayList;
+	public final int id;
+	public final String nome;
 
-public class Categoria extends Model {
-
-	private int id;
-	private String nome;
-
-	public Categoria(int id) {
-		String[] r = take("SELECT id, nome FROM categorie WHERE id = ?", id);
-		this.id = Integer.parseInt(r[0]);
-		nome = r[1];
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public static Categoria[] getAll() {
-		ArrayList<Categoria> categorie = new ArrayList<>();
-		Table t = DB.query("SELECT id FROM categorie");
-		for (Record record : t) {
-			categorie.add(new Categoria((int) record.get(0)));
-		}
-		return categorie.toArray(new Categoria[0]);
+	public Categoria(int id, String nome) {
+		this.id = id;
+		this.nome = nome;
 	}
 
 }

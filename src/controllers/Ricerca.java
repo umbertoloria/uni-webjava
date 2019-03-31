@@ -1,6 +1,7 @@
 package controllers;
 
 import model.Prodotto;
+import dao.ProdottoDAO;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,7 +14,7 @@ public class Ricerca extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("text/html");
-		Prodotto[] prodotti = Prodotto.search(req.getParameter("q").trim());
+		Prodotto[] prodotti = ProdottoDAO.search(req.getParameter("q").trim());
 		for (Prodotto prodotto : prodotti) {
 			resp.getWriter().append(prodotto.makeList());
 		}

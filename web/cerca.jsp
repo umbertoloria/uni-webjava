@@ -5,18 +5,16 @@
 		return;
 	}
 %>
+<%@ page import="dao.ProdottoDAO" %>
 <%@ page import="database.DB" %>
 <%@ page import="model.Prodotto" %>
-<%@ page import="parts.Head" %>
-<%@ page import="parts.Sidebar" %>
-<%@ page import="parts.Topbar" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <% DB.init(); %>
-<%= Head.put() %>
-<%= Topbar.put() %>
+<%@ include file="parts/Head.jsp" %>
+<%@ include file="parts/Topbar.jsp" %>
 <div id="wrapper">
 	<%
-		Prodotto[] prodotti = Prodotto.search(s);
+		Prodotto[] prodotti = ProdottoDAO.search(s);
 		if (prodotti.length > 0) {
 			out.println("<div id='dashboard'>");
 			for (Prodotto prodotto : prodotti) {
@@ -27,5 +25,5 @@
 			// TODO: Nessun prodotto.
 		}
 	%>
-	<%= Sidebar.put() %>
+	<%@ include file="parts/Sidebar.jsp" %>
 </div>

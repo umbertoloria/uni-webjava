@@ -2,62 +2,31 @@ package model;
 
 import aspects.Box;
 import aspects.List;
-import database.DB;
-import database.Record;
-import database.Table;
+import dao.SottocategoriaDAO;
 import utils.Formats;
 
-import java.util.ArrayList;
+public final class Prodotto implements Box, List {
 
-public class Prodotto extends Model implements Box, List {
+	public final int id, sottocategoria;
+	public final String nome;
+	public final int produttore;
+	public final float prezzo;
+	public final String immagine, descrizione;
 
-	private int id, sottocategoria;
-	private String nome;
-	private int produttore;
-	private float prezzo;
-	private String immagine, descrizione;
-
-	public Prodotto(int id) {
-		String[] r = take("SELECT id, sottocategoria, nome, produttore, prezzo, immagine, descrizione " +
-				"FROM prodotti WHERE id = ?", id);
-		this.id = Integer.parseInt(r[0]);
-		sottocategoria = Integer.parseInt(r[1]);
-		nome = r[2];
-		produttore = Integer.parseInt(r[3]);
-		prezzo = Float.parseFloat(r[4]);
-		immagine = r[5];
-		descrizione = r[6];
-	}
-
-	/**
-	 Restituisce tutti i prodotti ordinati per nome.
-	 */
-	public static Prodotto[] getAll() {
-		ArrayList<Prodotto> prodotti = new ArrayList<>();
-		Table t = DB.query("SELECT id FROM prodotti ORDER BY nome");
-		for (Record record : t) {
-			prodotti.add(new Prodotto((int) record.get(0)));
-		}
-		return prodotti.toArray(new Prodotto[0]);
-	}
-
-	/**
-	 Ricerca tutti i prodotti con il nome fornito, ordinati per nome.
-	 */
-	public static Prodotto[] search(String query) {
-		ArrayList<Prodotto> prodotti = new ArrayList<>();
-		if (query.length() >= 3) {
-			Table t = DB.query("SELECT id FROM prodotti WHERE nome LIKE ? ORDER BY nome", "%" + query + "%");
-			for (Record record : t) {
-				prodotti.add(new Prodotto((int) record.get(0)));
-			}
-		}
-		return prodotti.toArray(new Prodotto[0]);
+	public Prodotto(int id, int sottocategoria, String nome, int produttore, float prezzo, String immagine,
+	                String descrizione) {
+		this.id = id;
+		this.sottocategoria = sottocategoria;
+		this.nome = nome;
+		this.produttore = produttore;
+		this.prezzo = prezzo;
+		this.immagine = immagine;
+		this.descrizione = descrizione;
 	}
 
 	public String makeBox() {
 		String part = "<a class='prebox' href='sottocategoria.jsp?id=" + sottocategoria + "'>" +
-				new Sottocategoria(sottocategoria).getNome() + "</a>";
+				SottocategoriaDAO.doRetrieveByKey(sottocategoria).nome + "</a>";
 		// TODO: Inserire nome produttore.
 		return "<div>" + part + "<a class='box' href='prodotto.jsp?id=" + id + "'> " +
 				"<header>" + nome + "</header>" +

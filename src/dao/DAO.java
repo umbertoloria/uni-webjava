@@ -1,12 +1,12 @@
-package model;
+package dao;
 
 import database.DB;
 import database.Record;
 import database.Table;
 
-abstract class Model {
+class DAO {
 
-	String[] take(String sql, Object... data) {
+	static String[] take(String sql, Object... data) {
 		Table t = DB.query(sql, data);
 		Record r = t.get(0);
 		String[] result = new String[r.getSize()];

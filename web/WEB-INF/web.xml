@@ -4,15 +4,6 @@
          xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
 		  http://java.sun.com/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-	<!--<servlet>
-		<servlet-name>Ricerca</servlet-name>
-&lt;!&ndash;        <jsp-file>index.jsp</jsp-file>&ndash;&gt;
-		<servlet-class>controllers.Ricercaa</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>Ricerca</servlet-name>
-		<url-pattern>/ricerca</url-pattern>
-	</servlet-mapping>-->
 	<error-page>
 		<error-code>404</error-code>
 		<location>/404.jsp</location>
@@ -21,4 +12,13 @@
 		<error-code>500</error-code>
 		<location>/500.jsp</location>
 	</error-page>
+	<!--<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Part pages</web-resource-name>
+			<url-pattern>/parts/*.jsp</url-pattern>
+		</web-resource-collection>
+		<auth-constraint>
+			&lt;!&ndash; empty to prevent anyone from accessing JSP files under "/hidden" &ndash;&gt;
+		</auth-constraint>
+	</security-constraint>-->
 </web-app>
