@@ -16,16 +16,6 @@ public class Record implements Iterable<Object> {
 		}
 	}
 
-	void show(int[] sizes) {
-		int i = 0;
-		for (Object value : values) {
-			System.out.print("| ");
-			Table.print(value, sizes[i++], false);
-			System.out.print(" ");
-		}
-		System.out.println("|");
-	}
-
 	public Object get(int index) {
 		return values[index];
 	}
@@ -36,6 +26,15 @@ public class Record implements Iterable<Object> {
 
 	public int getSize() {
 		return values.length;
+	}
+
+	public String[] asStringArray() {
+		String[] result = new String[values.length];
+		int i = 0;
+		for (Object value : values) {
+			result[i++] = value.toString();
+		}
+		return result;
 	}
 
 }

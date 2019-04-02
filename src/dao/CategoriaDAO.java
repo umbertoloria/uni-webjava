@@ -1,6 +1,6 @@
 package dao;
 
-import database.DB;
+import database.Conn;
 import database.Record;
 import database.Table;
 import model.Categoria;
@@ -16,9 +16,14 @@ public class CategoriaDAO extends DAO {
 
 	public static Categoria[] getAll() {
 		ArrayList<Categoria> categorie = new ArrayList<>();
-		Table t = DB.query("SELECT id FROM categorie");
+
+		Conn conn = Conn.hold();
+		Table t = conn.query("SELECT id, nome FROM categorie");
+		Conn.release(conn);
+
 		for (Record record : t) {
-			categorie.add(doRetrieveByKey((int) record.get(0)));
+			String[] r = record.asStringArray();
+			categorie.add(new Categoria(Integer.parseInt(r[0]), r[1]));
 		}
 		return categorie.toArray(new Categoria[0]);
 	}

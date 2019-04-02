@@ -1,6 +1,6 @@
 package dao;
 
-import database.DB;
+import database.Conn;
 import database.Record;
 import database.Table;
 import model.Sottocategoria;
@@ -16,9 +16,12 @@ public class SottocategoriaDAO extends DAO {
 
 	public static Sottocategoria[] getAllOf(int categoria) {
 		ArrayList<Sottocategoria> sottocategorie = new ArrayList<>();
-		Table t = DB.query("SELECT id FROM sottocategorie WHERE categoria = ?", categoria);
+		Conn conn = Conn.hold();
+		Table t = conn.query("SELECT id, categoria, nome FROM sottocategorie WHERE categoria = ?", categoria);
+		Conn.release(conn);
 		for (Record record : t) {
-			sottocategorie.add(doRetrieveByKey((int) record.get(0)));
+			String[] r = record.asStringArray();
+			sottocategorie.add(new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2]));
 		}
 		return sottocategorie.toArray(new Sottocategoria[0]);
 	}

@@ -1,9 +1,7 @@
 <%@ page isErrorPage="true" %>
-<%@ page import="database.DB" %>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<% DB.init(); %>
 <%@ include file="parts/Head.jsp" %>
 <%@ include file="parts/Topbar.jsp" %>
 <div id="fullwrapper">
