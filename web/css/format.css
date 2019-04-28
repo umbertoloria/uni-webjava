@@ -5,12 +5,22 @@ body {
 	font-size: 15px;
 	background: #eee;
 	overflow-y: scroll;
-	padding: 170px 0 50px 0;
+	padding: 160px 0 250px 0;
+	margin: 0;
+	position: relative;
+	box-sizing: border-box;
+	min-height: 100vh;
 }
 
 :root {
 	--cl: #78e;
 	--bg: #55b;
+	--cl: #2196f3;
+	--bg: #1976d2;
+	--bc1: #999;
+	--bc2: #aaa;
+	--bc3: #bbb;
+	--bc4: #ccc;
 	--price: #5b5;
 	--title-font: Montserrat, sans-serif;
 }
@@ -32,13 +42,17 @@ input[type='submit'] {
 	cursor: pointer;
 }
 
-#wrapper {
-	display: grid;
-	grid-template-columns: auto auto;
-	grid-column-gap: 20px;
+h1 {
+	font-weight: normal;
+	margin: 0;
+}
+
+main {
+	display: flex;
+	flex-wrap: wrap;
 	position: relative;
 	margin: auto;
-	width: 1200px;
+	width: 1300px;
 }
 
 #fullwrapper {

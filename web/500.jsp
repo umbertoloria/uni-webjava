@@ -5,20 +5,23 @@
 <%@ include file="parts/Head.jsp" %>
 <%@ include file="parts/Topbar.jsp" %>
 <div id="fullwrapper">
-	<header>Errore 500: <%= exception.getMessage() %>
-	</header>
-	<pre><%
-		StringWriter stringWriter = new StringWriter();
-		PrintWriter printWriter = new PrintWriter(stringWriter);
-		exception.printStackTrace(printWriter);
-		out.println(stringWriter);
-		printWriter.close();
-		stringWriter.close();
-	%></pre>
+	<article>
+		<h1>
+			Errore 500: <%= exception.getMessage() %>
+		</h1>
+		<pre><%
+			StringWriter stringWriter = new StringWriter();
+			PrintWriter printWriter = new PrintWriter(stringWriter);
+			exception.printStackTrace(printWriter);
+			out.println(stringWriter);
+			printWriter.close();
+			stringWriter.close();
+		%></pre>
+	</article>
 </div>
+<%@ include file="parts/Footer.jsp" %>
 <script type="text/javascript">
 	setTimeout(function () {
-		location.href = './';
+		// location.href = './';
 	}, 3000);
 </script>
-<!-- TODO: Abbellire questa pagina -->

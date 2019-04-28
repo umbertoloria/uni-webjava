@@ -27,4 +27,8 @@ public class Table implements Iterable<Record> {
 		return records[index];
 	}
 
+	public int count() {
+		return records.length;
+	}
+
 }

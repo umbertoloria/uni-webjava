@@ -1,0 +1,80 @@
+#breadcrumb {
+	display: flex;
+	width: 1300px;
+	margin: 0 auto 50px auto;
+}
+
+#breadcrumb a {
+	display: block;
+	padding: 0 10px 0 15px;
+	line-height: 30px;
+	color: #fff;
+	background: #ddd;
+	cursor: default;
+	position: relative;
+	transition: .3s;
+}
+
+#breadcrumb a:first-child {
+	padding-left: 10px;
+}
+
+#breadcrumb a[href] {
+	cursor: pointer;
+}
+
+#breadcrumb a[href]:hover {
+	color: #fff;
+	background: var(--bg);
+}
+
+#breadcrumb a::after {
+	content: "";
+	position: absolute;
+	left: 100%;
+	border-left: 5px solid #ddd;
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+	transition: .3s;
+	z-index: 10;
+}
+
+#breadcrumb a[href]:hover::before {
+	border-right-color: var(--bg);
+}
+
+#breadcrumb a[href]:hover::after {
+	border-left-color: var(--bg);
+}
+
+#breadcrumb a.first {
+	background: var(--bc1);
+}
+
+#breadcrumb a.first::after {
+	border-left-color: var(--bc1);
+}
+
+#breadcrumb a.second {
+	background: var(--bc2);
+}
+
+#breadcrumb a.second::after {
+	border-left-color: var(--bc2);
+}
+
+#breadcrumb a.third {
+	background: var(--bc3);
+}
+
+#breadcrumb a.third::after {
+	border-left-color: var(--bc3);
+}
+
+#breadcrumb a.fourth {
+	background: var(--bc4);
+}
+
+#breadcrumb a.fourth::after {
+	border-left-color: var(--bc4);
+}

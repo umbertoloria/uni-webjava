@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
-<div id="sidebar">
+<aside>
 	<div class="sidebox">
-		<header>Utenza</header>
+		<h1>Utenza</h1>
 		<ul>
 			<li>
 				<a href="accesso.jsp">Accesso</a>
@@ -11,4 +11,4 @@
 			</li>
 		</ul>
 	</div>
-</div>
+</aside>

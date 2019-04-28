@@ -1,40 +1,93 @@
-#sidebar {
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Patrick+Hand');
+
+aside {
 	display: block;
 	width: 200px;
 	margin-left: 20px;
 }
 
-#sidebar .sidebox {
+aside .sidebox {
 	background: #fff;
 	border-radius: 3px;
 }
 
-#sidebar .sidebox header {
+aside .sidebox h1 {
 	font-size: 1.2em;
 	padding: 20px 20px 10px 20px;
 	border-bottom: 2px dashed #ccc;
 }
 
-#sidebar .sidebox ul {
+aside .sidebox ul {
 	display: block;
 	margin: 0;
 	padding: 10px 0;
 	list-style: none;
 }
 
-#sidebar .sidebox ul li {
+aside .sidebox ul li {
 	display: block;
 }
 
-#sidebar .sidebox ul li a {
+aside .sidebox ul li a {
 	display: block;
 	padding: 0 20px;
 	line-height: 30px;
 	transition: .3s;
 }
 
-#sidebar .sidebox ul li:hover a {
+aside .sidebox ul li:hover a {
 	background: #eee;
 	padding-left: 15px;
 	box-shadow: inset -5px 0 0 #ccc;
+}
+
+article {
+	background-image: url("../images/paper.png");
+	background-repeat: repeat;
+	padding: 0 45px 10px 65px;
+	position: relative;
+	border-radius: 3px;
+	overflow: hidden;
+}
+
+article::before,
+article::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	width: 38px;
+}
+
+article::before {
+	left: 0;
+	background: -webkit-linear-gradient(left, rgba(100, 100, 60, .2), transparent);
+	border-right: 2px solid rgba(50, 80, 255, .3);
+}
+
+article::after {
+	right: 0;
+	background: -webkit-linear-gradient(left, transparent, rgba(100, 100, 60, .2));
+}
+
+article > * {
+	line-height: 24px;
+	margin: 24px 0;
+}
+
+article h1 {
+	font-family: Pacifico, serif;
+	font-size: 1.2em;
+}
+
+article h1::first-letter {
+	font-weight: bold;
+}
+
+article p {
+	font-family: Patrick Hand, sans-serif;
+}
+
+article p::first-letter {
+	font-weight: bold;
 }

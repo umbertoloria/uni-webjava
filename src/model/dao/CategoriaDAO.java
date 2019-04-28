@@ -1,9 +1,9 @@
-package dao;
+package model.dao;
 
 import database.Conn;
 import database.Record;
 import database.Table;
-import model.Categoria;
+import model.bean.Categoria;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,9 @@ public class CategoriaDAO extends DAO {
 
 	public static Categoria doRetrieveByKey(int id) {
 		String[] r = take("SELECT id, nome FROM categorie WHERE id = ?", id);
+		if (r == null) {
+			return null;
+		}
 		return new Categoria(Integer.parseInt(r[0]), r[1]);
 	}
 

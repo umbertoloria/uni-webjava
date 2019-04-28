@@ -1,37 +1,49 @@
-<%@ page import="dao.CategoriaDAO" %>
-<%@ page import="dao.SottocategoriaDAO" %>
-<%@ page import="model.Categoria" %>
-<%@ page import="model.Sottocategoria" %>
+<%@ page import="model.dao.CategoriaDAO" %>
+<%@ page import="model.dao.SottocategoriaDAO" %>
+<%@ page import="model.bean.Categoria" %>
+<%@ page import="model.bean.Sottocategoria" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<div id='topbar'>
+<header>
 	<div id='firstbar'>
 		<div>
-			<header><a href='./'> MCommerce </a></header>
-			<form id='search_form' action='cerca.jsp' method='get'>
-				<input type='text' id='search_input' name='q' autocomplete='off'
-				       placeholder='Cerca uno strumento...'/>
-				<input type='submit' value='Cerca'/>
-				<div class='results'></div>
-			</form>
+			<div id="leftside">
+				<a href='./'>
+					<span></span>
+					<label>MCommerce</label>
+				</a>
+			</div>
+			<div id="rightside">
+				<form id='search_form' action='cerca.jsp' method='get'>
+					<input type='text' id='search_input' name='q' autocomplete='off'
+					       placeholder='Cerca uno strumento...'/>
+					<input type='submit' value='Cerca'/>
+					<div class='results'></div>
+				</form>
+				<label>
+					<a href="carrello.jsp">
+						<%--<img src="https://cdn2.iconfinder.com/data/icons/e-commerce-glyph-2/614/8_-_Shopping_Cart-256.png"/>--%>
+						<img src="https://cdn2.iconfinder.com/data/icons/flat-ui-4/100/Cart-256.png"/>
+					</a>
+				</label>
+			</div>
 		</div>
 	</div>
 	<div id='lastbar'>
-		<div>
+		<nav>
 			<ul>
 				<%
-					Categoria[] categorie = CategoriaDAO.getAll();
-					for (Categoria categoria : categorie) {
+					for (Categoria cat : CategoriaDAO.getAll()) {
 						out.println("<li>");
-						out.println("<a href='categoria.jsp?id=" + categoria.id + "'>");
-						out.println(categoria.nome);
+						out.println("<a href='categoria.jsp?id=" + cat.id + "'>");
+						out.println(cat.nome);
 						out.println("</a>");
-						Sottocategoria[] sottocategorie = SottocategoriaDAO.getAllOf(categoria.id);
-						if (sottocategorie.length > 0) {
+						Sottocategoria[] sottocats = SottocategoriaDAO.getAllOf(cat.id);
+						if (sottocats.length > 0) {
 							out.println("<ul>");
-							for (Sottocategoria sottocategoria : sottocategorie) {
+							for (Sottocategoria sottocat : sottocats) {
 								out.println("<li>");
-								out.println("<a href='sottocategoria.jsp?id=" + sottocategoria.id + "'>");
-								out.println(sottocategoria.nome);
+								out.println("<a href='sottocategoria.jsp?id=" + sottocat.id + "'>");
+								out.println(sottocat.nome);
 								out.println("</a>");
 								out.println("</li>");
 							}
@@ -41,6 +53,6 @@
 					}
 				%>
 			</ul>
-		</div>
+		</nav>
 	</div>
-</div>
+</header>

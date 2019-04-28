@@ -1,0 +1,50 @@
+footer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height: 200px;
+	background: #444;
+	color: #eee;
+	padding: 50px 0;
+	box-sizing: border-box;
+	z-index: 80;
+}
+
+footer > div {
+	margin: auto;
+	width: 1200px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr;
+	grid-gap: 20px;
+}
+
+footer ul {
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+
+footer ul li {
+	display: block;
+	list-style: none;
+	margin: 5px 0;
+}
+
+footer ul li:first-child {
+	font-size: 1.5em;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+footer ul li a {
+	display: block;
+	color: rgba(255, 255, 255, .8);
+	transition: .3s;
+}
+
+footer ul li:hover a {
+	color: var(--cl);
+	padding-left: 10px;
+	box-shadow: inset 3px 0 var(--bg);
+}

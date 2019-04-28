@@ -1,22 +1,39 @@
 #dashboard {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
-	grid-template-rows: auto;
-	grid-gap: 30px;
+	grid-column-gap: 30px;
+	grid-row-gap: 50px;
+	width: calc(100% - 220px);
 }
 
-#dashboard > div a.prebox {
-	display: inline-block;
+#dashboard:only-child {
+	width: 100%;
+}
+
+#dashboard > div {
+	position: relative;
+}
+
+#dashboard > div div.prebox {
+	position: absolute;
+	top: -25px;
+	display: flex;
+}
+
+#dashboard > div div.prebox a {
 	margin-left: 10px;
+	display: block;
+	font-size: .95em;
 	border-radius: 3px 3px 0 0;
 	background: #f6f6f6;
-	padding: 5px 10px;
+	padding: 0 5px 5px 5px;
+	line-height: 25px;
 	transition: .3s;
 }
 
-#dashboard > div a.prebox:hover {
-	margin-top: -5px;
-	padding-bottom: 10px;
+#dashboard > div div.prebox a:hover {
+	margin-top: -3px;
+	padding-bottom: 3px;
 }
 
 #dashboard > div a.box {
@@ -34,7 +51,8 @@
 	box-shadow: 0 0 20px 10px rgba(0, 0, 0, .08);
 }
 
-#dashboard > div a.box header {
+#dashboard > div a.box h1 {
+	font-size: 1em;
 	line-height: 30px;
 	padding: 5px 15px;
 }

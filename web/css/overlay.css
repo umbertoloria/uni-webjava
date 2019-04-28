@@ -1,0 +1,27 @@
+#overlay_shadow {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, .5);
+	z-index: 100;
+}
+
+#overlay_shadow.shown {
+	display: block;
+}
+
+#overlay_shadow div {
+	display: block;
+	background: #fff;
+	margin: 50vh auto 0 auto;
+	padding: 30px;
+	box-sizing: border-box;
+	transform: translate(0, -50%);
+	width: min-content;
+	border-radius: 3px;
+	text-align: center;
+	font-size: 1.2em;
+}

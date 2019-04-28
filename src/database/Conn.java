@@ -12,6 +12,7 @@ public class Conn {
 			try {
 				cs.add(new Conn("localhost", 3306, "root", "ciaociao", "ecommerce"));
 			} catch (SQLException ignored) {
+				System.out.println("Impossibile connettersi al db.");
 			}
 		}
 		Conn conn = cs.get(0);
@@ -65,9 +66,13 @@ public class Conn {
 		}
 	}
 
-	public void update(String query) throws SQLException {
-		Statement stmt = conn.createStatement();
-		stmt.executeUpdate(query);
+	public void update(String query, Object... data) throws SQLException {
+		PreparedStatement stmt = conn.prepareStatement(query);
+		int i = 1;
+		for (Object d : data) {
+			stmt.setString(i++, d.toString());
+		}
+		stmt.executeUpdate();
 	}
 
 }

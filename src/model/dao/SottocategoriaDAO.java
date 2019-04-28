@@ -1,9 +1,9 @@
-package dao;
+package model.dao;
 
 import database.Conn;
 import database.Record;
 import database.Table;
-import model.Sottocategoria;
+import model.bean.Sottocategoria;
 
 import java.util.ArrayList;
 
@@ -11,6 +11,9 @@ public class SottocategoriaDAO extends DAO {
 
 	public static Sottocategoria doRetrieveByKey(int id) {
 		String[] r = take("SELECT id, categoria, nome FROM sottocategorie WHERE id = ?", id);
+		if (r == null) {
+			return null;
+		}
 		return new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2]);
 	}
 
