@@ -1,3 +1,5 @@
+<%@ page import="model.dao.ProdottoDAO" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%
 	Categoria categoria;
 	try {
@@ -13,24 +15,28 @@
 		response.sendRedirect("./");
 		return;
 	}
-%>
-<%@ page import="model.dao.ProdottoDAO" %>
-<%@ page import="model.bean.Categoria" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="parts/Head.jsp" %>
-<%@ include file="parts/Topbar.jsp" %>
-<%
 	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add("Home", "./");
 	breadcrumb.add(categoria.nome);
 	request.setAttribute("breadcrumb", breadcrumb);
+	request.setAttribute("topbar_categoria", categoria.id);
+	request.setAttribute("prodotti", ProdottoDAO.getFromCategoria(categoria));
 %>
-<%@ include file="parts/Breadcrumb.jsp" %>
+<%@ include file="parts/Head.jsp" %>
+<%@ include file="parts/Topbar.jsp" %>
 <main>
-	<%
-		request.setAttribute("prodotti", ProdottoDAO.getFromCategoria(categoria));
-	%>
-	<%@ include file="parts/boxes/Prodotto.jsp" %>
-	<%@ include file="parts/Sidebar.jsp" %>
+	<div id="mosaic">
+		<%
+			for (Sottocategoria sottocategoria : SottocategoriaDAO.getAllOf(categoria.id)) {
+				out.println("<a href='sottocategoria.jsp?id=" + sottocategoria.id + "'>");
+				out.println("<img src='" + sottocategoria.immagine + "'/>");
+				out.println("<div><span>" + sottocategoria.nome + "</span></div>");
+				out.println("</a>");
+			}
+		%>
+	</div>
+	<h1>
+		<%= categoria.nome %>
+	</h1>
+	<%@ include file="parts/Dashboard.jsp" %>
 </main>
 <%@ include file="parts/Footer.jsp" %>

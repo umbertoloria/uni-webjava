@@ -14,7 +14,6 @@
 		// TODO: Nessun prodotto.
 		request.setAttribute("prodotti", ProdottoDAO.search(s));
 	%>
-	<%@ include file="parts/boxes/Prodotto.jsp" %>
-	<%@ include file="parts/Sidebar.jsp" %>
+	<%@ include file="parts/Dashboard.jsp" %>
 </main>
 <%@ include file="parts/Footer.jsp" %>

@@ -1,13 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="parts/Head.jsp" %>
-<%@ include file="parts/Topbar.jsp" %>
 <%
 	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add("Home", "./");
 	breadcrumb.add("Registrazione");
 	request.setAttribute("breadcrumb", breadcrumb);
 %>
-<%@ include file="parts/Breadcrumb.jsp" %>
+<%@ include file="parts/Topbar.jsp" %>
 <div id="fullwrapper">
 	<form action="servlet_registrazione" method="post">
 		<fieldset>

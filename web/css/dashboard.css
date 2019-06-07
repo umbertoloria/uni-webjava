@@ -1,89 +1,64 @@
 #dashboard {
+	width: 100%;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-column-gap: 30px;
 	grid-row-gap: 50px;
-	width: calc(100% - 220px);
-}
-
-#dashboard:only-child {
-	width: 100%;
 }
 
 #dashboard > div {
-	position: relative;
-}
-
-#dashboard > div div.prebox {
-	position: absolute;
-	top: -25px;
-	display: flex;
-}
-
-#dashboard > div div.prebox a {
-	margin-left: 10px;
-	display: block;
-	font-size: .95em;
-	border-radius: 3px 3px 0 0;
-	background: #f6f6f6;
-	padding: 0 5px 5px 5px;
-	line-height: 25px;
-	transition: .3s;
-}
-
-#dashboard > div div.prebox a:hover {
-	margin-top: -3px;
-	padding-bottom: 3px;
-}
-
-#dashboard > div a.box {
-	position: relative;
-	display: block;
 	font-family: var(--title-font);
+	position: relative;
 	overflow: hidden;
+}
+
+#dashboard > div a.image {
+	display: block;
+	padding: 20px;
 	background: #fff;
-	border-radius: 3px;
+	margin-bottom: 20px;
+}
+
+#dashboard > div a.image img {
+	width: 100%;
+	height: 250px;
+	object-fit: contain;
+	line-height: 25px;
+	transition: .5s;
+}
+
+#dashboard > div a.image:hover img {
+	transform: scale(1.1);
+}
+
+#dashboard > div label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+#dashboard > div label a {
+	font-weight: bold;
+}
+
+#dashboard > div span {
+	display: block;
+	color: var(--cl);
+	transition: .5s;
+}
+
+#dashboard > div a.add_to_cart {
+	display: block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 30px;
+	height: 30px;
+	background-image: url("https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-15-256.png");
+	background-size: cover;
+	margin-right: -30px;
 	transition: .3s;
 }
 
-#dashboard > div a.box:hover {
-	transform: scale(1.02);
-	box-shadow: 0 0 20px 10px rgba(0, 0, 0, .08);
-}
-
-#dashboard > div a.box h1 {
-	font-size: 1em;
-	line-height: 30px;
-	padding: 5px 15px;
-}
-
-#dashboard > div a.box span {
-	color: rgba(255, 255, 255, .8);
-	background: var(--price);
-	position: absolute;
-	bottom: 10px;
-	right: 10px;
-	padding: 5px 10px;
-	border-radius: 15px;
-	transition: .5s;
-	opacity: .7;
-	z-index: 50;
-}
-
-#dashboard > div a.box:hover span {
-	opacity: 1;
-}
-
-#dashboard > div a.box img {
-	width: 100%;
-	height: 200px;
-	object-fit: contain;
-	margin: 20px 0;
-	filter: blur(.5px);
-	transition: .8s;
-}
-
-#dashboard > div a.box:hover img {
-	filter: none;
-	transform: scale(1.1);
+#dashboard > div:hover a.add_to_cart {
+	margin: 0;
 }

@@ -1,0 +1,44 @@
+#mosaic {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 30px;
+	margin-bottom: 30px;
+}
+
+#mosaic a {
+	display: block;
+	position: relative;
+}
+
+#mosaic a img {
+	width: 100%;
+	height: 250px;
+	object-fit: cover;
+}
+
+#mosaic a div {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	text-align: center;
+}
+
+#mosaic a div span {
+	display: inline-block;
+	font-size: 1.3em;
+	color: #444;
+	background: #fff;
+	border-radius: 15px;
+	line-height: 35px;
+	padding: 0 15px;
+	opacity: .8;
+	margin-bottom: 30px;
+	transition: 1s;
+}
+
+#mosaic a:hover div span {
+	opacity: 1;
+	margin-bottom: 108px;
+}

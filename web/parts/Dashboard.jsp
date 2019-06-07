@@ -1,36 +1,41 @@
-<%@ page import="model.dao.SottocategoriaDAO" %>
 <%@ page import="model.bean.Prodotto" %>
-<%@ page import="model.bean.Sottocategoria" %>
-<%@ page import="util.Formats" %>
 <%@ page import="model.bean.Produttore" %>
+<%@ page import="model.bean.Sottocategoria" %>
 <%@ page import="model.dao.ProduttoreDAO" %>
+<%@ page import="model.dao.SottocategoriaDAO" %>
+<%@ page import="util.Formats" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%
+	String title = (String) request.getAttribute("title");
+	if (title != null) {
+		out.println("<h1>" + title + "</h1>");
+	}
+%>
 <div id="dashboard">
 	<%
 		for (Prodotto prod : (Prodotto[]) request.getAttribute("prodotti")) {
 			Sottocategoria sottocat = SottocategoriaDAO.doRetrieveByKey(prod.sottocategoria);
+			assert sottocat != null;
 			Produttore produt = ProduttoreDAO.doRetrieveByKey(prod.produttore);
+			assert produt != null;
 	%>
 	<div>
-		<div class="prebox">
+		<a href="prodotto.jsp?id=<%= prod.id %>" class="image">
+			<img src="<%= prod.immagine %>" alt="Immagine del prodotto: '<%= prod.nome %>'"/>
+		</a>
+		<label>
 			<a href="produttore.jsp?id=<%= produt.id %>">
 				<%= produt.nome %>
 			</a>
-			<a href="sottocategoria.jsp?id=<%= sottocat.id %>">
-				<%= sottocat.nome %>
-			</a>
-		</div>
-		<a class="box" href="prodotto.jsp?id=<%= prod.id %>">
-			<h1>
-				<%= prod.nome %>
-			</h1>
-			<img src="<%= prod.immagine %>" alt="Immagine del prodotto: '<%= prod.nome %>'"/>
-			<span>
+			<%= prod.nome %>
+		</label>
+		<span>
 			<%= Formats.euro(prod.prezzo) %>
 		</span>
-		</a>
+		<a class="add_to_cart"></a>
 	</div>
 	<%
 		}
 	%>
 </div>
+<!-- TODO: Implementare filtri. -->

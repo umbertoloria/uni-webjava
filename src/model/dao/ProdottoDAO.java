@@ -40,13 +40,11 @@ public class ProdottoDAO extends DAO {
 	 */
 	public static Prodotto[] search(String query) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
-		if (query.length() >= 3) {
-			Conn conn = Conn.hold();
-			Table t = conn.query("SELECT id, sottocategoria, nome, produttore, prezzo, immagine, descrizione " +
-					"FROM prodotti WHERE nome LIKE ? ORDER BY nome", "%" + query + "%");
-			Conn.release(conn);
-			fillIn(t, prodotti);
-		}
+		Conn conn = Conn.hold();
+		Table t = conn.query("SELECT id, sottocategoria, nome, produttore, prezzo, immagine, descrizione " +
+				"FROM prodotti WHERE nome LIKE ? ORDER BY nome", "%" + query + "%");
+		Conn.release(conn);
+		fillIn(t, prodotti);
 		return prodotti.toArray(new Prodotto[0]);
 	}
 
@@ -56,9 +54,9 @@ public class ProdottoDAO extends DAO {
 	public static Prodotto[] getFromCategoria(Categoria categoria) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();
-		Table t = conn.query("SELECT prodotti.id, sottocategoria, prodotti.nome, produttore, prezzo, immagine, " +
-				"descrizione FROM prodotti JOIN sottocategorie ON sottocategorie.id = prodotti.sottocategoria " +
-				"WHERE sottocategorie.categoria = ? ORDER BY nome", categoria.id);
+		Table t = conn.query("SELECT prodotti.id, sottocategoria, prodotti.nome, produttore, prezzo, " +
+				"prodotti.immagine, descrizione FROM prodotti JOIN sottocategorie ON sottocategorie.id = " +
+				"prodotti.sottocategoria WHERE sottocategorie.categoria = ? ORDER BY nome", categoria.id);
 		Conn.release(conn);
 		fillIn(t, prodotti);
 		return prodotti.toArray(new Prodotto[0]);

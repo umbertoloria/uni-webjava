@@ -20,8 +20,3 @@
 	</article>
 </div>
 <%@ include file="parts/Footer.jsp" %>
-<script type="text/javascript">
-	setTimeout(function () {
-		// location.href = './';
-	}, 3000);
-</script>

@@ -7,67 +7,48 @@ header {
 	z-index: 90;
 }
 
-header #firstbar > div {
-	width: 1300px;
+header > div {
+	width: 100%;
+}
+
+header > div:first-child {
+	background: #fff;
+}
+
+header > div:last-child {
+	background: #ddd;
+}
+
+#firstbar {
+	width: 1200px;
 	margin: auto;
-	display: flex;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
 	align-items: center;
 	justify-content: space-between;
 }
 
-#firstbar {
-	width: 100%;
-	background: #fff;
+#firstbar #leftside {
+	display: flex;
+	padding: 20px 0;
 }
 
-#firstbar #leftside {
+#firstbar #leftside a:first-child {
+	font-weight: bold;
+	font-size: 1.1em;
+	color: var(--cl);
+	box-shadow: none;
 }
 
 #firstbar #leftside a {
-	display: flex;
-	padding: 0 10px;
-	line-height: 70px;
-	transition: .3s;
-}
-
-#firstbar #leftside a span {
 	display: block;
-	width: 0;
-	height: 0;
-	margin: 29px 10px 0 0;
-	border-left: 10px solid var(--cl);
-	border-top: 6px solid transparent;
-	border-bottom: 6px solid transparent;
-	border-right: none;
-	transition: .3s;
+	padding: 0 10px;
+	line-height: 25px;
+	box-shadow: -1px 0 0 #ddd;
+	margin-left: 1px;
 }
 
-#firstbar #leftside a label {
-	color: var(--cl);
-	font-family: var(--title-font);
-	font-size: 1.3em;
-	transition: .3s;
-	cursor: pointer;
-}
-
-#firstbar #leftside a:hover label {
-	/*transform: rotateZ(5deg);*/
-	transform: scale(0.97);
-}
-
-#firstbar #leftside a:hover span {
-	border-left-color: var(--bg);
-	margin-left: 7px;
-	margin-right: 3px;
-}
-
-#firstbar #rightside {
-	display: grid;
-	grid-template-columns: auto auto;
-	grid-column-gap: 20px;
-}
-
-#firstbar #rightside form {
+#firstbar #centerside form {
 	display: flex;
 	margin: 0;
 	padding: 0;
@@ -76,28 +57,32 @@ header #firstbar > div {
 	position: relative;
 }
 
-#firstbar #rightside form input[type='text'] {
+#firstbar #centerside form input[type='text'] {
 	padding: 0 10px;
-	border-radius: 3px 0 0 3px;
-	border: 1px solid #aaa;
+	border-radius: 15px 0 0 15px;
+	border: 1px solid #ccc;
 	border-right: 0;
 	width: 300px;
 }
 
-#firstbar #rightside form input[type='submit'] {
-	border-radius: 0 3px 3px 0;
-	border: 1px solid #aaa;
+#firstbar #centerside form input[type='submit'] {
+	border-radius: 0 15px 15px 0;
+	border: 1px solid #ccc;
 	color: var(--cl);
+	background-image: url("https://cdn4.iconfinder.com/data/icons/developer-set-3/128/find-512.png");
+	background-size: 15px 15px;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 35px;
 	font-weight: bold;
 	transition: .3s;
 }
 
-#firstbar #rightside form input[type='submit']:hover {
-	color: #fff;
-	background: var(--cl);
+#firstbar #centerside form input[type='submit']:hover {
+	border-color: #aaa;
 }
 
-#firstbar #rightside form .results {
+#firstbar #centerside form .results {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -114,12 +99,12 @@ header #firstbar > div {
 	z-index: 95;
 }
 
-#firstbar #rightside form .results.shown {
+#firstbar #centerside form .results.shown {
 	opacity: 1;
 	visibility: visible;
 }
 
-#firstbar #rightside form .results a {
+#firstbar #centerside form .results a {
 	display: flex;
 	height: 40px;
 	padding: 5px;
@@ -127,22 +112,29 @@ header #firstbar > div {
 	transition: .3s;
 }
 
-#firstbar #rightside form .results a:hover {
+#firstbar #centerside form .results a:hover {
 	padding-left: 10px;
 	box-shadow: inset 5px 0 0 var(--cl);
 }
 
-#firstbar #rightside form .results a img {
+#firstbar #centerside form .results a img {
 	width: 30px;
 	height: 30px;
 	margin-right: 10px;
 	object-fit: cover;
 }
 
-#firstbar #rightside form .results a span {
+#firstbar #centerside form .results a span {
 	display: block;
 	font-size: .9em;
 	line-height: 30px;
+}
+
+#firstbar #rightside {
+	display: grid;
+	grid-template-columns: auto auto auto;
+	grid-column-gap: 15px;
+	justify-content: right;
 }
 
 #firstbar #rightside label {
@@ -158,32 +150,27 @@ header #firstbar > div {
 #firstbar #rightside label a img {
 	width: 100%;
 	height: 100%;
-	object-fit: cover;
+	object-fit: contain;
 }
 
-#lastbar {
-	width: 100%;
-	background: #ddd;
-}
-
-#lastbar nav {
-	width: 1300px;
+nav {
+	width: 1200px;
 	margin: auto;
 }
 
-#lastbar ul {
+nav ul {
 	padding: 0;
 	margin: 0;
 	list-style: none;
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 }
 
-#lastbar ul li {
+nav ul li {
 	display: block;
 }
 
-#lastbar ul li a {
+nav ul li a {
 	display: block;
 	line-height: 35px;
 	padding: 0 15px;
@@ -194,13 +181,14 @@ header #firstbar > div {
 	transition: .3s;
 }
 
-#lastbar ul li:hover > a {
+nav ul li:hover > a,
+nav ul li.active > a {
 	color: #333;
 	background: #eee;
 	box-shadow: 0 3px 0 #ccc;
 }
 
-#lastbar ul li ul:before {
+nav ul li ul:before {
 	content: "";
 	border-left: 8px solid transparent;
 	border-right: 8px solid transparent;
@@ -212,7 +200,7 @@ header #firstbar > div {
 	margin-left: 10px;
 }
 
-#lastbar ul li ul {
+nav ul li ul {
 	display: block;
 	padding: 10px 0;
 	background: #fff;
@@ -224,12 +212,12 @@ header #firstbar > div {
 	transition: .5s;
 }
 
-#lastbar ul li:hover ul {
+nav ul li:hover ul {
 	opacity: 1;
 	visibility: visible;
 }
 
-#lastbar ul li ul li a {
+nav ul li ul li a {
 	line-height: 30px;
 	padding: 0 15px;
 	margin: 0;
@@ -237,9 +225,14 @@ header #firstbar > div {
 	font-size: 1em;
 }
 
-#lastbar ul li ul li:hover > a {
+nav ul li ul li:hover > a {
 	background: #ddd;
 	padding-left: 20px;
 	padding-right: 10px;
 	box-shadow: inset 5px 0 0 var(--cl);
+}
+
+nav ul li ul li.active > a {
+	background: #ddd;
+	box-shadow: none;
 }

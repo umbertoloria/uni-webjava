@@ -1,3 +1,5 @@
+<%@ page import="model.dao.ProdottoDAO" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%
 	Produttore produttore;
 	try {
@@ -13,23 +15,17 @@
 		response.sendRedirect("./");
 		return;
 	}
-%>
-<%@ page import="model.dao.ProdottoDAO" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="parts/Head.jsp" %>
-<%@ include file="parts/Topbar.jsp" %>
-<%
 	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add("Home", "./");
 	breadcrumb.add(produttore.nome);
 	request.setAttribute("breadcrumb", breadcrumb);
+	request.setAttribute("prodotti", ProdottoDAO.getFromProduttore(produttore));
 %>
-<%@ include file="parts/Breadcrumb.jsp" %>
+<%@ include file="parts/Head.jsp" %>
+<%@ include file="parts/Topbar.jsp" %>
 <main>
-	<%
-		request.setAttribute("prodotti", ProdottoDAO.getFromProduttore(produttore));
-	%>
-	<%@ include file="parts/boxes/Prodotto.jsp" %>
-	<%@ include file="parts/Sidebar.jsp" %>
+	<h1>
+		Prodotti di <%= produttore.nome %>
+	</h1>
+	<%@ include file="parts/Dashboard.jsp" %>
 </main>
 <%@ include file="parts/Footer.jsp" %>

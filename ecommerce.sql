@@ -4,22 +4,12 @@ create table categorie (
     nome varchar(50) not null
 );
 
-create table utenti (
-    id       int auto_increment
-        primary key,
-    email    varchar(40)                                          not null,
-    password varchar(40)                                          not null,
-    nome     varchar(40)                                          not null,
-    tipo     enum ('Normale', 'Amministratore') default 'Normale' not null,
-    constraint email
-        unique (email)
-);
-
 create table sottocategorie (
     id        int auto_increment
         primary key,
-    categoria int         not null,
-    nome      varchar(50) not null,
+    categoria int          not null,
+    nome      varchar(50)  not null,
+    immagine  varchar(500) not null,
     constraint nome
         unique (nome),
     constraint sottocategorie_ibfk_1
@@ -30,23 +20,21 @@ create table sottocategorie (
 create index categoria
     on sottocategorie (categoria);
 
-create table ordini (
-    id           int auto_increment
-        primary key,
-    utente       int          not null,
-    destinazione varchar(100) not null,
-    constraint ordini_ibfk_1
-        foreign key (utente) references utenti (id)
-            on update cascade
-);
-
-create index utente
-    on ordini (utente);
-
 create table produttori (
     id   int auto_increment
         primary key,
     nome varchar(20) not null
+);
+
+create table utenti (
+    id       int auto_increment
+        primary key,
+    email    varchar(40)                                          not null,
+    password varchar(40)                                          not null,
+    nome     varchar(40)                                          not null,
+    tipo     enum ('Normale', 'Amministratore') default 'Normale' not null,
+    constraint email
+        unique (email)
 );
 
 create table prodotti (
@@ -71,6 +59,19 @@ create index produttore
 
 create index sottocategoria
     on prodotti (sottocategoria);
+
+create table ordini (
+    id           int auto_increment
+        primary key,
+    utente       int          not null,
+    destinazione varchar(100) not null,
+    constraint ordini_ibfk_1
+        foreign key (utente) references utenti (id)
+            on update cascade
+);
+
+create index utente
+    on ordini (utente);
 
 create table ordine_has_prodotto (
     ordine   int           not null,
@@ -131,30 +132,37 @@ VALUES (13, 'Proel');
 INSERT INTO ecommerce.produttori (id, nome)
 VALUES (14, 'Behringer');
 
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (1, 1, 'Chitarra Classica');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (2, 1, 'Chitarra Acustica');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (3, 1, 'Chitarra Elettrica');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (4, 2, 'Basso Elettrico');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (5, 2, 'Basso Acustico');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (6, 2, 'Basso Mancino');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (7, 3, 'Batteria Acustica');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (8, 3, 'Batteria Elettrica');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (9, 4, 'Pianoforte da palco');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (10, 4, 'Pianoforte digitale');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (11, 5, 'Arranger');
-INSERT INTO ecommerce.sottocategorie (id, categoria, nome)
-VALUES (12, 6, 'Microfono vocale');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (1, 1, 'Chitarra Classica',
+        'https://buonoedeconomico.it/wp-content/uploads/2016/11/1.-Le-migliori-chitarre-classiche-%E2%80%93-Confronta-prezzi-e-offerte.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (2, 1, 'Chitarra Acustica',
+        'https://www.dampi.it/it/computedimage/chitarra-acustica.i56299-klDw28-w850-l1-n1.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (3, 1, 'Chitarra Elettrica', 'https://hw.imgix.net/chitarra-elettrica-2-m.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (4, 2, 'Basso Elettrico', 'https://cdn.pixabay.com/photo/2015/05/26/19/29/musician-785209__340.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (5, 2, 'Basso Acustico', 'https://www.scuoladimusicamc.it/wp-content/uploads/2018/08/basso-acustico.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (6, 2, 'Basso Mancino',
+        'https://s3-eu-west-2.amazonaws.com/cassesenzafili.com/wordpress/wp-content/uploads/2018/09/04042942/basso-classico.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (7, 3, 'Batteria Acustica',
+        'https://www.dampi.it/it/computedimage/batteria-musicale.i62506-kXYuV6c-w850-l1-n1.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (8, 3, 'Batteria Elettrica',
+        'https://www.dalmasomusica.it/blog/wp-content/uploads/2016/12/La-scelta-della-batteria-elettronica-603x270.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (9, 4, 'Pianoforte da palco', 'http://www.meteoweb.eu/wp-content/uploads/2017/06/pianoforte.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (10, 4, 'Pianoforte digitale',
+        'https://cdn.korg.com/it/products/upload/33eb7d346937b39bb8d40f586f2e342d_pc.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (11, 5, 'Arranger', 'https://www.smstrumentimusicali.it/wp-content/uploads/2018/08/04-1.jpg');
+INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
+VALUES (12, 6, 'Microfono vocale',
+        'https://st2.depositphotos.com/6052698/8769/v/600/depositphotos_87694338-stock-video-microphone-on-stage-at-concert.jpg');
 
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione)
 VALUES (1, 7, 'Sonor 507', 1, 550.00, 'https://d1aeri3ty3izns.cloudfront.net/media/9/9349/1200/preview.jpg',
@@ -185,7 +193,7 @@ VALUES (7, 5, 'Passenger Acoustic', 6, 285.00,
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione)
 VALUES (8, 6, 'Marcus Miller', 7, 298.00,
         'https://www.woodbrass.com/images/SQUARE400/woodbrass/MARCUSMILLER+MM086K.JPG',
-        ' linea di bassi Marcus Miller con un ottimo suono, un look fantastico ed una qualità mai vista ad un prezzo simile.');
+        ' linea di bassi Marcus Miller con un ottimo suono, un look fantastico ed una qualità mai vista ad un prezzo simile.');
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione)
 VALUES (9, 7, 'Junior Blu', 8, 179.00,
         'https://www.strumentimusicali.net/images/product/600x450/2018/06/21/be/batteria-acusticajunior-2.jpg',

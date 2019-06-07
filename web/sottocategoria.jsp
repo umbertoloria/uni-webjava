@@ -1,3 +1,5 @@
+<%@ page import="model.dao.ProdottoDAO" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%
 	Sottocategoria sottocategoria;
 	Categoria categoria;
@@ -18,24 +20,19 @@
 		response.sendRedirect("./");
 		return;
 	}
-%>
-<%@ page import="model.dao.ProdottoDAO" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="parts/Head.jsp" %>
-<%@ include file="parts/Topbar.jsp" %>
-<%
 	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add("Home", "./");
 	breadcrumb.add(categoria.nome, "./categoria.jsp?id=" + categoria.id);
 	breadcrumb.add(sottocategoria.nome);
+	request.setAttribute("topbar_sottocategoria", sottocategoria.id);
 	request.setAttribute("breadcrumb", breadcrumb);
+	request.setAttribute("prodotti", ProdottoDAO.getFromSottocategoria(sottocategoria));
 %>
-<%@ include file="parts/Breadcrumb.jsp" %>
+<%@ include file="parts/Head.jsp" %>
+<%@ include file="parts/Topbar.jsp" %>
 <main>
-	<%
-		request.setAttribute("prodotti", ProdottoDAO.getFromSottocategoria(sottocategoria));
-	%>
-	<%@ include file="parts/boxes/Prodotto.jsp" %>
-	<%@ include file="parts/Sidebar.jsp" %>
+	<h1>
+		<%= sottocategoria.nome %>
+	</h1>
+	<%@ include file="parts/Dashboard.jsp" %>
 </main>
 <%@ include file="parts/Footer.jsp" %>
