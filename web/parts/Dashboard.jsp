@@ -5,12 +5,6 @@
 <%@ page import="model.dao.SottocategoriaDAO" %>
 <%@ page import="util.Formats" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
-	String title = (String) request.getAttribute("title");
-	if (title != null) {
-		out.println("<h1>" + title + "</h1>");
-	}
-%>
 <div id="dashboard">
 	<%
 		for (Prodotto prod : (Prodotto[]) request.getAttribute("prodotti")) {
@@ -32,7 +26,7 @@
 		<span>
 			<%= Formats.euro(prod.prezzo) %>
 		</span>
-		<a class="add_to_cart"></a>
+		<a class="add_to_cart" onclick="addProdottoToCart(this, <%= prod.id %>, 1)"></a>
 	</div>
 	<%
 		}

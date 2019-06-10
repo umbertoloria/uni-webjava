@@ -90,6 +90,22 @@ create table ordine_has_prodotto (
 create index prodotto
     on ordine_has_prodotto (prodotto);
 
+create table carrello_items (
+    utente   int           not null,
+    prodotto int           not null,
+    quantita int default 1 not null,
+    primary key (utente, prodotto),
+    constraint carrello_items_ibfk_1
+        foreign key (utente) references utenti (id)
+            on update cascade,
+    constraint carrello_items_ibfk_2
+        foreign key (prodotto) references prodotti (id)
+            on update cascade
+);
+
+create index prodotto
+    on carrello_items (prodotto);
+
 INSERT INTO ecommerce.categorie (id, nome)
 VALUES (1, 'Chitarra');
 INSERT INTO ecommerce.categorie (id, nome)

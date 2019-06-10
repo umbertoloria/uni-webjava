@@ -21,4 +21,12 @@ public final class Utente {
 		this.tipo = "Normale";
 	}
 
+	public Utente(String email, String password) {
+		this.id = -1;
+		this.email = email;
+		this.password = password;
+		this.nome = null;
+		this.tipo = null;
+	}
+
 }

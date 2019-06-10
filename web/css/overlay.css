@@ -1,4 +1,4 @@
-#overlay_shadow {
+#overlay {
 	display: none;
 	position: fixed;
 	top: 0;
@@ -9,11 +9,11 @@
 	z-index: 100;
 }
 
-#overlay_shadow.shown {
+#overlay.shown {
 	display: block;
 }
 
-#overlay_shadow div {
+#overlay div {
 	display: block;
 	background: #fff;
 	margin: 50vh auto 0 auto;
@@ -24,4 +24,21 @@
 	border-radius: 3px;
 	text-align: center;
 	font-size: 1.2em;
+}
+
+#notification {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	margin-left: 20px;
+	background: var(--price);
+	padding: 0 20px;
+	line-height: 35px;
+	color: #444;
+	margin-bottom: -35px;
+	transition: .3s;
+}
+
+#notification.shown {
+	margin-bottom: 0;
 }

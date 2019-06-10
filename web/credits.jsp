@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="parts/Head.jsp" %>
 <%@ include file="parts/Topbar.jsp" %>
-<div id="fullwrapper">
+<main>
 	<article>
 		<h1>Studenti</h1>
 		<p>
@@ -18,5 +18,5 @@
 			Ringraziamo Michelantonio per il supporto datoci.
 		</p>
 	</article>
-</div>
+</main>
 <%@ include file="parts/Footer.jsp" %>

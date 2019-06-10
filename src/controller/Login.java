@@ -9,44 +9,41 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/servlet_registrazione")
-public class Registrazione extends HttpServlet {
+@WebServlet("/servlet_login")
+public class Login extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("plain/text");
-		String nome = req.getParameter("nome");
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
-		String password2 = req.getParameter("password2");
-		if (nome == null || email == null || password == null || password2 == null) {
+		if (email == null || password == null) {
 			return;
 		}
-		nome = nome.trim();
 		email = email.trim();
 		password = password.trim();
-		password2 = password2.trim();
 
 		ErrorManager em = new ErrorManager(resp);
 
-		Utente utente = new Utente(email, password, nome);
+		Utente utente = new Utente(email, password);
 
-		UtenteValidator utenteValidator = new UtenteValidator(utente, true);
+		UtenteValidator utenteValidator = new UtenteValidator(utente, false);
 		if (!utenteValidator.empty()) {
-			em.notice("nome", utenteValidator.nome);
 			em.notice("email", utenteValidator.email);
 			em.notice("password", utenteValidator.password);
-		} else if (!password.equals(password2)) {
-			em.notice("password2", "Le password devono coincidere.");
-		} else if (UtenteDAO.doRetrieveByEmail(email) != null) {
-			em.message("L'E-Mail fornita è già usata da un altro utente.");
 		} else {
-			if (UtenteDAO.doSave(utente)) {
-				em.done("Registrazione effettuata");
-				em.redirect("login.jsp");
+			Utente saved = UtenteDAO.doRetrieveByEmail(email);
+			if (saved == null || !saved.password.equals(password)) {
+				em.message("Dati di accesso errati.");
 			} else {
-				em.message("Errore query.");
+				HttpSession session = req.getSession();
+				session.setMaxInactiveInterval(60 * 60);
+				session.setAttribute("user", saved);
+				em.done("Accesso effettuato");
+				em.redirect(".");
+				// TODO: Scaricare carrello sulla sessione.
 			}
 		}
 	}

@@ -1,9 +1,16 @@
 function overlay_alert(msg) {
-	$("#overlay_shadow").addClass("shown").prepend("<div>" + msg + "</div>");
+	$("#overlay").addClass("shown").prepend("<div>" + msg + "</div>");
+}
+
+function notification_alert(msg) {
+	$("#notification").addClass("shown").html(msg);
+	setTimeout(function () {
+		$("#notification").removeClass("shown").html("");
+	}, 3000);
 }
 
 // $(function () {
-// 	$("#overlay_shadow").click(function () {
+// 	$("#overlay").click(function () {
 // 		if ($(this).is(".shown")) {
 // 			$(this).removeClass("shown");
 // 		}

@@ -4,7 +4,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="parts/Head.jsp" %>
 <%@ include file="parts/Topbar.jsp" %>
-<div id="fullwrapper">
+<main>
 	<article>
 		<h1>
 			Errore 500: <%= exception.getMessage() %>
@@ -18,5 +18,5 @@
 			stringWriter.close();
 		%></pre>
 	</article>
-</div>
+</main>
 <%@ include file="parts/Footer.jsp" %>

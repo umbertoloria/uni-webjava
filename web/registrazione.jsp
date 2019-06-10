@@ -6,7 +6,7 @@
 	request.setAttribute("breadcrumb", breadcrumb);
 %>
 <%@ include file="parts/Topbar.jsp" %>
-<div id="fullwrapper">
+<main>
 	<form action="servlet_registrazione" method="post">
 		<fieldset>
 			<label>
@@ -29,5 +29,5 @@
 		<input type="submit" value="Registrati" class="button"/>
 		<div class="msg"></div>
 	</form>
-</div>
+</main>
 <%@ include file="parts/Footer.jsp" %>

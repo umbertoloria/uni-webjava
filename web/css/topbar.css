@@ -153,6 +153,23 @@ header > div:last-child {
 	object-fit: contain;
 }
 
+#firstbar #rightside label.carrello {
+	position: relative;
+}
+
+#firstbar #rightside label.carrello a span {
+	position: absolute;
+	margin-top: 25px;
+	margin-right: -2px;
+	top: 0;
+	right: 0;
+	border-radius: 100%;
+	width: 20px;
+	text-align: center;
+	line-height: 20px;
+	background: var(--cart);
+}
+
 nav {
 	width: 1200px;
 	margin: auto;

@@ -56,9 +56,16 @@
 	background-image: url("https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-15-256.png");
 	background-size: cover;
 	margin-right: -30px;
+	border-radius: 100%;
+	cursor: pointer;
 	transition: .3s;
 }
 
 #dashboard > div:hover a.add_to_cart {
 	margin: 0;
+}
+
+#dashboard > div a.add_to_cart[disabled] {
+	margin: 0;
+	background-color: #e0e0e0;
 }

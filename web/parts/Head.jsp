@@ -19,4 +19,5 @@
 	<script type='text/javascript' src='js/overlay.js'></script>
 </head>
 <body>
-<div id="overlay_shadow"></div>
+<div id="overlay"></div>
+<div id="notification"></div>

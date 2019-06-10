@@ -6,11 +6,15 @@ public final class UtenteValidator {
 
 	public final String nome, email, password;
 
-	public UtenteValidator(Utente u) {
-		if (u.nome.length() < 3) {
-			nome = "Nome non valido: minimo 3 caratteri";
-		} else if (u.nome.length() > 40) {
-			nome = "Nome non valido: massimo 40 caratteri";
+	public UtenteValidator(Utente u, boolean validateNome) {
+		if (validateNome) {
+			if (u.nome.length() < 3) {
+				nome = "Nome non valido: minimo 3 caratteri";
+			} else if (u.nome.length() > 40) {
+				nome = "Nome non valido: massimo 40 caratteri";
+			} else {
+				nome = null;
+			}
 		} else {
 			nome = null;
 		}
