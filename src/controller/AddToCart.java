@@ -3,7 +3,6 @@ package controller;
 import model.bean.Carrello;
 import model.dao.ProdottoDAO;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -13,7 +12,7 @@ import java.io.IOException;
 @WebServlet("/addToCart")
 public class AddToCart extends HttpServlet {
 
-	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		int prodotto = Integer.parseInt(req.getParameter("p"));
 		int quantita = Integer.parseInt(req.getParameter("q"));
 		if (ProdottoDAO.doRetrieveByKey(prodotto) != null && quantita >= 1) {

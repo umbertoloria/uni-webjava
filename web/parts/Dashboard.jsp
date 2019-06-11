@@ -17,16 +17,18 @@
 		<a href="prodotto.jsp?id=<%= prod.id %>" class="image">
 			<img src="<%= prod.immagine %>" alt="Immagine del prodotto: '<%= prod.nome %>'"/>
 		</a>
-		<label>
-			<a href="produttore.jsp?id=<%= produt.id %>">
-				<%= produt.nome %>
-			</a>
-			<%= prod.nome %>
-		</label>
-		<span>
+		<div>
+			<label>
+				<a href="produttore.jsp?id=<%= produt.id %>">
+					<%= produt.nome %>
+				</a>
+				<%= prod.nome %>
+			</label>
+			<span>
 			<%= Formats.euro(prod.prezzo) %>
 		</span>
-		<a class="add_to_cart" onclick="addProdottoToCart(this, <%= prod.id %>, 1)"></a>
+			<a class="add_to_cart" onclick="addProdottoToCart(this, <%= prod.id %>, 1)"></a>
+		</div>
 	</div>
 	<%
 		}

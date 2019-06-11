@@ -27,7 +27,7 @@ function agisci(form, out) {
 				location.href = parameter;
 			}, 1500);
 		} else if (option === 'done') {
-			overlay_alert(parameter);
+			overlay(parameter);
 		}
 	}
 }

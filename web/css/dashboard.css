@@ -8,8 +8,6 @@
 
 #dashboard > div {
 	font-family: var(--title-font);
-	position: relative;
-	overflow: hidden;
 }
 
 #dashboard > div a.image {
@@ -17,6 +15,8 @@
 	padding: 20px;
 	background: #fff;
 	margin-bottom: 20px;
+	border-radius: 3px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, .05);
 }
 
 #dashboard > div a.image img {
@@ -31,22 +31,27 @@
 	transform: scale(1.1);
 }
 
-#dashboard > div label {
+#dashboard > div div {
+	position: relative;
+	overflow: hidden;
+}
+
+#dashboard > div div label {
 	display: block;
 	margin-bottom: 5px;
 }
 
-#dashboard > div label a {
+#dashboard > div div label a {
 	font-weight: bold;
 }
 
-#dashboard > div span {
+#dashboard > div div span {
 	display: block;
 	color: var(--cl);
 	transition: .5s;
 }
 
-#dashboard > div a.add_to_cart {
+#dashboard > div div a.add_to_cart {
 	display: block;
 	position: absolute;
 	right: 0;
@@ -61,11 +66,27 @@
 	transition: .3s;
 }
 
-#dashboard > div:hover a.add_to_cart {
+#dashboard > div:hover div a.add_to_cart {
 	margin: 0;
 }
 
-#dashboard > div a.add_to_cart[disabled] {
+#dashboard > div div a.add_to_cart[disabled] {
 	margin: 0;
 	background-color: #e0e0e0;
+}
+
+@media only screen and (min-width: 1001px) and (max-width: 1400px) {
+
+	#dashboard {
+		grid-template-columns: 1fr 1fr 1fr;
+	}
+
+}
+
+@media only screen and (max-width: 1000px) {
+
+	#dashboard {
+		grid-template-columns: 1fr 1fr;
+	}
+
 }

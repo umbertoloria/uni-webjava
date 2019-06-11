@@ -91,3 +91,19 @@ article p {
 article p::first-letter {
 	font-weight: bold;
 }
+
+@media only screen and (min-width: 1001px) and (max-width: 1400px) {
+
+	footer > div, main, #breadcrumb, #firstbar, nav {
+		width: 800px;
+	}
+
+}
+
+@media only screen and (max-width: 1000px) {
+
+	footer > div, main, #breadcrumb, #firstbar, nav {
+		width: 600px;
+	}
+
+}

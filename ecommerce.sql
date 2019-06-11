@@ -181,7 +181,7 @@ VALUES (12, 6, 'Microfono vocale',
         'https://st2.depositphotos.com/6052698/8769/v/600/depositphotos_87694338-stock-video-microphone-on-stage-at-concert.jpg');
 
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione)
-VALUES (1, 7, 'Sonor 507', 1, 550.00, 'https://d1aeri3ty3izns.cloudfront.net/media/9/9349/1200/preview.jpg',
+VALUES (1, 7, '507', 1, 550.00, 'https://d1aeri3ty3izns.cloudfront.net/media/9/9349/1200/preview.jpg',
         'Ottima batteria per cominciare!');
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione)
 VALUES (2, 3, 'Stratocaster', 2, 900.00,

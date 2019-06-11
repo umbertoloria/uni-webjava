@@ -33,19 +33,34 @@ header > div:last-child {
 	padding: 20px 0;
 }
 
-#firstbar #leftside a:first-child {
-	font-weight: bold;
-	font-size: 1.1em;
-	color: var(--cl);
-	box-shadow: none;
-}
-
 #firstbar #leftside a {
 	display: block;
-	padding: 0 10px;
 	line-height: 25px;
-	box-shadow: -1px 0 0 #ddd;
-	margin-left: 1px;
+}
+
+#firstbar #leftside a::after {
+	content: "";
+	display: block;
+	float: right;
+	margin: 3px 5px 0 5px;
+	background-image: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-right-256.png");
+	background-size: cover;
+	width: 20px;
+	height: 20px;
+}
+
+#firstbar #leftside a:first-child {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: var(--cl);
+	padding-right: 10px;
+	margin-right: 10px;
+	box-shadow: 1px 0 0 #ddd;
+}
+
+#firstbar #leftside a:first-child::after,
+#firstbar #leftside a:last-child::after {
+	display: none;
 }
 
 #firstbar #centerside form {

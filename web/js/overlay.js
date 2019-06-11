@@ -1,8 +1,8 @@
-function overlay_alert(msg) {
+function overlay(msg) {
 	$("#overlay").addClass("shown").prepend("<div>" + msg + "</div>");
 }
 
-function notification_alert(msg) {
+function notification(msg) {
 	$("#notification").addClass("shown").html(msg);
 	setTimeout(function () {
 		$("#notification").removeClass("shown").html("");

@@ -36,6 +36,7 @@
 	line-height: 35px;
 	color: #444;
 	margin-bottom: -35px;
+	z-index: 100;
 	transition: .3s;
 }
 

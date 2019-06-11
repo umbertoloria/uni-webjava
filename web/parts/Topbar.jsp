@@ -17,15 +17,12 @@
 				<%
 					Breadcrumb bc = (Breadcrumb) request.getAttribute("breadcrumb");
 					if (bc != null) {
-						String[] indices = {"first", "second", "third", "fourth"};
-						int index = 0;
 						for (BreadcrumbItem bci : bc) {
 							if (bci.link == null) {
-								out.println("<a class='" + indices[index] + "'>" + bci.nome + "</a>");
+								out.println("<a>" + bci.nome + "</a>");
 							} else {
-								out.println("<a class='" + indices[index] + "' href='" + bci.link + "'>" + bci.nome + "</a>");
+								out.println("<a href='" + bci.link + "'>" + bci.nome + "</a>");
 							}
-							index++;
 						}
 					}
 				%>

@@ -12,6 +12,7 @@
 	<link rel='stylesheet' href='css/overlay.css'/>
 	<link rel='stylesheet' href='css/breadcrumb.css'/>
 	<link rel='stylesheet' href='css/mosaic.css'/>
+	<link rel='stylesheet' href='css/cart_list.css'/>
 	<script type='text/javascript' src='js/jQuery.min.js'></script>
 	<script type='text/javascript' src='js/core.js'></script>
 	<script type='text/javascript' src='js/topbar.js'></script>
