@@ -20,7 +20,7 @@
 	padding: 30px;
 	box-sizing: border-box;
 	transform: translate(0, -50%);
-	width: min-content;
+	width: 250px;
 	border-radius: 3px;
 	text-align: center;
 	font-size: 1.2em;
@@ -34,7 +34,6 @@
 	background: var(--price);
 	padding: 0 20px;
 	line-height: 35px;
-	color: #444;
 	margin-bottom: -35px;
 	z-index: 100;
 	transition: .3s;

@@ -1,4 +1,6 @@
-package model.bean;
+package model;
+
+import model.bean.CarrelloItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,7 +19,7 @@ public class Carrello implements Iterable<CarrelloItem> {
 	}
 
 	/** Assegna una nuova quantità ad un prodotto dato, anche se non esiste. */
-	public void update(int prodotto, int quantita) {
+	public void set(int prodotto, int quantita) {
 		prodotti.put(prodotto, quantita);
 	}
 

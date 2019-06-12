@@ -1,4 +1,4 @@
-<%@ page import="model.bean.Carrello" %>
+<%@ page import="model.Carrello" %>
 <%@ page import="model.bean.Categoria" %>
 <%@ page import="model.bean.Sottocategoria" %>
 <%@ page import="model.bean.Utente" %>
@@ -35,28 +35,30 @@
 					<div class="results"></div>
 				</form>
 			</div>
-			<div id="rightside">
-				<%
+			<ul id="rightside">
+					<%
 					// TODO: Sincronizzare i dati sulla sessione con quelli sul DB.
-					Utente user = (Utente) request.getSession().getAttribute("user");
+					Utente user = (Utente) request.getSession().getAttribute("utente");
 					if (user != null) {
 				%>
-				<label>
-					<a href="logout.jsp">
-						<img idle="https://cdn0.iconfinder.com/data/icons/emoshen/1000/EMOTICON1_cnvrt-13-256.png"
-						     hover="https://cdn0.iconfinder.com/data/icons/emoshen/1000/EMOTICON1_cnvrt-18-256.png"/>
+				<li>
+					<a>
+						Account
 					</a>
-				</label>
-				<%
+					<ul>
+						<li><a href="impostazioni.jsp">Impostazioni</a></li>
+						<li><a href="logout.jsp">Logout</a></li>
+					</ul>
+				</li>
+					<%
 				} else {
 				%>
-				<label>
+				<li>
 					<a href="login.jsp">
-						<img idle="https://cdn0.iconfinder.com/data/icons/emoshen/1000/EMOTICON1_cnvrt-11-256.png"
-						     hover="https://cdn0.iconfinder.com/data/icons/emoshen/1000/EMOTICON1_cnvrt-16-256.png"/>
+						Login
 					</a>
-				</label>
-				<%
+				</li>
+					<%
 					}
 					int carrelloCount = 0;
 					// TODO: refreshare ogni tanto il numero di prodotti nel carrello.
@@ -67,23 +69,25 @@
 						}
 					}
 				%>
-				<label class="carrello">
+				<li class="carrello">
 					<a href="carrello.jsp">
-						<img src="https://cdn2.iconfinder.com/data/icons/miscellaneous-31/60/bag-512.png"/>
-						<span><%= carrelloCount %></span>
+						Carrello
+						<label>
+							<%= carrelloCount %>
+						</label>
 					</a>
-				</label>
-			</div>
-			<script>
-				$("#rightside img").each(function () {
-					$(this).attr("src", $(this).attr("idle"));
-				}).hover(function () {
-					$(this).attr("src", $(this).attr("hover"));
-				}, function () {
-					$(this).attr("src", $(this).attr("idle"));
-				});
-			</script>
+				</li>
 		</div>
+		<%--<script>
+			$("#rightside img").each(function () {
+				$(this).attr("src", $(this).attr("idle"));
+			}).hover(function () {
+				$(this).attr("src", $(this).attr("hover"));
+			}, function () {
+				$(this).attr("src", $(this).attr("idle"));
+			});
+		</script>--%>
+	</div>
 	</div>
 	<div>
 		<nav>

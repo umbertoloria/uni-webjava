@@ -1,6 +1,6 @@
 package util;
 
-import model.bean.Carrello;
+import model.Carrello;
 import model.bean.CarrelloItem;
 import model.bean.Prodotto;
 import model.dao.ProdottoDAO;

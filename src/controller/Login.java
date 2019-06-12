@@ -40,7 +40,7 @@ public class Login extends HttpServlet {
 			} else {
 				HttpSession session = req.getSession();
 				session.setMaxInactiveInterval(60 * 60);
-				session.setAttribute("user", saved);
+				session.setAttribute("utente", saved);
 				em.done("Accesso effettuato");
 				em.redirect(".");
 				// TODO: Scaricare carrello sulla sessione.

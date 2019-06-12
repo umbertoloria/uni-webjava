@@ -19,20 +19,17 @@ function dataForm(form) {
 	return queryString;
 }
 
-function addProdottoToCart(elem, prodotto, quantita) {
+function addProdottoToCart(elem, prodotto) {
 	if (!$(elem).is("[disabled]")) {
-		ajaxPostRequest("addToCart", "p=" + prodotto + "&q=" + quantita, function (out) {
-			$(elem).attr("disabled", "disabled");
-			setTimeout(function () {
-				$(elem).removeAttr("disabled");
-			}, 3000);
-			if (out.startsWith("ok:")) {
-				notification("Prodotto aggiunto sul carrello.");
-				$("#rightside label.carrello a span").html(out.substr(3));
-			} else {
-				alert("out: " + out);
-				notification("Problema...");
-			}
-		})
+		$(elem).attr("disabled", "disabled");
+		setTimeout(function () {
+			$(elem).removeAttr("disabled");
+		}, 3000);
+		addToCart(prodotto, 1, function (count) {
+			notification("Prodotto aggiunto sul carrello.");
+			$("#rightside li.carrello a label").html(count);
+		}, function () {
+			notification("Problema...");
+		});
 	}
 }

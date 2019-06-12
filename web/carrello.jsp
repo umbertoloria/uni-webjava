@@ -14,6 +14,7 @@
 <%@ include file="parts/Topbar.jsp" %>
 <main>
 	<h1>Carrello</h1>
+	<!-- TODO: Aggiornare i dati periodicamente. -->
 	<%
 		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
 		if (carrello != null) {
@@ -54,34 +55,41 @@
 		%>
 	</div>
 	<script>
-		$("#cart_list div div:last-child div:last-child input[type='number']").change(function () {
-			const div = $(this).parent().parent().parent();
+		function newInput(elem) {
+			console.log("changing something...");
+			const div = elem.parent().parent().parent();
 			const pid = div.attr("data-product-id");
-			const val = $(this).val();
-			if (val >= 1) {
-				ajaxPostRequest("updateCart", "p=" + pid + "&q=" + val, function (out) {
-					let totalCartCount = 0;
-					$.each($.parseJSON(out), function (index, value) {
-						totalCartCount += value.quantita;
-						div.parent().find("div[data-product-id='" + value.prodotto + "'] " +
-							"div:last-child div:first-child span").html(value.totale);
-					});
-					$("#rightside label.carrello a span").html(totalCartCount);
-				});
-			}
+			const val = elem.val();
+			setToCart(pid, val, function (itemCarrello) {
+				div.parent().find("div[data-product-id='" + itemCarrello.prodotto + "'] " +
+					"div:last-child div:first-child span").html(itemCarrello.totale);
+			}, function (count) {
+				$("#rightside li.carrello a label").html(count);
+			});
+		}
+
+		let inputTimeout;
+
+		$("#cart_list div div:last-child div:last-child input[type='number']").change(function () {
+			const input = $(this);
+			clearTimeout(inputTimeout);
+			inputTimeout = setTimeout(function () {
+				newInput(input);
+			}, 500);
 		});
+
 		$("#cart_list div div:last-child div:last-child a").click(function () {
 			const div = $(this).parent().parent().parent();
+			const dad = div.parent();
 			const pid = div.attr("data-product-id");
-			ajaxPostRequest("updateCart", "p=" + pid + "&q=0", function (out) {
+			dropFromCart(pid, function (itemCarrello) {
+				dad.find("div[data-product-id='" + itemCarrello.prodotto + "'] " +
+					"div:last-child div:first-child span").html(itemCarrello.totale);
+				dad.find("div[data-product-id='" + itemCarrello.prodotto + "'] " +
+					"div:last-child div:last-child input[type='number']").val(itemCarrello.quantita);
+			}, function (count) {
 				div.remove();
-				let totalCartCount = 0;
-				$.each($.parseJSON(out), function (index, value) {
-					totalCartCount += value.quantita;
-					div.parent().find("div[data-product-id='" + value.prodotto + "'] " +
-						"div:last-child div:first-child span").html(value.totale);
-				});
-				$("#rightside label.carrello a span").html(totalCartCount);
+				$("#rightside li.carrello a label").html(count);
 			});
 		});
 	</script>

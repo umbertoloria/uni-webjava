@@ -1,5 +1,5 @@
 <%
-    request.getSession().removeAttribute("user");
+    request.getSession().removeAttribute("utente");
 %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ include file="parts/Head.jsp" %>

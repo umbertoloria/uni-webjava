@@ -30,7 +30,6 @@ header > div:last-child {
 
 #firstbar #leftside {
 	display: flex;
-	padding: 20px 0;
 }
 
 #firstbar #leftside a {
@@ -55,7 +54,7 @@ header > div:last-child {
 	color: var(--cl);
 	padding-right: 10px;
 	margin-right: 10px;
-	box-shadow: 1px 0 0 #ddd;
+	box-shadow: 1px 0 0 #999;
 }
 
 #firstbar #leftside a:first-child::after,
@@ -146,43 +145,96 @@ header > div:last-child {
 }
 
 #firstbar #rightside {
-	display: grid;
-	grid-template-columns: auto auto auto;
-	grid-column-gap: 15px;
+	display: flex;
 	justify-content: right;
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
-#firstbar #rightside label {
+#firstbar #rightside li {
 	display: block;
-}
-
-#firstbar #rightside label a {
-	display: block;
-	width: 35px;
-	height: 35px;
-}
-
-#firstbar #rightside label a img {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-}
-
-#firstbar #rightside label.carrello {
 	position: relative;
 }
 
-#firstbar #rightside label.carrello a span {
+#firstbar #rightside li a {
+	display: block;
+	font-weight: bold;
+	padding: 0 10px;
+	line-height: 50px;
+	color: #555;
+	cursor: default;
+	transition: .3s;
+}
+
+#firstbar #rightside li a[href] {
+	cursor: pointer;
+}
+
+
+#firstbar #rightside li:hover > a {
+	color: #333;
+	box-shadow: inset 0 -3px 0 #ccc;
+	background: #eee;
+}
+
+#firstbar #rightside li ul {
 	position: absolute;
-	margin-top: 25px;
-	margin-right: -2px;
+	top: 100%;
+	left: 0;
+	display: block;
+	list-style: none;
+	margin: 0;
+	padding: 10px 0;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+	visibility: hidden;
+	opacity: 0;
+	transition: .3s;
+}
+
+#firstbar #rightside li:hover ul {
+	visibility: visible;
+	opacity: 1;
+}
+
+#firstbar #rightside li ul li a {
+	line-height: 30px;
+}
+
+#firstbar #rightside li ul li:hover > a {
+	box-shadow: none;
+}
+
+/*#firstbar #rightside li a img {*/
+/*	display: block;*/
+/*	width: 30px;*/
+/*	height: 30px;*/
+/*	object-fit: cover;*/
+/*}*/
+
+/*#firstbar #rightside li a span {*/
+/*	display: block;*/
+/*	text-align: center;*/
+/*	line-height: 25px;*/
+/*}*/
+
+#firstbar #rightside li.carrello {
+	position: relative;
+}
+
+#firstbar #rightside li.carrello a label {
+	position: absolute;
 	top: 0;
-	right: 0;
+	right: -5px;
+	color: #000;
 	border-radius: 100%;
 	width: 20px;
 	text-align: center;
 	line-height: 20px;
 	background: var(--cart);
+	cursor: pointer;
 }
 
 nav {

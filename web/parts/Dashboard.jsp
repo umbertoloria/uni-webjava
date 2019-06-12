@@ -27,7 +27,7 @@
 			<span>
 			<%= Formats.euro(prod.prezzo) %>
 		</span>
-			<a class="add_to_cart" onclick="addProdottoToCart(this, <%= prod.id %>, 1)"></a>
+			<a class="add_to_cart" onclick="addProdottoToCart(this, <%= prod.id %>)"></a>
 		</div>
 	</div>
 	<%
