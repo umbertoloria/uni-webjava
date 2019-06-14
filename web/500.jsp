@@ -2,8 +2,8 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="java.io.StringWriter" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="parts/Head.jsp" %>
-<%@ include file="parts/Topbar.jsp" %>
+<jsp:include page="parts/Head.jsp"/>
+<jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<article>
 		<h1>
@@ -19,4 +19,4 @@
 		%></pre>
 	</article>
 </main>
-<%@ include file="parts/Footer.jsp" %>
+<jsp:include page="parts/Footer.jsp"/>

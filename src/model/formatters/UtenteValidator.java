@@ -22,6 +22,8 @@ public final class UtenteValidator {
 			email = "E-Mail non valida: minimo 3 caratteri";
 		} else if (u.email.length() > 40) {
 			email = "E-Mail non valida: massimo 40 caratteri";
+		} else if (!u.email.contains("@")) {
+			email = "E-Mail malformata";
 		} else {
 			email = null;
 		}
@@ -34,8 +36,8 @@ public final class UtenteValidator {
 		}
 	}
 
-	public boolean empty() {
-		return nome == null && email == null && password == null;
+	public boolean wrongInput() {
+		return nome != null || email != null || password != null;
 	}
 
 }

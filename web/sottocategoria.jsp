@@ -1,4 +1,9 @@
+<%@ page import="model.bean.Categoria" %>
+<%@ page import="model.bean.Sottocategoria" %>
+<%@ page import="model.dao.CategoriaDAO" %>
 <%@ page import="model.dao.ProdottoDAO" %>
+<%@ page import="model.dao.SottocategoriaDAO" %>
+<%@ page import="util.Breadcrumb" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
 	Sottocategoria sottocategoria;
@@ -20,19 +25,21 @@
 		response.sendRedirect("./");
 		return;
 	}
+%>
+<jsp:include page="parts/Head.jsp"/>
+<%
 	Breadcrumb breadcrumb = new Breadcrumb();
 	breadcrumb.add(categoria.nome, "./categoria.jsp?id=" + categoria.id);
 	breadcrumb.add(sottocategoria.nome);
-	request.setAttribute("topbar_sottocategoria", sottocategoria.id);
 	request.setAttribute("breadcrumb", breadcrumb);
-	request.setAttribute("prodotti", ProdottoDAO.getFromSottocategoria(sottocategoria));
+	request.setAttribute("topbar_sottocategoria", sottocategoria.id);
 %>
-<%@ include file="parts/Head.jsp" %>
-<%@ include file="parts/Topbar.jsp" %>
+<jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<h1>
 		<%= sottocategoria.nome %>
 	</h1>
-	<%@ include file="parts/Dashboard.jsp" %>
+	<% request.setAttribute("prodotti", ProdottoDAO.getFromSottocategoria(sottocategoria)); %>
+	<jsp:include page="parts/Dashboard.jsp"/>
 </main>
-<%@ include file="parts/Footer.jsp" %>
+<jsp:include page="parts/Footer.jsp"/>

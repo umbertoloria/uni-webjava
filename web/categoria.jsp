@@ -1,4 +1,9 @@
+<%@ page import="model.bean.Categoria" %>
+<%@ page import="model.bean.Sottocategoria" %>
+<%@ page import="model.dao.CategoriaDAO" %>
 <%@ page import="model.dao.ProdottoDAO" %>
+<%@ page import="model.dao.SottocategoriaDAO" %>
+<%@ page import="util.Breadcrumb" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
 	Categoria categoria;
@@ -15,28 +20,32 @@
 		response.sendRedirect("./");
 		return;
 	}
+%>
+<jsp:include page="parts/Head.jsp"/>
+<%
 	Breadcrumb breadcrumb = new Breadcrumb();
 	breadcrumb.add(categoria.nome);
 	request.setAttribute("breadcrumb", breadcrumb);
 	request.setAttribute("topbar_categoria", categoria.id);
-	request.setAttribute("prodotti", ProdottoDAO.getFromCategoria(categoria));
 %>
-<%@ include file="parts/Head.jsp" %>
-<%@ include file="parts/Topbar.jsp" %>
+<jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<div id="mosaic">
 		<%
 			for (Sottocategoria sottocategoria : SottocategoriaDAO.getAllOf(categoria.id)) {
-				out.println("<a href='sottocategoria.jsp?id=" + sottocategoria.id + "'>");
-				out.println("<img src='" + sottocategoria.immagine + "'/>");
-				out.println("<div><span>" + sottocategoria.nome + "</span></div>");
-				out.println("</a>");
+		%>
+		<a href="sottocategoria.jsp?id=<%= sottocategoria.id %>">
+			<img src="<%= sottocategoria.immagine %>"/>
+			<div><span><%= sottocategoria.nome %></span></div>
+		</a>
+		<%
 			}
 		%>
 	</div>
 	<h1>
 		<%= categoria.nome %>
 	</h1>
-	<%@ include file="parts/Dashboard.jsp" %>
+	<% request.setAttribute("prodotti", ProdottoDAO.getFromCategoria(categoria)); %>
+	<jsp:include page="parts/Dashboard.jsp"/>
 </main>
-<%@ include file="parts/Footer.jsp" %>
+<jsp:include page="parts/Footer.jsp"/>

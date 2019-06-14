@@ -49,12 +49,14 @@ header > div:last-child {
 }
 
 #firstbar #leftside a:first-child {
-	font-size: 1.1em;
-	font-weight: bold;
-	color: var(--cl);
-	padding-right: 10px;
 	margin-right: 10px;
 	box-shadow: 1px 0 0 #999;
+	background-image: url("../images/logo.png");
+	background-size: 130px auto;
+	background-repeat: no-repeat;
+	background-position: left center;
+	width: 140px;
+	height: 25px;
 }
 
 #firstbar #leftside a:first-child::after,

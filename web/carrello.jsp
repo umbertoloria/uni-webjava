@@ -1,17 +1,19 @@
+<%@ page import="model.Carrello" %>
 <%@ page import="model.bean.CarrelloItem" %>
 <%@ page import="model.bean.Prodotto" %>
 <%@ page import="model.bean.Produttore" %>
 <%@ page import="model.dao.ProdottoDAO" %>
 <%@ page import="model.dao.ProduttoreDAO" %>
+<%@ page import="util.Breadcrumb" %>
 <%@ page import="util.Formats" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="parts/Head.jsp" %>
+<jsp:include page="parts/Head.jsp"/>
 <%
 	Breadcrumb breadcrumb = new Breadcrumb();
 	breadcrumb.add("Carrello");
 	request.setAttribute("breadcrumb", breadcrumb);
 %>
-<%@ include file="parts/Topbar.jsp" %>
+<jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<h1>Carrello</h1>
 	<!-- TODO: Aggiornare i dati periodicamente. -->
@@ -33,7 +35,8 @@
 					<img src="<%= prodot.immagine %>"/>
 				</a>
 				<a href="prodotto.jsp?id=<%= prodot.id %>">
-					<b><%= produt.nome %>
+					<b>
+						<%= produt.nome %>
 					</b>
 					<%= prodot.nome %>
 				</a>
@@ -41,7 +44,7 @@
 			<div>
 				<div>
 					<span>
-							<%= Formats.euro(prodot.prezzo * carrelloItem.quantita) %>
+						<%= Formats.euro(prodot.prezzo * carrelloItem.quantita) %>
 					</span>
 				</div>
 				<div>
@@ -55,8 +58,8 @@
 		%>
 	</div>
 	<script>
+
 		function newInput(elem) {
-			console.log("changing something...");
 			const div = elem.parent().parent().parent();
 			const pid = div.attr("data-product-id");
 			const val = elem.val();
@@ -92,6 +95,7 @@
 				$("#rightside li.carrello a label").html(count);
 			});
 		});
+
 	</script>
 	<%
 	} else {
@@ -101,4 +105,4 @@
 		}
 	%>
 </main>
-<%@ include file="parts/Footer.jsp" %>
+<jsp:include page="parts/Footer.jsp"/>

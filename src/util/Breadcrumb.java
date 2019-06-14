@@ -13,7 +13,7 @@ public final class Breadcrumb implements Iterable<BreadcrumbItem> {
 	}
 
 	public void add(String nome) {
-		items.add(new BreadcrumbItem(nome));
+		items.add(new BreadcrumbItem(nome, null));
 	}
 
 	public Iterator<BreadcrumbItem> iterator() {

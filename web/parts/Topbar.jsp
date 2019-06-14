@@ -1,19 +1,16 @@
-<%@ page import="model.Carrello" %>
 <%@ page import="model.bean.Categoria" %>
 <%@ page import="model.bean.Sottocategoria" %>
-<%@ page import="model.bean.Utente" %>
 <%@ page import="model.dao.CategoriaDAO" %>
 <%@ page import="model.dao.SottocategoriaDAO" %>
 <%@ page import="util.Breadcrumb" %>
 <%@ page import="util.BreadcrumbItem" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
 	<div>
 		<div id="firstbar">
 			<div id="leftside">
-				<a href="./">
-					MCommerce
-				</a>
+				<a href="./"></a>
 				<%
 					Breadcrumb bc = (Breadcrumb) request.getAttribute("breadcrumb");
 					if (bc != null) {
@@ -21,11 +18,28 @@
 							if (bci.link == null) {
 								out.println("<a>" + bci.nome + "</a>");
 							} else {
-								out.println("<a href='" + bci.link + "'>" + bci.nome + "</a>");
+								out.println("<a href=\"" + bci.link + "\">" + bci.nome + "</a>");
 							}
 						}
 					}
 				%>
+				<%--<c:catch>
+					<jsp:useBean id="breadcrumb" scope="request" type="util.Breadcrumb"/>
+					<c:choose>
+						<c:when test="${breadcrumb != null}">
+							<c:forEach items="${breadcrumb.iterator()}" var="bci">
+								<c:choose>
+									<c:when test="${bci.link == null}">
+										<a><c:out value="${bci.nome}"/></a>
+									</c:when>
+									<c:otherwise>
+										<a href="<c:out value="bci.link"/>"><c:out value="bci.nome"/></a>
+									</c:otherwise>
+								</c:choose>
+							</c:forEach>
+						</c:when>
+					</c:choose>
+				</c:catch>--%>
 			</div>
 			<div id="centerside">
 				<form id="search_form" action="cerca.jsp" method="get">
@@ -36,72 +50,54 @@
 				</form>
 			</div>
 			<ul id="rightside">
-					<%
-					// TODO: Sincronizzare i dati sulla sessione con quelli sul DB.
-					Utente user = (Utente) request.getSession().getAttribute("utente");
-					if (user != null) {
-				%>
-				<li>
-					<a>
-						Account
-					</a>
-					<ul>
-						<li><a href="impostazioni.jsp">Impostazioni</a></li>
-						<li><a href="logout.jsp">Logout</a></li>
-					</ul>
-				</li>
-					<%
-				} else {
-				%>
-				<li>
-					<a href="login.jsp">
-						Login
-					</a>
-				</li>
-					<%
-					}
-					int carrelloCount = 0;
-					// TODO: refreshare ogni tanto il numero di prodotti nel carrello.
-					{
-						Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
-						if (carrello != null) {
-							carrelloCount = carrello.getCount();
-						}
-					}
-				%>
+				<c:catch var="exp1">
+					<jsp:useBean id="utente" scope="session" type="model.bean.Utente"/>
+				</c:catch>
+				<c:choose>
+					<c:when test="${exp1 == null}">
+						<li>
+							<a>Account</a>
+							<ul>
+								<li><a href="impostazioni.jsp">Impostazioni</a></li>
+								<li><a href="logout.jsp">Logout</a></li>
+							</ul>
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li>
+							<a href="login.jsp">Login</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
 				<li class="carrello">
 					<a href="carrello.jsp">
 						Carrello
 						<label>
-							<%= carrelloCount %>
+							<c:catch var="exp2">
+								<jsp:useBean id="carrello" scope="session" type="model.Carrello"/>
+								<jsp:getProperty name="carrello" property="count"/>
+							</c:catch>
 						</label>
 					</a>
 				</li>
+			</ul>
 		</div>
-		<%--<script>
-			$("#rightside img").each(function () {
-				$(this).attr("src", $(this).attr("idle"));
-			}).hover(function () {
-				$(this).attr("src", $(this).attr("hover"));
-			}, function () {
-				$(this).attr("src", $(this).attr("idle"));
-			});
-		</script>--%>
-	</div>
 	</div>
 	<div>
 		<nav>
 			<ul>
 				<%
+					// TODO: Sincronizzare i dati sulla sessione con quelli sul DB.
+					// TODO: Aggiornare ogni tanto il numero di prodotti nel carrello.
 					Integer activeCategoria = (Integer) request.getAttribute("topbar_categoria");
 					Integer activeSottocategoria = (Integer) request.getAttribute("topbar_sottocategoria");
 					for (Categoria cat : CategoriaDAO.getAll()) {
 						if (activeCategoria != null && activeCategoria == cat.id) {
-							out.println("<li class='active'>");
+							out.println("<li class=\"active\">");
 						} else {
 							out.println("<li>");
 						}
-						out.println("<a href='categoria.jsp?id=" + cat.id + "'>");
+						out.println("<a href=\"categoria.jsp?id=" + cat.id + "\">");
 						out.println(cat.nome);
 						out.println("</a>");
 						Sottocategoria[] sottocats = SottocategoriaDAO.getAllOf(cat.id);
@@ -109,11 +105,11 @@
 							out.println("<ul>");
 							for (Sottocategoria sottocat : sottocats) {
 								if (activeSottocategoria != null && activeSottocategoria == sottocat.id) {
-									out.println("<li class='active'>");
+									out.println("<li class=\"active\">");
 								} else {
 									out.println("<li>");
 								}
-								out.println("<a href='sottocategoria.jsp?id=" + sottocat.id + "'>");
+								out.println("<a href=\"sottocategoria.jsp?id=" + sottocat.id + "\">");
 								out.println(sottocat.nome);
 								out.println("</a>");
 								out.println("</li>");

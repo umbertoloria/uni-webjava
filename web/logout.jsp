@@ -2,9 +2,9 @@
     request.getSession().removeAttribute("utente");
 %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%@ include file="parts/Head.jsp" %>
+<jsp:include page="parts/Head.jsp"/>
 <!-- TODO: css -->
-Arrivederci scemo.
+Arrivederci.
 <script>
 	setTimeout(function () {
 		location.href = ".";

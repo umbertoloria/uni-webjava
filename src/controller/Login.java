@@ -30,7 +30,7 @@ public class Login extends HttpServlet {
 		Utente utente = new Utente(email, password);
 
 		UtenteValidator utenteValidator = new UtenteValidator(utente, false);
-		if (!utenteValidator.empty()) {
+		if (utenteValidator.wrongInput()) {
 			em.notice("email", utenteValidator.email);
 			em.notice("password", utenteValidator.password);
 		} else {

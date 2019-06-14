@@ -19,7 +19,7 @@ public class Ricerca extends HttpServlet {
 		String q = req.getParameter("q").trim();
 		if (q.length() >= 3) {
 			req.setAttribute("prodotti", ProdottoDAO.search(q));
-			RequestDispatcher disp = req.getRequestDispatcher("parts/lists/Prodotto.jsp");
+			RequestDispatcher disp = req.getRequestDispatcher("parts/ProdottoListItem.jsp");
 			disp.include(req, resp);
 		}
 	}

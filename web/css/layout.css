@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico|Patrick+Hand');
 
-aside {
+/*aside {
 	display: block;
 	width: 200px;
 	margin-left: 20px;
@@ -39,7 +39,7 @@ aside .sidebox ul li:hover a {
 	background: #eee;
 	padding-left: 15px;
 	box-shadow: inset -5px 0 0 #ccc;
-}
+}*/
 
 article {
 	background-image: url("../images/paper.png");

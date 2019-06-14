@@ -1,12 +1,10 @@
 <%@ page import="model.dao.ProdottoDAO" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
-	request.setAttribute("prodotti", ProdottoDAO.getAll());
-%>
-<%@ include file="parts/Head.jsp" %>
-<%@ include file="parts/Topbar.jsp" %>
+<jsp:include page="parts/Head.jsp"/>
+<jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<h1>Top 10</h1>
-	<%@ include file="parts/Dashboard.jsp" %>
+	<% request.setAttribute("prodotti", ProdottoDAO.getAll()); %>
+	<jsp:include page="parts/Dashboard.jsp"/>
 </main>
-<%@ include file="parts/Footer.jsp" %>
+<jsp:include page="parts/Footer.jsp"/>

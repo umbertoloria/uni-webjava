@@ -24,7 +24,8 @@ public class UtenteDAO extends DAO {
 
 	public static boolean doSave(Utente utente) {
 		try {
-			insert("INSERT INTO utenti SET email = ?, password = ?, nome = ?", utente.email, utente.password, utente.nome);
+			insert("INSERT INTO utenti SET email = ?, password = ?, nome = ?",
+					utente.email, utente.password, utente.nome);
 			return true;
 		} catch (SQLException e) {
 			return false;

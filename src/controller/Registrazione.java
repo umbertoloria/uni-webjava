@@ -33,7 +33,7 @@ public class Registrazione extends HttpServlet {
 		Utente utente = new Utente(email, password, nome);
 
 		UtenteValidator utenteValidator = new UtenteValidator(utente, true);
-		if (!utenteValidator.empty()) {
+		if (utenteValidator.wrongInput()) {
 			em.notice("nome", utenteValidator.nome);
 			em.notice("email", utenteValidator.email);
 			em.notice("password", utenteValidator.password);

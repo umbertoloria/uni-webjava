@@ -10,7 +10,7 @@ public class Conn {
 	public synchronized static Conn hold() {
 		if (cs.size() == 0) {
 			try {
-				cs.add(new Conn("localhost", 3306, "root", "Ciaociao98.", "ecommerce"));
+				cs.add(new Conn("localhost", 3306, "root", "ciaociao", "ecommerce"));
 				// pass antonio = "Ciaociao98."
 				// pass umberto = "ciaociao"
 				// pass mario = "ciao"
