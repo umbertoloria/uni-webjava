@@ -22,9 +22,7 @@ public class ProdottoDAO extends DAO {
 				Float.parseFloat(r[4]), r[5], r[6]);
 	}
 
-	/**
-	 Restituisce tutti i prodotti ordinati per nome.
-	 */
+	/** Restituisce tutti i prodotti ordinati per nome. */
 	public static Prodotto[] getAll() {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();
@@ -35,9 +33,7 @@ public class ProdottoDAO extends DAO {
 		return prodotti.toArray(new Prodotto[0]);
 	}
 
-	/**
-	 Ricerca tutti i prodotti con il nome fornito, ordinati per nome.
-	 */
+	/** Ricerca tutti i prodotti con il nome fornito, ordinati per nome. */
 	public static Prodotto[] search(String[] words) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();
@@ -53,9 +49,7 @@ public class ProdottoDAO extends DAO {
 		return prodotti.toArray(new Prodotto[0]);
 	}
 
-	/**
-	 Ricerca tutti i prodotti appartenenti alla categoria fornita, ordinati per nome.
-	 */
+	/** Ricerca tutti i prodotti appartenenti alla categoria fornita, ordinati per nome. */
 	public static Prodotto[] getFromCategoria(Categoria categoria) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();
@@ -67,9 +61,7 @@ public class ProdottoDAO extends DAO {
 		return prodotti.toArray(new Prodotto[0]);
 	}
 
-	/**
-	 Ricerca tutti i prodotti appartenenti alla sottocategoria fornita, ordinati per nome.
-	 */
+	/** Ricerca tutti i prodotti appartenenti alla sottocategoria fornita, ordinati per nome. */
 	public static Prodotto[] getFromSottocategoria(Sottocategoria sottocategoria) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();
@@ -80,9 +72,7 @@ public class ProdottoDAO extends DAO {
 		return prodotti.toArray(new Prodotto[0]);
 	}
 
-	/**
-	 Ricerca tutti i prodotti venduti dal produttore fornito, ordinati per nome.
-	 */
+	/** Ricerca tutti i prodotti venduti dal produttore fornito, ordinati per nome. */
 	public static Prodotto[] getFromProduttore(Produttore produttore) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();

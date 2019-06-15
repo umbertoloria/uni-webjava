@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class ErrorManager {
 
+	// TODO: Usare JSON oppure *XML*.
+
 	private HttpServletResponse resp;
 	private ArrayList<String> usedFields = new ArrayList<>();
 

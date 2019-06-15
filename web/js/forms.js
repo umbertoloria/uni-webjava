@@ -6,6 +6,7 @@ function agisci(form, out) {
 		queue.push([command.substr(0, index), command.substr(index + 1)]);
 	}
 	form.find("fieldset label label").remove();
+	form.find(".msg").removeClass("shown").html("");
 	for (let item of queue) {
 		const option = item[0];
 		const parameter = item[1];
@@ -27,6 +28,10 @@ function agisci(form, out) {
 				location.href = parameter;
 			}, 1500);
 		} else if (option === 'done') {
+			form.find(".msg").removeClass("shown").html("");
+			form.find("input[name]").each(function () {
+				$(this).parent().children("label").remove();
+			});
 			overlay(parameter);
 		}
 	}

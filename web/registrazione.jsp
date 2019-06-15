@@ -8,7 +8,7 @@
 %>
 <jsp:include page="parts/Topbar.jsp"/>
 <main>
-	<form action="servlet_registrazione" method="post">
+	<form action="registrazione" method="post">
 		<fieldset>
 			<label>
 				<span>Nome</span>

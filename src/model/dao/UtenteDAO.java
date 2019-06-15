@@ -32,4 +32,13 @@ public class UtenteDAO extends DAO {
 		}
 	}
 
+	public static boolean updatePassword(Utente utente) {
+		try {
+			insert("UPDATE utenti SET password = ? WHERE id = ?", utente.password, utente.id);
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+
 }

@@ -82,15 +82,6 @@
 						}
 					});
 					div.parent().attr("data-serial", newserial);
-					/*const prezzo_unitario = 0;
-					let prezzo = "€ " + Math.round(prezzo_unitario * quantita * 100) / 100;
-					prezzo = prezzo.replace(".", ",");
-					if (prezzo.indexOf(",") === -1) {
-						prezzo += ",00";
-					}
-					while (prezzo.indexOf(",") > prezzo.length - 3) {
-						prezzo += "0";
-					}*/
 					// Aggiornamento "totale"
 					div.find("div:last-child div:first-child span").html(newtotal);
 					// Sincronizzazione carrello.

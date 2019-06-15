@@ -14,6 +14,7 @@
 	<link rel='stylesheet' href='css/mosaic.css'/>
 	<link rel='stylesheet' href='css/carrello.css'/>
 	<link rel='stylesheet' href='css/tabs.css'/>
+	<link rel='stylesheet' href='css/prodotto.css'/>
 	<script type='text/javascript' src='js/jQuery.min.js'></script>
 	<script type='text/javascript' src='js/core.js'></script>
 	<script type='text/javascript' src='js/topbar.js'></script>

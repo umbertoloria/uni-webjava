@@ -1,6 +1,6 @@
 $(function () {
 
-	$(".tabs").each(function (index, value) {
+	$(".tabs").each(function () {
 		$(this).find("> .tabs_header li:first-child").addClass("active");
 		$(this).find("> .tabs_container div:first-child").show();
 	});

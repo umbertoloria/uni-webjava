@@ -73,3 +73,7 @@ main {
 	margin: auto;
 	width: 1200px;
 }
+
+main > :first-child{
+	margin-top: 0;
+}

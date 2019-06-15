@@ -106,6 +106,23 @@ create table carrello_items (
 create index prodotto
     on carrello_items (prodotto);
 
+create table indirizzi (
+    id        int auto_increment
+        primary key,
+    nome      varchar(100) not null,
+    indirizzo varchar(100) not null,
+    citta     varchar(50)  not null,
+    cap       int          not null,
+    provincia varchar(50)  not null,
+    utente    int          not null,
+    constraint indirizzi_ibfk_1
+        foreign key (utente) references utenti (id)
+            on update cascade
+);
+
+create index utente
+    on indirizzi (utente);
+
 INSERT INTO ecommerce.categorie (id, nome)
 VALUES (1, 'Chitarra');
 INSERT INTO ecommerce.categorie (id, nome)
@@ -243,3 +260,8 @@ VALUES (16, 12, 'XM8500', 14, 30.00,
 
 INSERT INTO ecommerce.utenti (id, email, password, nome, tipo)
 VALUES (1, 'umberto.loria@gmail.com', 'pwd', 'umbertolo', 'Normale');
+
+INSERT INTO ecommerce.indirizzi (id, nome, indirizzo, citta, cap, provincia, utente)
+VALUES (1, 'Casa', 'Via Marconi 51', 'Baronissi', 12345, 'Salerno', 1);
+INSERT INTO ecommerce.indirizzi (id, nome, indirizzo, citta, cap, provincia, utente)
+VALUES (2, 'Ufficio', 'Via Marconi 4', 'Baronissi', 12345, 'Salerno', 1);

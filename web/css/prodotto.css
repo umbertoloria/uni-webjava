@@ -1,0 +1,96 @@
+#prodotto {
+	display: grid;
+	grid-template-columns: 280px auto 220px;
+	grid-column-gap: 50px;
+	width: 100%;
+}
+
+#prodotto > div:first-child {
+	overflow: hidden;
+	background: #fff;
+	border-radius: 3px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, .05);
+}
+
+#prodotto > div:first-child img {
+	display: block;
+	width: 280px;
+	height: 280px;
+	padding: 10px;
+	box-sizing: border-box;
+	object-fit: contain;
+	transition: .5s;
+}
+
+#prodotto > div:first-child img:hover {
+	transform: scale(1.2);
+}
+
+#prodotto h2 {
+	font-size: 2em;
+	margin: 0 0 20px 0;
+}
+
+#prodotto p {
+}
+
+#prodotto form {
+	margin: 0;
+	width: 100%;
+	padding: 30px;
+	box-sizing: border-box;
+	background: #ddd;
+	border-radius: 5px;
+}
+
+#prodotto form div {
+	display: grid;
+	grid-template-columns: auto auto;
+	grid-column-gap: 10px;
+	margin-bottom: 10px;
+}
+
+#prodotto form input[type="number"] {
+	border-radius: 10px;
+	width: 60px;
+	box-sizing: border-box;
+	border: 1px solid #ddd;
+	padding: 5px 10px;
+}
+
+#prodotto form div span {
+	display: block;
+	background: var(--price);
+	color: rgba(255, 255, 255, .9);
+	font-weight: bold;
+	text-align: center;
+	padding: 0 10px;
+	width: 90px;
+	line-height: 35px;
+	box-sizing: border-box;
+	border-radius: 10px;
+}
+
+#prodotto form input[type="submit"] {
+	display: block;
+	border: 1px solid rgba(0, 0, 0, .3);
+	border-radius: 3px;
+	background: var(--cart);
+	background: -webkit-linear-gradient(top, #f51, #c10);
+	color: rgba(255, 255, 255, .9);
+	font-size: 1.1em;
+	text-shadow: 0 2px 0 rgba(0, 0, 0, 1);
+	padding: 0 5px 1px 5px;
+	height: 50px;
+	width: 100%;
+	cursor: pointer;
+	transition: .3s;
+}
+
+#prodotto form input[type="submit"]:hover {
+	color: #fff;
+}
+
+#prodotto form p:nth-child(4) {
+	color: green;
+}

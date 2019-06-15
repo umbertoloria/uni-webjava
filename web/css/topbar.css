@@ -107,7 +107,7 @@ header > div:last-child {
 	margin-top: 7px;
 	display: block;
 	max-height: 200px;
-	overflow-y: scroll;
+	overflow-y: auto;
 	padding: 10px 0;
 	border-radius: 3px;
 	box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
@@ -211,19 +211,6 @@ header > div:last-child {
 #firstbar #rightside li ul li:hover > a {
 	box-shadow: none;
 }
-
-/*#firstbar #rightside li a img {*/
-/*	display: block;*/
-/*	width: 30px;*/
-/*	height: 30px;*/
-/*	object-fit: cover;*/
-/*}*/
-
-/*#firstbar #rightside li a span {*/
-/*	display: block;*/
-/*	text-align: center;*/
-/*	line-height: 25px;*/
-/*}*/
 
 #firstbar #rightside li.carrello {
 	position: relative;

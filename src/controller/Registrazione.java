@@ -2,7 +2,7 @@ package controller;
 
 import model.bean.Utente;
 import model.dao.UtenteDAO;
-import model.formatters.UtenteValidator;
+import model.validators.UtenteValidator;
 import util.ErrorManager;
 
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/servlet_registrazione")
+@WebServlet("/registrazione")
 public class Registrazione extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -38,15 +38,15 @@ public class Registrazione extends HttpServlet {
 			em.notice("email", utenteValidator.email);
 			em.notice("password", utenteValidator.password);
 		} else if (!password.equals(password2)) {
-			em.notice("password2", "Le password devono coincidere.");
+			em.notice("password2", "Le password devono coincidere");
 		} else if (UtenteDAO.doRetrieveByEmail(email) != null) {
-			em.message("L'E-Mail fornita è già usata da un altro utente.");
+			em.message("L'E-Mail fornita è già usata da un altro utente");
 		} else {
 			if (UtenteDAO.doSave(utente)) {
 				em.done("Registrazione effettuata");
 				em.redirect("login.jsp");
 			} else {
-				em.message("Errore query.");
+				em.message("Al momento non è possibile accedere al proprio account. Riprova più tardi.");
 			}
 		}
 	}

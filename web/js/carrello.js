@@ -51,5 +51,5 @@ function aggiornaCarrello() {
 
 $(function () {
 	aggiornaCarrello();
-	setInterval(aggiornaCarrello, 60 * 1000);
+	setInterval(aggiornaCarrello, 30000);
 });

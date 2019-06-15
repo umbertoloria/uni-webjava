@@ -2,7 +2,7 @@ package controller;
 
 import model.bean.Utente;
 import model.dao.UtenteDAO;
-import model.formatters.UtenteValidator;
+import model.validators.UtenteValidator;
 import util.ErrorManager;
 
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
-@WebServlet("/servlet_login")
+@WebServlet("/login")
 public class Login extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -36,7 +36,7 @@ public class Login extends HttpServlet {
 		} else {
 			Utente saved = UtenteDAO.doRetrieveByEmail(email);
 			if (saved == null || !saved.password.equals(password)) {
-				em.message("Dati di accesso errati.");
+				em.message("Dati di accesso errati");
 			} else {
 				HttpSession session = req.getSession();
 				session.setMaxInactiveInterval(60 * 60);

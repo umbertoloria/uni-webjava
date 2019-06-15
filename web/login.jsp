@@ -8,7 +8,7 @@
 %>
 <jsp:include page="parts/Topbar.jsp"/>
 <main>
-	<form action="servlet_login" method="post">
+	<form action="login" method="post">
 		<fieldset>
 			<label>
 				<span>E-Mail</span>

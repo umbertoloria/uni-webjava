@@ -1,4 +1,4 @@
-package model.formatters;
+package model.validators;
 
 import model.bean.Utente;
 

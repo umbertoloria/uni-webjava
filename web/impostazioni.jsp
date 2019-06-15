@@ -1,5 +1,7 @@
-<%@ page import="util.Breadcrumb" %>
+<%@ page import="model.bean.Indirizzo" %>
 <%@ page import="model.bean.Utente" %>
+<%@ page import="model.dao.IndirizzoDAO" %>
+<%@ page import="util.Breadcrumb" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
 	Utente utente = (Utente) request.getSession().getAttribute("utente");
@@ -20,22 +22,83 @@
 		<ul class="tabs_header">
 			<li><a>Cambia Password</a></li>
 			<li><a>Aggiorna Indirizzi</a></li>
-			<li><a>Informazioni Personali</a></li>
+			<li><a>Informazioni personali</a></li>
 		</ul>
 		<div class="tabs_container">
-			<div>Primo: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-				the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-				and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-				leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-				the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-				publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			<div>
+				<form action="cambiaPassword" method="post">
+					<fieldset>
+						<label>
+							<span>Vecchia password</span>
+							<input type="password" name="vecchia" placeholder="Pa$$w0rd" class="input"/>
+						</label>
+						<label>
+							<span>Nuova password</span>
+							<input type="password" name="nuova" placeholder="Pa$$w0rd" class="input"/>
+						</label>
+						<label>
+							<span>Conferma password</span>
+							<input type="password" name="conferma" placeholder="Pa$$w0rd" class="input"/>
+						</label>
+					</fieldset>
+					<input type="submit" value="Cambia password" class="button"/>
+					<div class="msg"></div>
+				</form>
 			</div>
-			<div>Secondo: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-				been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of
-				type and scrambled it to make a type specimen book. It has survived not only five centuries, but also
-				the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s
-				with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-				publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			<div>
+				<grid>
+					<%
+						for (Indirizzo indirizzo : IndirizzoDAO.doRetrieveByUtente(utente)) {
+					%>
+					<div>
+						<h3>
+							<%= indirizzo.nome %>
+						</h3>
+						<ul>
+							<li>
+								<%= indirizzo.indirizzo %>
+							</li>
+							<li>
+								<%= indirizzo.citta%>
+							</li>
+							<li>
+								<%= indirizzo.cap%>
+							</li>
+							<li>
+								<%= indirizzo.provincia%>
+							</li>
+						</ul>
+					</div>
+					<%
+						}
+					%>
+				</grid>
+				<form action="aggiungiIndirizzo" method="post">
+					<fieldset>
+						<label>
+							<span>Nome</span>
+							<input type="text" name="nome" placeholder="Casa" class="input"/>
+						</label>
+						<label>
+							<span>Indirizzo</span>
+							<input type="text" name="indirizzo" placeholder="Via Tal Dei Tali 59" class="input"/>
+						</label>
+						<label>
+							<span>Città</span>
+							<input type="text" name="citta" placeholder="Vallo di Java" class="input"/>
+						</label>
+						<label>
+							<span>CAP</span>
+							<input type="number" name="cap" placeholder="1996" class="input" min="00000" max="99999"/>
+						</label>
+						<label>
+							<span>Provincia</span>
+							<input type="text" name="provincia" placeholder="Orientata ad Oggetti" class="input"/>
+						</label>
+					</fieldset>
+					<input type="submit" value="Aggiungi indirizzo" class="button"/>
+					<div class="msg"></div>
+				</form>
 			</div>
 			<div>Terzo: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
 				the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
