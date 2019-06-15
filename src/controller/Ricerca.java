@@ -18,7 +18,11 @@ public class Ricerca extends HttpServlet {
 		resp.setContentType("text/html");
 		String q = req.getParameter("q").trim();
 		if (q.length() >= 3) {
-			req.setAttribute("prodotti", ProdottoDAO.search(q));
+			String[] qs = q.split(" ");
+			for (int i = 0; i < qs.length; i++) {
+				qs[i] = qs[i].trim();
+			}
+			req.setAttribute("prodotti", ProdottoDAO.search(qs));
 			RequestDispatcher disp = req.getRequestDispatcher("parts/ProdottoListItem.jsp");
 			disp.include(req, resp);
 		}

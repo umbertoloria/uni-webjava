@@ -1,26 +1,26 @@
-#cart_list {
+#carrello {
 	display: grid;
 	grid-template-columns: 1fr 1fr;
 	grid-gap: 30px;
 	width: 100%;
 }
 
-#cart_list > div {
+#carrello > div {
 	display: flex;
 	justify-content: space-between;
 	width: 100%;
 	height: 150px;
 }
 
-#cart_list > div > div {
+#carrello > div > div {
 	display: flex;
 }
 
-#cart_list > div > div:first-child {
+#carrello > div > div:first-child {
 	flex-direction: row;
 }
 
-#cart_list > div > div:first-child > a:first-child {
+#carrello > div > div:first-child > a:first-child {
 	display: block;
 	margin-right: 20px;
 	overflow: hidden;
@@ -28,7 +28,7 @@
 	box-shadow: 0 0 20px rgba(0, 0, 0, .05);
 }
 
-#cart_list > div > div:first-child > a:first-child img {
+#carrello > div > div:first-child > a:first-child img {
 	width: 130px;
 	height: 130px;
 	padding: 10px;
@@ -37,21 +37,21 @@
 	transition: .5s;
 }
 
-#cart_list > div > div:first-child > a:first-child:hover img {
+#carrello > div > div:first-child > a:first-child:hover img {
 	transform: scale(1.1);
 }
 
-#cart_list > div > div:first-child > a:last-child {
+#carrello > div > div:first-child > a:last-child {
 	font-size: 1.3em;
 	height: min-content;
 }
 
-#cart_list > div > div:last-child {
+#carrello > div > div:last-child {
 	flex-direction: column;
 	justify-content: space-between;
 }
 
-#cart_list > div > div:last-child > div:first-child span {
+#carrello > div > div:last-child > div:first-child span {
 	display: inline-block;
 	background: var(--price);
 	color: rgba(255, 255, 255, .9);
@@ -61,13 +61,13 @@
 	border-radius: 10px;
 }
 
-#cart_list > div > div:last-child > div:last-child {
+#carrello > div > div:last-child > div:last-child {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;
 }
 
-#cart_list > div > div:last-child > div:last-child input {
+#carrello > div > div:last-child > div:last-child input {
 	width: 35px;
 	border: 1px solid #ddd;
 	border-radius: 10px;
@@ -75,7 +75,7 @@
 	margin-bottom: 5px;
 }
 
-#cart_list > div > div:last-child > div:last-child a {
+#carrello > div > div:last-child > div:last-child a {
 	display: block;
 	border: 1px solid rgba(0, 0, 0, .3);
 	border-radius: 3px;
@@ -89,7 +89,7 @@
 
 @media only screen and (max-width: 1000px) {
 
-	#cart_list {
+	#carrello {
 		grid-template-columns: 1fr;
 	}
 

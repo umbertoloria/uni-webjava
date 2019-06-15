@@ -38,17 +38,16 @@ public class ProdottoDAO extends DAO {
 	/**
 	 Ricerca tutti i prodotti con il nome fornito, ordinati per nome.
 	 */
-	public static Prodotto[] search(String query) {
+	public static Prodotto[] search(String[] words) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();
-		Object[] words = query.split(" ");
 		for (int i = 0; i < words.length; i++) {
 			words[i] = "%" + words[i] + "%";
 		}
 		Table t = conn.query("SELECT * FROM (SELECT prodotti.id, sottocategoria, prodotti.nome, produttore, " +
 				"prezzo, prodotti.immagine, descrizione, CONCAT(prodotti.nome, ' ', produttori.nome) full " +
 				"FROM prodotti JOIN produttori ON prodotti.produttore = produttori.id) t WHERE" +
-				" full LIKE ? AND".repeat(words.length - 1) + " full LIKE ? ORDER BY nome", words);
+				" full LIKE ? AND".repeat(words.length - 1) + " full LIKE ? ORDER BY nome", (Object[]) words);
 		Conn.release(conn);
 		fillIn(t, prodotti);
 		return prodotti.toArray(new Prodotto[0]);

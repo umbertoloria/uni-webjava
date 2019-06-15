@@ -23,7 +23,7 @@ header > div:last-child {
 	width: 1200px;
 	margin: auto;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
+	grid-template-columns: auto auto auto;
 	align-items: center;
 	justify-content: space-between;
 }
@@ -74,11 +74,12 @@ header > div:last-child {
 }
 
 #firstbar #centerside form input[type='text'] {
+	width: 300px;
 	padding: 0 10px;
+	box-sizing: border-box;
 	border-radius: 15px 0 0 15px;
 	border: 1px solid #ccc;
 	border-right: 0;
-	width: 300px;
 }
 
 #firstbar #centerside form input[type='submit'] {
@@ -103,11 +104,13 @@ header > div:last-child {
 	top: 100%;
 	left: 0;
 	right: 0;
+	margin-top: 7px;
 	display: block;
 	max-height: 200px;
+	overflow-y: scroll;
 	padding: 10px 0;
-	border-radius: 0 0 3px 3px;
-	box-shadow: 5px 10px 15px rgba(0, 0, 0, .3);
+	border-radius: 3px;
+	box-shadow: 0 5px 15px rgba(0, 0, 0, .3);
 	background: white;
 	opacity: 0;
 	visibility: hidden;
@@ -130,7 +133,7 @@ header > div:last-child {
 
 #firstbar #centerside form .results a:hover {
 	padding-left: 10px;
-	box-shadow: inset 5px 0 0 var(--cl);
+	background: #ddd;
 }
 
 #firstbar #centerside form .results a img {

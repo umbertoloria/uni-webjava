@@ -27,9 +27,12 @@ function addProdottoToCart(elem, prodotto) {
 		}, 3000);
 		addToCart(prodotto, 1, function (count) {
 			notification("Prodotto aggiunto sul carrello.");
+			// Aggiorna "cardinalità"
 			$("#rightside li.carrello a label").html(count);
-		}, function () {
-			notification("Problema...");
+			// Sincronizzazione carrello.
+			aggiornaCarrello();
+		}, function (error) {
+			notification("Problema: " + error);
 		});
 	}
 }

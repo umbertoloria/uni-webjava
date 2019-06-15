@@ -46,4 +46,16 @@ public class Carrello implements Iterable<CarrelloItem> {
 		return result.iterator();
 	}
 
+	public String serialize() {
+		StringBuilder serial = new StringBuilder();
+		for (Integer prodotto : prodotti.keySet()) {
+			int quantita = prodotti.get(prodotto);
+			serial.append(prodotto);
+			serial.append(':');
+			serial.append(quantita);
+			serial.append(';');
+		}
+		return serial.toString();
+	}
+
 }

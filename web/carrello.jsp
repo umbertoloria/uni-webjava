@@ -16,12 +16,11 @@
 <jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<h1>Carrello</h1>
-	<!-- TODO: Aggiornare i dati periodicamente. -->
 	<%
 		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
 		if (carrello != null) {
 	%>
-	<div id="cart_list">
+	<div id="carrello" data-serial="<%= carrello.serialize() %>">
 		<%
 			for (CarrelloItem carrelloItem : carrello) {
 				Prodotto prodot = ProdottoDAO.doRetrieveByKey(carrelloItem.prodotto);
@@ -59,40 +58,71 @@
 	</div>
 	<script>
 
-		function newInput(elem) {
-			const div = elem.parent().parent().parent();
-			const pid = div.attr("data-product-id");
-			const val = elem.val();
-			setToCart(pid, val, function (itemCarrello) {
-				div.parent().find("div[data-product-id='" + itemCarrello.prodotto + "'] " +
-					"div:last-child div:first-child span").html(itemCarrello.totale);
-			}, function (count) {
-				$("#rightside li.carrello a label").html(count);
-			});
-		}
-
 		let inputTimeout;
 
-		$("#cart_list div div:last-child div:last-child input[type='number']").change(function () {
+		$("#carrello div div:last-child div:last-child input[type='number']").change(function () {
 			const input = $(this);
 			clearTimeout(inputTimeout);
 			inputTimeout = setTimeout(function () {
-				newInput(input);
-			}, 500);
+				const div = input.parent().parent().parent();
+				const prodotto = div.attr("data-product-id");
+				const quantita = input.val();
+				setToCart(prodotto, quantita, function (count, newtotal) {
+					// Aggiorna "cardinalità"
+					$("#rightside li.carrello a label").html(count);
+					// Aggiornamento "data-serial"
+					const app = div.parent().attr("data-serial").split(";");
+					app.pop();
+					let newserial = "";
+					$.each(app, function (index, prod) {
+						if (prod.split(":")[0] === prodotto) {
+							newserial += prod.split(":")[0] + ":" + quantita + ";";
+						} else {
+							newserial += prod + ";";
+						}
+					});
+					div.parent().attr("data-serial", newserial);
+					/*const prezzo_unitario = 0;
+					let prezzo = "€ " + Math.round(prezzo_unitario * quantita * 100) / 100;
+					prezzo = prezzo.replace(".", ",");
+					if (prezzo.indexOf(",") === -1) {
+						prezzo += ",00";
+					}
+					while (prezzo.indexOf(",") > prezzo.length - 3) {
+						prezzo += "0";
+					}*/
+					// Aggiornamento "totale"
+					div.find("div:last-child div:first-child span").html(newtotal);
+					// Sincronizzazione carrello.
+					aggiornaCarrello();
+				}, function (error) {
+					notification("Problema: " + error);
+				});
+			}, 300);
 		});
 
-		$("#cart_list div div:last-child div:last-child a").click(function () {
+		$("#carrello div div:last-child div:last-child a").click(function () {
 			const div = $(this).parent().parent().parent();
-			const dad = div.parent();
-			const pid = div.attr("data-product-id");
-			dropFromCart(pid, function (itemCarrello) {
-				dad.find("div[data-product-id='" + itemCarrello.prodotto + "'] " +
-					"div:last-child div:first-child span").html(itemCarrello.totale);
-				dad.find("div[data-product-id='" + itemCarrello.prodotto + "'] " +
-					"div:last-child div:last-child input[type='number']").val(itemCarrello.quantita);
-			}, function (count) {
-				div.remove();
+			const prodotto = div.attr("data-product-id");
+			dropFromCart(prodotto, function (count) {
+				// Aggiorna "cardinalità"
 				$("#rightside li.carrello a label").html(count);
+				// Aggiornamento "data-serial"
+				const app = div.parent().attr("data-serial").split(";");
+				app.pop();
+				let newserial = "";
+				$.each(app, function (index, prod) {
+					if (prod.split(":")[0] !== prodotto) {
+						newserial += prod + ";";
+					}
+				});
+				div.parent().attr("data-serial", newserial);
+				// Rimozione prodotto.
+				div.remove();
+				// Sincronizzazione carrello.
+				aggiornaCarrello();
+			}, function (error) {
+				notification("Problema: " + error);
 			});
 		});
 

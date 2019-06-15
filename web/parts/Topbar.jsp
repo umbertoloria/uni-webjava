@@ -72,12 +72,7 @@
 				<li class="carrello">
 					<a href="carrello.jsp">
 						Carrello
-						<label>
-							<c:catch var="exp2">
-								<jsp:useBean id="carrello" scope="session" type="model.Carrello"/>
-								<jsp:getProperty name="carrello" property="count"/>
-							</c:catch>
-						</label>
+						<label></label>
 					</a>
 				</li>
 			</ul>

@@ -18,7 +18,7 @@ public class Registrazione extends HttpServlet {
 		resp.setContentType("plain/text");
 		String nome = req.getParameter("nome");
 		String email = req.getParameter("email");
-		String password = req.getParameter("password");
+		String password = req.getParameter("password"); // TODO: Cifrare la password prima di salvarla.
 		String password2 = req.getParameter("password2");
 		if (nome == null || email == null || password == null || password2 == null) {
 			return;
