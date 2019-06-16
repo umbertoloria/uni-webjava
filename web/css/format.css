@@ -1,7 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,400i,700,700i|Raleway:400,400i,700,700i|Source+Sans+Pro:400,400i,700,700i');
-
 body {
-	font-family: Source Sans Pro, Open Sans, sans-serif;
+	font-family: sans-serif;
 	font-size: 14px;
 	background: #f2f2f2;
 	overflow-y: scroll;
@@ -16,13 +14,8 @@ body {
 :root {
 	--cl: #2196f3;
 	--bg: #1976d2;
-	--bc1: #999;
-	--bc2: #aaa;
-	--bc3: #bbb;
-	--bc4: #ccc;
 	--price: #5b5;
 	--cart: #f51;
-	--title-font: Montserrat, sans-serif;
 }
 
 a {
@@ -74,6 +67,6 @@ main {
 	width: 1200px;
 }
 
-main > :first-child{
+main > :first-child {
 	margin-top: 0;
 }

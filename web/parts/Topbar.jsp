@@ -83,7 +83,6 @@
 			<ul>
 				<%
 					// TODO: Sincronizzare i dati sulla sessione con quelli sul DB.
-					// TODO: Aggiornare ogni tanto il numero di prodotti nel carrello.
 					Integer activeCategoria = (Integer) request.getAttribute("topbar_categoria");
 					Integer activeSottocategoria = (Integer) request.getAttribute("topbar_sottocategoria");
 					for (Categoria cat : CategoriaDAO.getAll()) {
@@ -95,7 +94,7 @@
 						out.println("<a href=\"categoria.jsp?id=" + cat.id + "\">");
 						out.println(cat.nome);
 						out.println("</a>");
-						Sottocategoria[] sottocats = SottocategoriaDAO.getAllOf(cat.id);
+						Sottocategoria[] sottocats = SottocategoriaDAO.getAllThoseOf(cat.id);
 						if (sottocats.length > 0) {
 							out.println("<ul>");
 							for (Sottocategoria sottocat : sottocats) {

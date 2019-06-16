@@ -18,12 +18,14 @@ public class AggiungiIndirizzo extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("plain/text");
 
+		ErrorManager em = new ErrorManager(resp);
+
 		int uid;
 		{
 			Utente utente = (Utente) req.getSession().getAttribute("utente");
 			if (utente == null) {
 				// Vado al "logout" perché esso cancella anche "age" nella sessione, che non è ancora implementato.
-				resp.sendRedirect("logout.jsp");
+				em.logout();
 				return;
 			}
 			uid = utente.id;
@@ -43,8 +45,6 @@ public class AggiungiIndirizzo extends HttpServlet {
 		cap = cap.trim();
 		provincia = provincia.trim();
 
-		ErrorManager em = new ErrorManager(resp);
-
 		Indirizzo indirizzoObj = new Indirizzo(nome, indirizzo, citta, cap, provincia, uid);
 
 		IndirizzoValidator indirizzoValidator = new IndirizzoValidator(indirizzoObj);
@@ -55,9 +55,11 @@ public class AggiungiIndirizzo extends HttpServlet {
 			em.notice("cap", indirizzoValidator.cap);
 			em.notice("provincia", indirizzoValidator.provincia);
 		} else {
-			if (IndirizzoDAO.doSave(indirizzoObj)) {
+			if (IndirizzoDAO.doRetrieveByNomeAndUtente(nome, uid) != null) {
+				em.notice("nome", "Possiedi già un indirizzo con questo nome");
+			} else if (IndirizzoDAO.doSave(indirizzoObj)) {
 				em.done("Indirizzo inserito correttamente. Buona spesa!");
-				em.redirect("./");
+				em.reload();
 			} else {
 				em.message("Al momento non è possibile aggiungere indirizzi sul proprio account. Riprova più tardi.");
 			}

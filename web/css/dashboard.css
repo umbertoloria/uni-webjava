@@ -6,10 +6,6 @@
 	grid-row-gap: 50px;
 }
 
-#dashboard > div {
-	font-family: var(--title-font);
-}
-
 #dashboard > div a.image {
 	display: block;
 	padding: 20px;

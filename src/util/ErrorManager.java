@@ -44,4 +44,11 @@ public class ErrorManager {
 		resp.getWriter().append(";");
 	}
 
+	public void reload() throws IOException {
+		resp.getWriter().append("redirect:reload;");
+	}
+
+	public void logout() throws IOException {
+		resp.getWriter().append("redirect:logout.jsp;");
+	}
 }

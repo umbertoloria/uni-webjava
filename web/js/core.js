@@ -2,11 +2,11 @@ function ajaxPostRequest(url, queryString, success) {
 	const conn = new XMLHttpRequest();
 	conn.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			success(this.responseText);
+			success(this.responseText.trim());
 		}
 	};
 	conn.open("POST", url, true);
-	conn.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	conn.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	conn.send(queryString);
 }
 

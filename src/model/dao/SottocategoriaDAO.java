@@ -17,7 +17,7 @@ public class SottocategoriaDAO extends DAO {
 		return new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2], r[3]);
 	}
 
-	public static Sottocategoria[] getAllOf(int categoria) {
+	public static Sottocategoria[] getAllThoseOf(int categoria) {
 		ArrayList<Sottocategoria> sottocategorie = new ArrayList<>();
 		Conn conn = Conn.hold();
 		Table t = conn.query("SELECT id, categoria, nome, immagine FROM sottocategorie WHERE categoria = ?", categoria);

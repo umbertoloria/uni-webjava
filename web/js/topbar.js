@@ -19,7 +19,7 @@ $(function () {
 		const url = "ricerca";
 		const data = dataForm(form[0]);
 		ajaxPostRequest(url, data, function (out) {
-			if (out.trim().length > 0) {
+			if (out.length > 0) {
 				$(form).find(".results").html(out).addClass("shown");
 			} else {
 				hideSearch();

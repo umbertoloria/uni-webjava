@@ -40,6 +40,8 @@
 }
 
 .tabs .tabs_container > div.active {
+	/*display: grid;
+	grid-gap: 30px;*/
 	display: block;
 }
 

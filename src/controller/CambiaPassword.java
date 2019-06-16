@@ -17,12 +17,14 @@ public class CambiaPassword extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("plain/text");
 
+		ErrorManager em = new ErrorManager(resp);
+
 		int uid;
 		{
 			Utente utente = (Utente) req.getSession().getAttribute("utente");
 			if (utente == null) {
 				// Vado al "logout" perché esso cancella anche "age" nella sessione, che non è ancora implementato.
-				resp.sendRedirect("logout.jsp");
+				em.logout();
 				return;
 			}
 			uid = utente.id;
@@ -37,8 +39,6 @@ public class CambiaPassword extends HttpServlet {
 		vecchia = vecchia.trim();
 		nuova = nuova.trim();
 		conferma = conferma.trim();
-
-		ErrorManager em = new ErrorManager(resp);
 
 		PasswordValidator passwordValidator = new PasswordValidator(nuova, conferma);
 		if (passwordValidator.wrongInput()) {

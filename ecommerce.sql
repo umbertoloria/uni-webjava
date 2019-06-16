@@ -115,6 +115,8 @@ create table indirizzi (
     cap       int          not null,
     provincia varchar(50)  not null,
     utente    int          not null,
+    constraint nome_utente
+        unique (nome, utente),
     constraint indirizzi_ibfk_1
         foreign key (utente) references utenti (id)
             on update cascade
@@ -262,6 +264,6 @@ INSERT INTO ecommerce.utenti (id, email, password, nome, tipo)
 VALUES (1, 'umberto.loria@gmail.com', 'pwd', 'umbertolo', 'Normale');
 
 INSERT INTO ecommerce.indirizzi (id, nome, indirizzo, citta, cap, provincia, utente)
-VALUES (1, 'Casa', 'Via Marconi 51', 'Baronissi', 12345, 'Salerno', 1);
+VALUES (1, 'Casa', 'Via Marconi 51', 'Baronissi', 84081, 'Salerno', 1);
 INSERT INTO ecommerce.indirizzi (id, nome, indirizzo, citta, cap, provincia, utente)
-VALUES (2, 'Ufficio', 'Via Marconi 4', 'Baronissi', 12345, 'Salerno', 1);
+VALUES (2, 'Ufficio', 'Via Marconi 4', 'Baronissi', 84081, 'Salerno', 1);

@@ -1,9 +1,6 @@
 package model.dao;
 
 import model.bean.Produttore;
-import model.bean.Utente;
-
-import java.sql.SQLException;
 
 public class ProduttoreDAO extends DAO {
 

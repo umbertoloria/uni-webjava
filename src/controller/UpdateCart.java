@@ -29,7 +29,7 @@ public class UpdateCart extends HttpServlet {
 				if (carrello != null) {
 					carrello.drop(prodotto);
 				} else {
-					res.put("error", "Il carrello è vuoto.");
+					res.put("error", "Il carrello è vuoto");
 				}
 			} else {
 				int quantita = Integer.parseInt(req.getParameter("q"));
@@ -44,7 +44,7 @@ public class UpdateCart extends HttpServlet {
 						res.put("newtotal", Formats.euro(prodottoObj.prezzo * quantita));
 					}
 				} else {
-					res.put("error", "La quantità è negativa.");
+					res.put("error", "La quantità è negativa");
 				}
 			}
 			if (carrello != null) {
@@ -52,7 +52,7 @@ public class UpdateCart extends HttpServlet {
 				res.put("count", carrello.getCount());
 			}
 		} else {
-			res.put("error", "Il prodotto non esiste.");
+			res.put("error", "Il prodotto non esiste");
 		}
 		resp.getWriter().print(res.toString());
 	}

@@ -1,0 +1,108 @@
+#indirizzi {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 30px;
+	margin-bottom: 30px;
+}
+
+#indirizzi > div {
+	position: relative;
+	background: #fff;
+	border-radius: 3px;
+	padding: 30px;
+	transition: .3s;
+}
+
+#indirizzi > div:hover {
+	transform: scale(1.05);
+	box-shadow: 0 0 20px rgba(0, 0, 0, .2);
+}
+
+#indirizzi > div > div {
+	position: absolute;
+	top: -15px;
+	right: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-gap: 10px;
+	opacity: 0;
+	visibility: hidden;
+	transition: .3s;
+}
+
+#indirizzi > div:hover > div {
+	opacity: 1;
+	visibility: visible;
+}
+
+#indirizzi > div > div a {
+	display: block;
+	border-radius: 100%;
+	width: 30px;
+	height: 30px;
+	background: var(--cart);
+	transform: scale(0);
+	transition: .3s;
+	cursor: pointer;
+}
+
+#indirizzi > div:hover > div a {
+	transform: none;
+}
+
+#indirizzi > div > div a img {
+	width: 16px;
+	height: 16px;
+	margin: 7px;
+	object-fit: contain;
+}
+
+/*#indirizzi > div > div a:first-child img {
+	width: 18px;
+	height: 18px;
+	margin-left: 7px;
+	/*background-image: url("../images/edit.png");
+	background-size: 18px 18px;
+	background-position: 7px center;*
+}
+
+#indirizzi > div > div a:last-child {
+	/*background-image: url("../images/drop.png");
+	background-size: 30px 30px;
+	background-position: center;*
+	width: 30px;
+	height: 30px;
+	margin-left: 7px;
+}*/
+
+/*#indirizzi > div > div a:first-child {
+	background-image: url("../images/edit.png");
+	background-size: 18px 18px;
+	background-position: 7px center;
+}
+
+#indirizzi > div > div a:last-child {
+	background-image: url("../images/drop.png");
+	background-size: 30px 30px;
+	background-position: center;
+}*/
+
+#indirizzi > div > div a:hover {
+	margin-top: -4px;
+}
+
+#indirizzi > div h3 {
+	font-size: 1.2em;
+	margin: 0 0 10px 0;
+}
+
+#indirizzi > div ul {
+	display: block;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#indirizzi > div ul li {
+	display: block;
+}

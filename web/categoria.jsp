@@ -32,7 +32,7 @@
 <main>
 	<div id="mosaic">
 		<%
-			for (Sottocategoria sottocategoria : SottocategoriaDAO.getAllOf(categoria.id)) {
+			for (Sottocategoria sottocategoria : SottocategoriaDAO.getAllThoseOf(categoria.id)) {
 		%>
 		<a href="sottocategoria.jsp?id=<%= sottocategoria.id %>">
 			<img src="<%= sottocategoria.immagine %>"/>

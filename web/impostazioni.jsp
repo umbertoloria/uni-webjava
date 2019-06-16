@@ -20,8 +20,8 @@
 <main>
 	<div class="tabs">
 		<ul class="tabs_header">
-			<li><a>Cambia Password</a></li>
-			<li><a>Aggiorna Indirizzi</a></li>
+			<li><a>Cambia password</a></li>
+			<li><a>Gestisci indirizzi</a></li>
 			<li><a>Informazioni personali</a></li>
 		</ul>
 		<div class="tabs_container">
@@ -46,11 +46,19 @@
 				</form>
 			</div>
 			<div>
-				<grid>
+				<div id="indirizzi">
 					<%
-						for (Indirizzo indirizzo : IndirizzoDAO.doRetrieveByUtente(utente)) {
+						for (Indirizzo indirizzo : IndirizzoDAO.getAllThoseOf(utente)) {
 					%>
-					<div>
+					<div data-indirizzo-id="<%= indirizzo.id %>">
+						<div>
+							<a href="modificaIndirizzo.jsp?id=<%= indirizzo.id %>">
+								<img src="images/edit.png"/>
+							</a>
+							<a>
+								<img src="images/drop.png"/>
+							</a>
+						</div>
 						<h3>
 							<%= indirizzo.nome %>
 						</h3>
@@ -72,7 +80,25 @@
 					<%
 						}
 					%>
-				</grid>
+				</div>
+				<script>
+					$("#indirizzi a:last-child").click(function () {
+						const div = $(this).parent().parent();
+						const id = div.attr("data-indirizzo-id");
+						ajaxPostRequest("rimuoviIndirizzo", "id=" + id, function (out) {
+							if (out === 'logout') {
+								location.href = 'logout.jsp';
+							} else if (out === 'done') {
+								div.animate({opacity: "0"}, 300);
+								setTimeout(function () {
+									div.remove();
+								}, 500);
+							} else {
+								location.reload();
+							}
+						});
+					});
+				</script>
 				<form action="aggiungiIndirizzo" method="post">
 					<fieldset>
 						<label>
