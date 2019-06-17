@@ -6,7 +6,8 @@ function ajaxPostRequest(url, queryString, success) {
 		}
 	};
 	conn.open("POST", url, true);
-	conn.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	conn.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
+	conn.setRequestHeader("Connection", "close");
 	conn.send(queryString);
 }
 

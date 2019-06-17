@@ -31,7 +31,7 @@ public class IndirizzoDAO extends DAO {
 
 	/** Ricerca tutti gli indirizzi appartenenti all'utente fornito. */
 	public static Indirizzo[] getAllThoseOf(Utente utente) {
-		// TODO: Predere quello più usato, aggiornando la documentazione.
+		// TODO: Predere quello più usato, aggiornando la documentazione sopra.
 		ArrayList<Indirizzo> indirizzi = new ArrayList<>();
 		Conn conn = Conn.hold();
 		Table t = conn.query("SELECT id, nome, indirizzo, citta, cap, provincia, utente " +
@@ -62,6 +62,17 @@ public class IndirizzoDAO extends DAO {
 	public static boolean doRemoveByKey(int id) {
 		try {
 			insert("DELETE FROM indirizzi WHERE id = ?", id);
+			return true;
+		} catch (SQLException e) {
+			return false;
+		}
+	}
+
+	public static boolean doUpdate(Indirizzo indirizzo) {
+		try {
+			insert("UPDATE indirizzi SET nome = ?, indirizzo = ?, citta = ?, cap = ?, " +
+							"provincia = ?, utente = ? WHERE id = ?", indirizzo.nome, indirizzo.indirizzo,
+					indirizzo.citta, indirizzo.cap, indirizzo.provincia, indirizzo.utente, indirizzo.id);
 			return true;
 		} catch (SQLException e) {
 			return false;

@@ -51,4 +51,5 @@ public class ErrorManager {
 	public void logout() throws IOException {
 		resp.getWriter().append("redirect:logout.jsp;");
 	}
+
 }

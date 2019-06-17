@@ -10,10 +10,21 @@
 	background: #fff;
 	border-radius: 3px;
 	padding: 30px;
-	transition: .3s;
+	transition: .3s all, 0s background-position;
+	cursor: pointer;
 }
 
-#indirizzi > div:hover {
+#indirizzi > div[disabled] {
+	background-color: #ddd;
+	background-image: url("../images/drop.png");
+	background-position: center;
+	background-size: auto 80%;
+	background-repeat: no-repeat;
+	color: #777;
+	opacity: .8;
+}
+
+#indirizzi > div:not([disabled]):hover {
 	transform: scale(1.05);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .2);
 }
@@ -30,7 +41,7 @@
 	transition: .3s;
 }
 
-#indirizzi > div:hover > div {
+#indirizzi > div:not([disabled]):hover > div {
 	opacity: 1;
 	visibility: visible;
 }
