@@ -4,6 +4,7 @@ import model.Carrello;
 import model.bean.Prodotto;
 import model.dao.ProdottoDAO;
 import org.json.JSONObject;
+import util.ErrorManager;
 import util.Formats;
 
 import javax.servlet.annotation.WebServlet;
@@ -16,45 +17,93 @@ import java.io.IOException;
 public class UpdateCart extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("application/json");
 		String mode = req.getParameter("mode");
-		assert mode != null && (mode.equals("add") || mode.equals("set") || mode.equals("drop"));
-		int prodotto = Integer.parseInt(req.getParameter("p"));
+
+		ErrorManager em = new ErrorManager(resp);
+
+		Prodotto prodotto;
+		try {
+			int pid = Integer.parseInt(req.getParameter("p"));
+			prodotto = ProdottoDAO.doRetrieveByKey(pid);
+			if (prodotto == null) {
+				throw new NumberFormatException();
+			}
+		} catch (NumberFormatException e) {
+			em.message("Il prodotto non esiste");
+			em.apply();
+			return;
+		}
+		// TODO: Sincronizzare Carrello con DB se loggato.
+
+		// Il prodotto esiste. Mode: "drop" | "add" | "set".
+		Carrello carrello = (Carrello) req.getSession().getAttribute("carrello");
+
 		JSONObject res = new JSONObject();
-		// TODO: Sincronizzare con DB se loggato.
-		Prodotto prodottoObj = ProdottoDAO.doRetrieveByKey(prodotto);
-		if (prodottoObj != null) {
-			Carrello carrello = (Carrello) req.getSession().getAttribute("carrello");
-			if (mode.equals("drop")) {
-				if (carrello != null) {
-					carrello.drop(prodotto);
+		if (mode.equals("drop")) {
+
+			// DROP: rimuovere un prodotto. Se è possibile lo si fa, altrimenti errore.
+			if (carrello != null) {
+				// Se il carrello esiste, rimuoviamo il prodotto.
+				carrello.drop(prodotto.id);
+				int cart_count = carrello.getCount();
+				if (cart_count > 0) {
+					req.getSession().setAttribute("carrello", carrello);
+					res.put("cart_count", cart_count);
+					res.put("cart_total", Formats.euro(carrello.getTotal()));
 				} else {
-					res.put("error", "Il carrello è vuoto");
+					req.getSession().removeAttribute("carrello");
+					res.put("cart_count", 0);
+					res.put("cart_total", Formats.euro(0));
 				}
 			} else {
-				int quantita = Integer.parseInt(req.getParameter("q"));
-				if (quantita >= 1) {
-					if (carrello == null) {
-						carrello = new Carrello();
-					}
-					if (mode.equals("add")) {
-						carrello.add(prodotto, quantita);
-					} else {
-						carrello.set(prodotto, quantita);
-						res.put("newtotal", Formats.euro(prodottoObj.prezzo * quantita));
-					}
-				} else {
-					res.put("error", "La quantità è negativa");
-				}
+				// Non si vorrebbe mai rimuovere un prodotto da un carrello già vuoto.
+				em.message("Il carrello è già vuoto.");
 			}
-			if (carrello != null) {
-				req.getSession().setAttribute("carrello", carrello);
-				res.put("count", carrello.getCount());
-			}
+
 		} else {
-			res.put("error", "Il prodotto non esiste");
+
+			Integer quantita = null;
+			try {
+				quantita = Integer.parseInt(req.getParameter("q"));
+				if (quantita < 1) {
+					quantita = null;
+					throw new NumberFormatException();
+				}
+			} catch (NumberFormatException e) {
+				em.message("Quantità non valida");
+			}
+
+			if (quantita != null) {
+
+				// La quantità è accettabile. Mode: "add" | "set". Visto che si aggiunge in entrambi i casi,
+				// ci assicuriamo di avere sempre un carrello istanziato.
+
+				if (carrello == null) {
+					carrello = new Carrello();
+				}
+
+				if (mode.equals("add")) {
+					// ADD
+					carrello.add(prodotto.id, quantita);
+				} else if (mode.equals("set")) {
+					// SET
+					carrello.set(prodotto.id, quantita);
+					res.put("product_total", Formats.euro(prodotto.prezzo * quantita));
+				}
+
+				req.getSession().setAttribute("carrello", carrello);
+				res.put("cart_count", carrello.getCount());
+				res.put("cart_total", Formats.euro(carrello.getTotal()));
+
+			}
+
 		}
-		resp.getWriter().print(res.toString());
+
+		if (!res.isEmpty()) {
+			em.done(res);
+		}
+		em.apply();
+
 	}
 
 }

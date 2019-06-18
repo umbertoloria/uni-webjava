@@ -75,6 +75,7 @@ header > div:last-child {
 
 #firstbar #centerside form input[type='text'] {
 	width: 300px;
+	height: 35px;
 	padding: 0 10px;
 	box-sizing: border-box;
 	border-radius: 15px 0 0 15px;
@@ -82,21 +83,29 @@ header > div:last-child {
 	border-right: 0;
 }
 
+#firstbar #centerside form input[type='text']:focus {
+	box-shadow: none;
+}
+
 #firstbar #centerside form input[type='submit'] {
 	border-radius: 0 15px 15px 0;
 	border: 1px solid #ccc;
 	color: var(--cl);
+	background-color: #eee;
 	background-image: url("https://cdn4.iconfinder.com/data/icons/developer-set-3/128/find-512.png");
 	background-size: 15px 15px;
 	background-position: center;
 	background-repeat: no-repeat;
 	width: 35px;
+	height: 35px;
+	padding: 0;
 	font-weight: bold;
 	transition: .3s;
 }
 
 #firstbar #centerside form input[type='submit']:hover {
 	border-color: #aaa;
+	box-shadow: none;
 }
 
 #firstbar #centerside form .results {
@@ -220,11 +229,12 @@ header > div:last-child {
 	position: absolute;
 	top: 0;
 	right: -5px;
-	color: #000;
+	color: #fff;
 	border-radius: 100%;
-	width: 20px;
+	font-size: .85em;
+	width: 22px;
 	text-align: center;
-	line-height: 20px;
+	line-height: 22px;
 	background: var(--cart);
 	cursor: pointer;
 }

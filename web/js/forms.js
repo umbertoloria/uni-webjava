@@ -1,52 +1,65 @@
+function error_manager(response, notice, message, done, redirect, reload) {
+	// TODO: Separare redirect normale (che potrebbe ritardarsi) da logout che va fatto immediatamente...
+	// FIXME: Poi applicare questa distinzione su carrello.jsp, tanto per cominciare...
+	if (response.hasOwnProperty("notices")) {
+		for (let field in response.notices) {
+			if (response.notices.hasOwnProperty(field)) {
+				notice(field, response.notices[field]);
+			}
+		}
+	}
+	if (response.hasOwnProperty("message")) {
+		message(response.message);
+	}
+	if (response.hasOwnProperty("done")) {
+		done(response.done);
+	}
+	if (response.hasOwnProperty("redirect")) {
+		if (response.redirect === 'reload') {
+			reload();
+		} else {
+			redirect(response.redirect);
+		}
+	}
+}
+
 $(function () {
 	$("form").submit(function (ev) {
-		let form = $(this);
+		const form = $(this);
 		if (form.attr("method") !== "post") {
 			return;
 		}
 		ev.preventDefault();
 		ajaxPostRequest(form.attr("action"), dataForm(form[0]), function (out) {
-			const commands = out.split(";");
-			let queue = [];
-			for (let command of commands) {
-				let index = command.indexOf(':');
-				queue.push([command.substr(0, index), command.substr(index + 1)]);
-			}
 			form.find("fieldset label label").remove();
 			form.find(".msg").removeClass("shown").html("");
-			for (let item of queue) {
-				const option = item[0];
-				const parameter = item[1];
-				if (option === 'notice') {
-					const index = parameter.indexOf(':');
-					const field = parameter.substring(0, index);
-					const realParameter = parameter.substring(index + 1);
-					const fieldDOM = form.find("input[name=" + field + "]");
-					const label = fieldDOM.parent().find("label");
-					if (label.length === 0) {
-						fieldDOM.parent().append("<label>" + realParameter + "</label>");
-					} else {
-						label.html(realParameter);
-					}
-				} else if (option === 'message') {
-					form.find(".msg").addClass("shown").html(parameter);
-				} else if (option === 'redirect') {
-					setTimeout(function () {
-						if (parameter === 'reload') {
-							form[0].reset();
-							location.reload();
-						} else {
-							location.href = parameter;
-						}
-					}, 1500);
-				} else if (option === 'done') {
-					form.find(".msg").removeClass("shown").html("");
-					form.find("input[name]").each(function () {
-						$(this).parent().children("label").remove();
-					});
-					overlay(parameter);
+			const msg = form.find(".msg");
+			error_manager(JSON.parse(out), function (field, notice) {
+				const input = form.find("input[name=" + field + "]");
+				const label = input.parent().find("label");
+				if (label.length === 0) {
+					input.parent().append("<label>" + notice + "</label>");
+				} else {
+					label.html(notice);
 				}
-			}
+			}, function (message) {
+				form.find(".msg").addClass("shown").html(message);
+			}, function (done) {
+				msg.removeClass("shown").html("");
+				form.find("input[name]").each(function () {
+					$(this).parent().children("label").remove();
+				});
+				overlay(done);
+			}, function (url) {
+				setTimeout(function () {
+					location.href = url;
+				}, 1500);
+			}, function () {
+				setTimeout(function () {
+					form[0].reset();
+					location.reload();
+				}, 1500);
+			});
 		});
 	});
 });

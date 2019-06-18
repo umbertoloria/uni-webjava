@@ -1,6 +1,7 @@
 #carrello {
 	display: grid;
-	grid-template-columns: 1fr 1fr;
+	/*grid-template-columns: 1fr 1fr;*/
+	grid-template-columns: 1fr;
 	grid-gap: 30px;
 	width: 100%;
 }
@@ -51,7 +52,7 @@
 	justify-content: space-between;
 }
 
-#carrello > div > div:last-child > div:first-child span {
+/*#carrello > div > div:last-child > div:first-child span {
 	display: inline-block;
 	background: var(--price);
 	color: rgba(255, 255, 255, .9);
@@ -59,7 +60,7 @@
 	padding: 0 10px;
 	line-height: 35px;
 	border-radius: 10px;
-}
+}*/
 
 #carrello > div > div:last-child > div:last-child {
 	display: flex;
@@ -68,7 +69,7 @@
 }
 
 #carrello > div > div:last-child > div:last-child input {
-	width: 35px;
+	width: 60px;
 	border: 1px solid #ddd;
 	border-radius: 10px;
 	padding: 5px 10px;
@@ -93,4 +94,27 @@
 		grid-template-columns: 1fr;
 	}
 
+}
+
+#buy_box {
+	padding: 30px;
+	background: #ddd;
+}
+
+#buy_box a {
+	font-weight: bold;
+	color: var(--bg);
+}
+
+#buy_box a:hover {
+	text-decoration: underline;
+}
+
+#buy_box label {
+	display: grid;
+	grid-template-columns: auto auto;
+	align-items: center;
+	border-bottom: 2px solid #bbb;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
 }

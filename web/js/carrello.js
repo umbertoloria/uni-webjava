@@ -1,48 +1,57 @@
 function addToCart(prodotto, quantita, success, failure) {
 	if (quantita >= 1) {
 		ajaxPostRequest("updateCart", "mode=add&p=" + prodotto + "&q=" + quantita, function (out) {
-			const json = $.parseJSON(out);
-			if (json.error === undefined) {
-				success(json.count);
-			} else {
-				failure(json.error);
-			}
+			// Avrò solo message (per errori) o done (per aggiornamento dati)
+			error_manager(JSON.parse(out), null, function (message) {
+				failure(message);
+			}, function (out) {
+				const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
+				success(cart_count);
+			}, null, null);
 		});
+	} else {
+		failure("Quantità non valida");
 	}
 }
 
 function setToCart(prodotto, quantita, success, failure) {
 	if (quantita >= 1) {
 		ajaxPostRequest("updateCart", "mode=set&p=" + prodotto + "&q=" + quantita, function (out) {
-			const json = $.parseJSON(out);
-			if (json.error === undefined) {
-				success(json.count, json.newtotal);
-			} else {
-				failure(json.error);
-			}
+			error_manager(JSON.parse(out), null, function (message) {
+				failure(message);
+			}, function (out) {
+				const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
+				const product_total = out.hasOwnProperty("product_total") ? out.product_total : NaN;
+				const cart_total = out.hasOwnProperty("cart_total") ? out.cart_total : NaN;
+				success(cart_count, product_total, cart_total);
+			}, null, null);
 		});
+	} else {
+		failure("Quantità non valida");
 	}
 }
 
 function dropFromCart(prodotto, success, failure) {
 	ajaxPostRequest("updateCart", "mode=drop&p=" + prodotto, function (out) {
-		const json = $.parseJSON(out);
-		if (json.error === undefined) {
-			success(json.count);
-		} else {
-			failure(json.error);
-		}
+		error_manager(JSON.parse(out), null, function (message) {
+			failure(message);
+		}, function (out) {
+			const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
+			const cart_total = out.hasOwnProperty("cart_total") ? out.cart_total : NaN;
+			success(cart_count, cart_total);
+		}, null, null);
 	});
 }
 
 function aggiornaCarrello() {
 	ajaxPostRequest("reloadCart", "", function (out) {
 		const json = $.parseJSON(out);
-		$("#rightside li.carrello a label").html(json.count);
+		const cart_count = json.hasOwnProperty("cart_count") ? json.cart_count : NaN;
+		const cart_serial = json.hasOwnProperty("cart_serial") ? json.cart_serial : NaN;
+		$("#rightside li.carrello a label").html(cart_count);
 		const carrello = $("#carrello");
 		if (carrello.length === 1) {
-			const serial = carrello.attr("data-serial");
-			if (serial !== json.serial) {
+			if (carrello.attr("data-serial") !== cart_serial) {
 				location.reload();
 			}
 		}
@@ -53,3 +62,33 @@ $(function () {
 	aggiornaCarrello();
 	setInterval(aggiornaCarrello, 30000);
 });
+
+class Serializator {
+
+	static set(serial, prodotto, quantita) {
+		const app = serial.split(";");
+		app.pop();
+		let result = "";
+		$.each(app, function (index, item) {
+			if (Number(item.split(":")[0]) === prodotto) {
+				result += prodotto + ":" + quantita + ";";
+			} else {
+				result += item + ";";
+			}
+		});
+		return result;
+	}
+
+	static drop(serial, prodotto) {
+		const app = serial.split(";");
+		app.pop();
+		let result = "";
+		$.each(app, function (index, item) {
+			if (Number(item.split(":")[0]) !== prodotto) {
+				result += item + ";";
+			}
+		});
+		return result;
+	}
+
+}

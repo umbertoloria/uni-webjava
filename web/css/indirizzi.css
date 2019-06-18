@@ -11,7 +11,6 @@
 	border-radius: 3px;
 	padding: 30px;
 	transition: .3s all, 0s background-position;
-	cursor: pointer;
 }
 
 #indirizzi > div[disabled] {
@@ -22,6 +21,7 @@
 	background-repeat: no-repeat;
 	color: #777;
 	opacity: .8;
+	cursor: pointer;
 }
 
 #indirizzi > div:not([disabled]):hover {

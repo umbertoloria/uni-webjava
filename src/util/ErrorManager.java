@@ -1,55 +1,81 @@
 package util;
 
+import org.json.JSONObject;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ErrorManager {
 
-	// TODO: Usare JSON oppure *XML*.
-
 	private HttpServletResponse resp;
-	private ArrayList<String> usedFields = new ArrayList<>();
+	private HashMap<String, Object> notices = new HashMap<>();
+	private Object message;
+	private Object done;
+	private Object redirect;
 
 	public ErrorManager(HttpServletResponse resp) {
 		this.resp = resp;
 	}
 
-	public void notice(String field, String msg) throws IOException {
-		if (msg != null && !usedFields.contains(field)) {
-			usedFields.add(field);
-			resp.getWriter().append("notice:");
-			resp.getWriter().append(field);
-			resp.getWriter().append(":");
-			resp.getWriter().append(msg);
-			resp.getWriter().append(";");
+	public void notice(String field, Object msg) {
+		if (field != null && msg != null && !notices.containsKey(field)) {
+			notices.put(field, msg);
 		}
 	}
 
-	public void message(String msg) throws IOException {
-		resp.getWriter().append("message:");
-		resp.getWriter().append(msg);
-		resp.getWriter().append(";");
+	public void message(Object msg) {
+		if (message == null) {
+			message = msg;
+		}
 	}
 
-	public void done(String msg) throws IOException {
-		resp.getWriter().append("done:");
-		resp.getWriter().append(msg);
-		resp.getWriter().append(";");
+	public void done(Object msg) {
+		if (done == null) {
+			done = msg;
+		}
 	}
 
-	public void redirect(String msg) throws IOException {
-		resp.getWriter().append("redirect:");
-		resp.getWriter().append(msg);
-		resp.getWriter().append(";");
+	public void redirect(Object url) {
+		if (redirect == null) {
+			redirect = url;
+		}
 	}
 
-	public void reload() throws IOException {
-		resp.getWriter().append("redirect:reload;");
+	public void reload() {
+		redirect("reload");
 	}
 
-	public void logout() throws IOException {
-		resp.getWriter().append("redirect:logout.jsp;");
+	public void logout() {
+		// TODO: evitare che nel json ci siano altre info e voglio solo fare logout veloce veloce.
+		redirect("logout.jsp");
+	}
+
+	public void internalError() {
+		message("Errore interno. Riprova più tardi.");
+	}
+
+	//	public void apply(PrintWriter out) {
+	public void apply() throws IOException {
+		JSONObject json = new JSONObject();
+		if (!notices.isEmpty()) {
+			JSONObject jsonNotices = new JSONObject();
+			for (String field : notices.keySet()) {
+				jsonNotices.put(field, notices.get(field));
+			}
+			json.put("notices", jsonNotices);
+		}
+		if (message != null) {
+			json.put("message", message);
+		}
+		if (done != null) {
+			json.put("done", done);
+		}
+		if (redirect != null) {
+			json.put("redirect", redirect);
+		}
+		resp.setContentType("application/json");
+		resp.getWriter().print(json.toString());
 	}
 
 }

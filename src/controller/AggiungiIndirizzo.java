@@ -15,54 +15,51 @@ import java.io.IOException;
 @WebServlet("/aggiungiIndirizzo")
 public class AggiungiIndirizzo extends HttpServlet {
 
+	private String nome, indirizzo, citta, cap, provincia;
+
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("plain/text");
-
 		ErrorManager em = new ErrorManager(resp);
-
-		int uid;
-		{
-			Utente utente = (Utente) req.getSession().getAttribute("utente");
-			if (utente == null) {
-				// Vado al "logout" perché esso cancella anche "age" nella sessione, che non è ancora implementato.
-				em.logout();
-				return;
-			}
-			uid = utente.id;
-		}
-
-		String nome = req.getParameter("nome");
-		String indirizzo = req.getParameter("indirizzo");
-		String citta = req.getParameter("citta");
-		String cap = req.getParameter("cap");
-		String provincia = req.getParameter("provincia");
-		if (nome == null || indirizzo == null || citta == null || cap == null || provincia == null) {
-			return;
-		}
-		nome = nome.trim();
-		indirizzo = indirizzo.trim();
-		citta = citta.trim();
-		cap = cap.trim();
-		provincia = provincia.trim();
-
-		Indirizzo indirizzoObj = new Indirizzo(nome, indirizzo, citta, cap, provincia, uid);
-
-		IndirizzoValidator indirizzoValidator = new IndirizzoValidator(indirizzoObj);
-		if (indirizzoValidator.wrongInput()) {
-			em.notice("nome", indirizzoValidator.nome);
-			em.notice("indirizzo", indirizzoValidator.indirizzo);
-			em.notice("citta", indirizzoValidator.citta);
-			em.notice("cap", indirizzoValidator.cap);
-			em.notice("provincia", indirizzoValidator.provincia);
+		Utente utente = (Utente) req.getSession().getAttribute("utente");
+		if (utente == null) {
+			em.logout();
+		} else if (!input(req)) {
+			em.internalError();
 		} else {
-			if (IndirizzoDAO.doRetrieveByNomeAndUtente(nome, uid) != null) {
-				em.notice("nome", "Possiedi già un indirizzo con questo nome");
-			} else if (IndirizzoDAO.doSave(indirizzoObj)) {
-				em.done("Indirizzo inserito correttamente. Buona spesa!");
-				em.reload();
+
+			Indirizzo indirizzo = new Indirizzo(nome, this.indirizzo, citta, cap, provincia, utente.id);
+			IndirizzoValidator indirizzoValidator = new IndirizzoValidator(indirizzo);
+			if (indirizzoValidator.wrongInput()) {
+				em.notice("nome", indirizzoValidator.nome);
+				em.notice("indirizzo", indirizzoValidator.indirizzo);
+				em.notice("citta", indirizzoValidator.citta);
+				em.notice("cap", indirizzoValidator.cap);
+				em.notice("provincia", indirizzoValidator.provincia);
 			} else {
-				em.message("Al momento non è possibile aggiungere indirizzi sul proprio account. Riprova più tardi.");
+				if (IndirizzoDAO.doRetrieveByNomeAndUtente(nome, utente.id) != null) {
+					em.notice("nome", "Possiedi già un indirizzo con questo nome");
+				} else if (IndirizzoDAO.doSave(indirizzo)) {
+					em.done("Indirizzo inserito correttamente. Buona spesa!");
+					em.reload();
+				} else {
+					em.message("Al momento non è possibile aggiungere indirizzi sul proprio account. " +
+							"Riprova più tardi.");
+				}
 			}
+
+		}
+		em.apply();
+	}
+
+	private boolean input(HttpServletRequest req) {
+		try {
+			nome = req.getParameter("nome").trim();
+			indirizzo = req.getParameter("indirizzo").trim();
+			citta = req.getParameter("citta").trim();
+			cap = req.getParameter("cap").trim();
+			provincia = req.getParameter("provincia").trim();
+			return true;
+		} catch (NullPointerException e) {
+			return false;
 		}
 	}
 

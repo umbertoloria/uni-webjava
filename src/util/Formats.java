@@ -2,6 +2,7 @@ package util;
 
 public class Formats {
 
+	// FIXME: forse con 10.11 non funge più lol
 	public static String euro(float prezzo) {
 		int euro = (int) prezzo;
 		int centesimi = (int) ((prezzo - euro) * 100);

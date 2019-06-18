@@ -7,7 +7,7 @@ function ajaxPostRequest(url, queryString, success) {
 	};
 	conn.open("POST", url, true);
 	conn.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-	conn.setRequestHeader("Connection", "close");
+	conn.setRequestHeader("connection", "close");
 	conn.send(queryString);
 }
 
@@ -20,18 +20,15 @@ function dataForm(form) {
 	return queryString;
 }
 
-function addProdottoToCart(elem, prodotto) {
+function addProdottoFromDashboardToCart(elem, prodotto) {
 	if (!$(elem).is("[disabled]")) {
 		$(elem).attr("disabled", "disabled");
 		setTimeout(function () {
 			$(elem).removeAttr("disabled");
 		}, 3000);
-		addToCart(prodotto, 1, function (count) {
+		addToCart(prodotto, 1, function (cart_count) {
 			notification("Prodotto aggiunto sul carrello.");
-			// Aggiorna "cardinalità"
-			$("#rightside li.carrello a label").html(count);
-			// Sincronizzazione carrello.
-			aggiornaCarrello();
+			$("#rightside li.carrello a label").html(cart_count);
 		}, function (error) {
 			notification("Problema: " + error);
 		});

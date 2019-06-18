@@ -1,7 +1,6 @@
 <%@ page import="model.Carrello" %>
-<%@ page import="model.bean.CarrelloItem" %>
-<%@ page import="model.bean.Prodotto" %>
-<%@ page import="model.bean.Produttore" %>
+<%@ page import="model.bean.*" %>
+<%@ page import="model.dao.IndirizzoDAO" %>
 <%@ page import="model.dao.ProdottoDAO" %>
 <%@ page import="model.dao.ProduttoreDAO" %>
 <%@ page import="util.Breadcrumb" %>
@@ -15,113 +14,140 @@
 %>
 <jsp:include page="parts/Topbar.jsp"/>
 <main>
-	<h1>Carrello</h1>
 	<%
 		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
-		if (carrello != null) {
+		if (carrello == null) {
+			out.println("<h1>Il carrello è vuoto</h1>");
+		} else {
 	%>
-	<div id="carrello" data-serial="<%= carrello.serialize() %>">
-		<%
-			for (CarrelloItem carrelloItem : carrello) {
-				Prodotto prodot = ProdottoDAO.doRetrieveByKey(carrelloItem.prodotto);
-				assert prodot != null;
-				Produttore produt = ProduttoreDAO.doRetrieveByKey(prodot.produttore);
-				assert produt != null;
-		%>
-		<div data-product-id="<%= prodot.id %>">
-			<div>
-				<a href="prodotto.jsp?id=<%= prodot.id %>">
-					<img src="<%= prodot.immagine %>"/>
-				</a>
-				<a href="prodotto.jsp?id=<%= prodot.id %>">
-					<b>
-						<%= produt.nome %>
-					</b>
-					<%= prodot.nome %>
-				</a>
-			</div>
-			<div>
+	<h1>Carrello</h1>
+	<div style="display: grid; grid-template-columns: 2fr 1fr; grid-gap: 30px; width: 100%; align-items: flex-start;">
+		<div id="carrello" data-serial="<%= carrello.serialize() %>">
+			<%
+				for (CarrelloItem carrelloItem : carrello) {
+					Prodotto prodotto = ProdottoDAO.doRetrieveByKey(carrelloItem.prodotto);
+					assert prodotto != null;
+					Produttore produttore = ProduttoreDAO.doRetrieveByKey(prodotto.produttore);
+					assert produttore != null;
+			%>
+			<div data-product-id="<%= prodotto.id %>">
 				<div>
-					<span>
-						<%= Formats.euro(prodot.prezzo * carrelloItem.quantita) %>
+					<a href="prodotto.jsp?id=<%= prodotto.id %>">
+						<img src="<%= prodotto.immagine %>" alt="Immagine prodotto"/>
+					</a>
+					<a href="prodotto.jsp?id=<%= prodotto.id %>">
+						<b>
+							<%= produttore.nome %>
+						</b>
+						<%= prodotto.nome %>
+					</a>
+				</div>
+				<div>
+					<div>
+					<span class="price">
+						<%= Formats.euro(prodotto.prezzo * carrelloItem.quantita) %>
 					</span>
-				</div>
-				<div>
-					<input type="number" min="1" value="<%= carrelloItem.quantita%>"/>
-					<a>Rimuovi</a>
+					</div>
+					<div>
+						<input type="number" min="1" value="<%= carrelloItem.quantita%>"
+						       onchange="updateCartSet(this, <%= prodotto.id %>, value)"/>
+						<a onclick="updateCartDrop(this, <%= prodotto.id %>)">Rimuovi</a>
+					</div>
 				</div>
 			</div>
+			<%
+				}
+			%>
 		</div>
-		<%
-			}
-		%>
+		<div id="buy_box">
+			<label>
+				<span>Quanto costa l'ordine</span>
+				<span class="price" id="cart_total"><%= Formats.euro(carrello.getTotal()) %></span>
+			</label>
+			<%
+				Utente u = (Utente) request.getSession().getAttribute("utente");
+				if (u == null) {
+					out.println("<a href=\"login.jsp\">Accedi</a> per poter completare l'ordine");
+				} else {
+			%>
+			<label>
+				<span>Dove vorresti che ti recapitassimo l'ordine?</span>
+				<select name="indirizzo">
+					<option disabled value="">Scegli un indirizzo...</option>
+					<%
+						Indirizzo[] indirizzi = IndirizzoDAO.getAllThoseOf(u);
+						for (Indirizzo indirizzo : indirizzi) {
+							out.println("<option value=\"" + indirizzo.id + "\">" + indirizzo.nome + "</option>");
+						}
+					%>
+				</select>
+			</label>
+			<input type="submit" value="Acquista" onclick="ordina(this)"/>
+			<%
+				}
+			%>
+		</div>
 	</div>
 	<script>
 
+		function ordina(btn) {
+			btn = $(btn);
+			const indirizzo = btn.prev().find("[name='indirizzo']").val();
+			ajaxPostRequest("acquista", "indirizzo=" + indirizzo, function (out) {
+				error_manager(JSON.parse(out), null, function (message) {
+					notification("Problema: " + message);
+				}, function (out) {
+					overlay(out);
+				}, function (url) {
+					location.href = url;
+				}, function () {
+					location.reload();
+				});
+			});
+		}
+
 		let inputTimeout;
 
-		$("#carrello div div:last-child div:last-child input[type='number']").change(function () {
-			const input = $(this);
+		function updateCartSet(input, prodotto, quantita) {
 			clearTimeout(inputTimeout);
 			inputTimeout = setTimeout(function () {
-				const div = input.parent().parent().parent();
-				const prodotto = div.attr("data-product-id");
-				const quantita = input.val();
-				setToCart(prodotto, quantita, function (count, newtotal) {
-					// Aggiorna "cardinalità"
-					$("#rightside li.carrello a label").html(count);
-					// Aggiornamento "data-serial"
-					const app = div.parent().attr("data-serial").split(";");
-					app.pop();
-					let newserial = "";
-					$.each(app, function (index, prod) {
-						if (prod.split(":")[0] === prodotto) {
-							newserial += prod.split(":")[0] + ":" + quantita + ";";
-						} else {
-							newserial += prod + ";";
-						}
-					});
-					div.parent().attr("data-serial", newserial);
-					// Aggiornamento "totale"
-					div.find("div:last-child div:first-child span").html(newtotal);
-					// Sincronizzazione carrello.
+				const div = $(input).parent().parent().parent();
+				const dad = div.parent();
+				setToCart(prodotto, quantita, function (cart_count, product_total, cart_total) {
+					// Aggiornamento serial
+					dad.attr("data-serial", Serializator.set(dad.attr("data-serial"), prodotto, quantita));
+					// Aggiornamento dati visibili
+					$("#rightside li.carrello a label").html(cart_count);
+					div.find("div:last-child div:first-child span").html(product_total);
+					$("#cart_total").html(cart_total);
+					// Sincronizzazione carrello
 					aggiornaCarrello();
+					// TODO: Forse, si potrebbe pensare di farsi arrivare direttamente qui anche il serial...
 				}, function (error) {
 					notification("Problema: " + error);
 				});
 			}, 300);
-		});
+		}
 
-		$("#carrello div div:last-child div:last-child a").click(function () {
-			const div = $(this).parent().parent().parent();
-			const prodotto = div.attr("data-product-id");
-			dropFromCart(prodotto, function (count) {
-				// Aggiorna "cardinalità"
-				$("#rightside li.carrello a label").html(count);
-				// Aggiornamento "data-serial"
-				const app = div.parent().attr("data-serial").split(";");
-				app.pop();
-				let newserial = "";
-				$.each(app, function (index, prod) {
-					if (prod.split(":")[0] !== prodotto) {
-						newserial += prod + ";";
-					}
-				});
-				div.parent().attr("data-serial", newserial);
-				// Rimozione prodotto.
+		function updateCartDrop(input, prodotto) {
+			const div = $(input).parent().parent().parent();
+			const dad = div.parent();
+			dropFromCart(prodotto, function (cart_count, cart_total) {
+				// Aggiornamento serial
+				dad.attr("data-serial", Serializator.drop(dad.attr("data-serial"), prodotto));
+				// Aggiorna dati visibili
+				$("#rightside li.carrello a label").html(cart_count);
 				div.remove();
-				// Sincronizzazione carrello.
+				$("#cart_total").html(cart_total);
+				// Sincronizzazione carrello
 				aggiornaCarrello();
+				// TODO: Si potrebbe pensare come sopra...
 			}, function (error) {
 				notification("Problema: " + error);
 			});
-		});
+		}
 
 	</script>
-	<%
-	} else {
-	%>
-	<p> Nessun prodotto inserito </p>
 	<%
 		}
 	%>

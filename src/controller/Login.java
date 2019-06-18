@@ -15,36 +15,44 @@ import java.io.IOException;
 @WebServlet("/login")
 public class Login extends HttpServlet {
 
+	private Utente utente;
+
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("plain/text");
-		String email = req.getParameter("email");
-		String password = req.getParameter("password");
-		if (email == null || password == null) {
-			return;
-		}
-		email = email.trim();
-		password = password.trim();
-
 		ErrorManager em = new ErrorManager(resp);
-
-		Utente utente = new Utente(email, password);
-
-		UtenteValidator utenteValidator = new UtenteValidator(utente, false);
-		if (utenteValidator.wrongInput()) {
-			em.notice("email", utenteValidator.email);
-			em.notice("password", utenteValidator.password);
+		if (!input(req)) {
+			em.internalError();
 		} else {
-			Utente saved = UtenteDAO.doRetrieveByEmail(email);
-			if (saved == null || !saved.password.equals(password)) {
-				em.message("Dati di accesso errati");
+
+			UtenteValidator utenteValidator = new UtenteValidator(utente, false);
+			if (utenteValidator.wrongInput()) {
+				em.notice("email", utenteValidator.email);
+				em.notice("password", utenteValidator.password);
 			} else {
-				HttpSession session = req.getSession();
-				session.setMaxInactiveInterval(60 * 60);
-				session.setAttribute("utente", saved);
-				em.done("Accesso effettuato");
-				em.redirect(".");
-				// TODO: Scaricare carrello sulla sessione.
+				Utente saved = UtenteDAO.doRetrieveByEmail(utente.email);
+				if (saved == null || !saved.password.equals(utente.password)) {
+					em.message("Dati di accesso errati");
+				} else {
+					HttpSession session = req.getSession();
+					session.setMaxInactiveInterval(60 * 60);
+					session.setAttribute("utente", saved);
+					em.done("Accesso effettuato");
+					em.redirect(".");
+					// TODO: Scaricare carrello sulla sessione.
+				}
 			}
+
+		}
+		em.apply();
+	}
+
+	private boolean input(HttpServletRequest req) {
+		try {
+			String email = req.getParameter("email").trim();
+			String password = req.getParameter("password").trim();
+			utente = new Utente(email, password);
+			return true;
+		} catch (NullPointerException e) {
+			return false;
 		}
 	}
 

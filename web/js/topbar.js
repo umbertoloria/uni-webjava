@@ -16,9 +16,7 @@ $(function () {
 			return;
 		}
 		const form = $(input).closest("form");
-		const url = "ricerca";
-		const data = dataForm(form[0]);
-		ajaxPostRequest(url, data, function (out) {
+		ajaxPostRequest("ricerca", dataForm(form[0]), function (out) {
 			if (out.length > 0) {
 				$(form).find(".results").html(out).addClass("shown");
 			} else {

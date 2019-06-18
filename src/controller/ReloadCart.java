@@ -14,15 +14,11 @@ public class ReloadCart extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		resp.setContentType("application/json");
+		JSONObject result = new JSONObject();
 		Carrello carrello = (Carrello) req.getSession().getAttribute("carrello");
-		if (carrello != null) {
-			JSONObject result = new JSONObject();
-			result.put("count", carrello.getCount());
-			result.put("serial", carrello.serialize());
-			resp.getWriter().println(result.toString());
-		} else {
-			resp.getWriter().println("{}");
-		}
+		result.put("cart_count", carrello != null ? carrello.getCount() : 0);
+		result.put("cart_serial", carrello != null ? carrello.serialize() : "");
+		resp.getWriter().println(result.toString());
 	}
 
 }

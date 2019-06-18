@@ -1,6 +1,6 @@
 #prodotto {
 	display: grid;
-	grid-template-columns: 280px auto 220px;
+	grid-template-columns: 280px auto 240px;
 	grid-column-gap: 50px;
 	width: 100%;
 }
@@ -52,23 +52,10 @@
 
 #prodotto form input[type="number"] {
 	border-radius: 10px;
-	width: 60px;
+	width: 65px;
 	box-sizing: border-box;
 	border: 1px solid #ddd;
 	padding: 5px 10px;
-}
-
-#prodotto form div span {
-	display: block;
-	background: var(--price);
-	color: rgba(255, 255, 255, .9);
-	font-weight: bold;
-	text-align: center;
-	padding: 0 10px;
-	width: 90px;
-	line-height: 35px;
-	box-sizing: border-box;
-	border-radius: 10px;
 }
 
 #prodotto form input[type="submit"] {

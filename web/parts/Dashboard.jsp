@@ -7,27 +7,27 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <div id="dashboard">
 	<%
-		for (Prodotto prod : (Prodotto[]) request.getAttribute("prodotti")) {
-			Sottocategoria sottocat = SottocategoriaDAO.doRetrieveByKey(prod.sottocategoria);
+		for (Prodotto prodotto : (Prodotto[]) request.getAttribute("prodotti")) {
+			Sottocategoria sottocat = SottocategoriaDAO.doRetrieveByKey(prodotto.sottocategoria);
 			assert sottocat != null;
-			Produttore produt = ProduttoreDAO.doRetrieveByKey(prod.produttore);
-			assert produt != null;
+			Produttore produttore = ProduttoreDAO.doRetrieveByKey(prodotto.produttore);
+			assert produttore != null;
 	%>
 	<div>
-		<a href="prodotto.jsp?id=<%= prod.id %>" class="image">
-			<img src="<%= prod.immagine %>" alt="Immagine del prodotto: '<%= prod.nome %>'"/>
+		<a href="prodotto.jsp?id=<%= prodotto.id %>" class="image">
+			<img src="<%= prodotto.immagine %>" alt="Immagine prodotto"/>
 		</a>
 		<div>
 			<label>
-				<a href="produttore.jsp?id=<%= produt.id %>">
-					<%= produt.nome %>
+				<a href="produttore.jsp?id=<%= produttore.id %>">
+					<%= produttore.nome %>
 				</a>
-				<%= prod.nome %>
+				<%= prodotto.nome %>
 			</label>
 			<span>
-			<%= Formats.euro(prod.prezzo) %>
+			<%= Formats.euro(prodotto.prezzo) %>
 		</span>
-			<a class="add_to_cart" onclick="addProdottoToCart(this, <%= prod.id %>)"></a>
+			<a class="add_to_cart" onclick="addProdottoFromDashboardToCart(this, <%= prodotto.id %>)"></a>
 		</div>
 	</div>
 	<%

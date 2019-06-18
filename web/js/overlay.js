@@ -2,17 +2,13 @@ function overlay(msg) {
 	$("#overlay").addClass("shown").prepend("<div>" + msg + "</div>");
 }
 
+// FIXME: Trova un modo per nascondere questa variabile all'esterno di questo script.
+let notification_timeout = null;
+
 function notification(msg) {
+	clearTimeout(notification_timeout);
 	$("#notification").addClass("shown").html(msg);
-	setTimeout(function () {
-		$("#notification").removeClass("shown").html("");
+	notification_timeout = setTimeout(function () {
+		$("#notification").removeClass("shown");
 	}, 3000);
 }
-
-// $(function () {
-// 	$("#overlay").click(function () {
-// 		if ($(this).is(".shown")) {
-// 			$(this).removeClass("shown");
-// 		}
-// 	});
-// });

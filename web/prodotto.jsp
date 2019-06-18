@@ -54,7 +54,7 @@
 			<p> Consegna in 24 Ore </p>
 			<div>
 				<input type="number" min="1" value="1"/>
-				<span data-prezzo-unitario="<%= prodotto.prezzo %>">
+				<span data-prezzo-unitario="<%= prodotto.prezzo %>" class="price">
 					<%= Formats.euro(prodotto.prezzo) %>
 				</span>
 			</div>
@@ -66,8 +66,8 @@
 		$("#prodotto form").submit(function (event) {
 			event.preventDefault();
 			const quantita = $(this).find("input[type='number']").val();
-			addToCart(<%= prodotto.id %>, quantita, function (count) {
-				$("#rightside li.carrello a label").html(count);
+			addToCart(<%= prodotto.id %>, quantita, function (cart_count) {
+				$("#rightside li.carrello a label").html(cart_count);
 			}, function () {
 			});
 		});

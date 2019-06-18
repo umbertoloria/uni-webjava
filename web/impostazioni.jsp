@@ -30,18 +30,18 @@
 					<fieldset>
 						<label>
 							<span>Vecchia password</span>
-							<input type="password" name="vecchia" placeholder="Pa$$w0rd" class="input"/>
+							<input type="password" name="vecchia" placeholder="Pa$$w0rd"/>
 						</label>
 						<label>
 							<span>Nuova password</span>
-							<input type="password" name="nuova" placeholder="Pa$$w0rd" class="input"/>
+							<input type="password" name="nuova" placeholder="Pa$$w0rd"/>
 						</label>
 						<label>
 							<span>Conferma password</span>
-							<input type="password" name="conferma" placeholder="Pa$$w0rd" class="input"/>
+							<input type="password" name="conferma" placeholder="Pa$$w0rd"/>
 						</label>
 					</fieldset>
-					<input type="submit" value="Cambia password" class="button"/>
+					<input type="submit" value="Cambia password"/>
 					<div class="msg"></div>
 				</form>
 			</div>
@@ -151,26 +151,26 @@
 					<fieldset>
 						<label>
 							<span>Nome</span>
-							<input type="text" name="nome" placeholder="Casa" class="input"/>
+							<input type="text" name="nome" placeholder="Casa"/>
 						</label>
 						<label>
 							<span>Indirizzo</span>
-							<input type="text" name="indirizzo" placeholder="Via Tal Dei Tali 59" class="input"/>
+							<input type="text" name="indirizzo" placeholder="Via Tal Dei Tali 59"/>
 						</label>
 						<label>
 							<span>Città</span>
-							<input type="text" name="citta" placeholder="Vallo di Java" class="input"/>
+							<input type="text" name="citta" placeholder="Vallo di Java"/>
 						</label>
 						<label>
 							<span>CAP</span>
-							<input type="number" name="cap" placeholder="1996" class="input" min="00000" max="99999"/>
+							<input type="number" name="cap" placeholder="1996" min="00000" max="99999"/>
 						</label>
 						<label>
 							<span>Provincia</span>
-							<input type="text" name="provincia" placeholder="Orientata ad Oggetti" class="input"/>
+							<input type="text" name="provincia" placeholder="Orientata ad Oggetti"/>
 						</label>
 					</fieldset>
-					<input type="submit" value="Aggiungi indirizzo" class="button"/>
+					<input type="submit" value="Aggiungi indirizzo"/>
 					<div class="msg"></div>
 				</form>
 			</div>

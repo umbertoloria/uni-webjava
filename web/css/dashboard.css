@@ -50,13 +50,15 @@
 #dashboard > div div a.add_to_cart {
 	display: block;
 	position: absolute;
-	right: 0;
-	bottom: 0;
+	right: 5px;
+	bottom: 5px;
+	margin-right: -35px;
 	width: 30px;
 	height: 30px;
-	background-image: url("https://cdn0.iconfinder.com/data/icons/slim-square-icons-basics/100/basics-15-256.png");
-	background-size: cover;
-	margin-right: -30px;
+	background-image: url("../images/add.png");
+	background-size: 20px 20px;
+	background-position: 5px 5px;
+	background-repeat: no-repeat;
 	border-radius: 100%;
 	cursor: pointer;
 	transition: .3s;
@@ -66,9 +68,14 @@
 	margin: 0;
 }
 
+#dashboard > div div a.add_to_cart:hover {
+	background-color: #e0e0e0;
+}
+
 #dashboard > div div a.add_to_cart[disabled] {
 	margin: 0;
-	background-color: #e0e0e0;
+	background-color: #ddd;
+	transform: rotate(90deg);
 }
 
 @media only screen and (min-width: 1001px) and (max-width: 1400px) {

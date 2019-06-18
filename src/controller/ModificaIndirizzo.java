@@ -15,68 +15,72 @@ import java.io.IOException;
 @WebServlet("/modificaIndirizzo")
 public class ModificaIndirizzo extends HttpServlet {
 
+	private Utente utente;
+	private Integer id;
+	private String nome, indirizzo, citta, cap, provincia;
+
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("plain/text");
-
 		ErrorManager em = new ErrorManager(resp);
+		utente = (Utente) req.getSession().getAttribute("utente");
+		if (utente == null) {
+			// Vado al "logout" perché esso cancella anche "age" nella sessione, che non è ancora implementato.
+			em.logout();
+		} else if (!idInput(req)) {
+			em.internalError();
+		} else if (!dataInput(req)) {
+			em.internalError();
+		} else {
 
-		int uid;
-		{
-			Utente utente = (Utente) req.getSession().getAttribute("utente");
-			if (utente == null) {
-				// Vado al "logout" perché esso cancella anche "age" nella sessione, che non è ancora implementato.
-				em.logout();
-				return;
+			Indirizzo indirizzo = new Indirizzo(id, nome, this.indirizzo, citta, cap, provincia, utente.id);
+			IndirizzoValidator indirizzoValidator = new IndirizzoValidator(indirizzo);
+			if (indirizzoValidator.wrongInput()) {
+				em.notice("nome", indirizzoValidator.nome);
+				em.notice("indirizzo", indirizzoValidator.indirizzo);
+				em.notice("citta", indirizzoValidator.citta);
+				em.notice("cap", indirizzoValidator.cap);
+				em.notice("provincia", indirizzoValidator.provincia);
+			} else {
+				Indirizzo app = IndirizzoDAO.doRetrieveByNomeAndUtente(nome, utente.id);
+				if (app != null && app.id != id) {
+					// Un'altro indirizzo escluso quello che stiamo modificando, nel caso il nome rimanga lo stesso.
+					em.notice("nome", "Possiedi già un indirizzo con questo nome");
+				} else if (IndirizzoDAO.doUpdate(indirizzo)) {
+					em.done("Indirizzo modificato correttamente. Buona spesa!");
+					em.reload();
+				} else {
+					em.message("Al momento non è possibile modificare indirizzi sul proprio account. " +
+							"Riprova più tardi.");
+				}
 			}
-			uid = utente.id;
-		}
 
-		int id;
+		}
+		em.apply();
+	}
+
+	private boolean idInput(HttpServletRequest req) {
 		try {
 			id = Integer.parseInt(req.getParameter("id"));
 			Indirizzo check = IndirizzoDAO.doRetrieveByKey(id);
-			// Se l'indirizzo con questo 'id' è in realtà posseduto da un altro utente, allora facciamo logout.
-			if (check == null || check.utente != uid) {
+			// Se l'indirizzo con questo 'id' non è in nostro possesso, allora non possiamo modificarlo.
+			if (check == null || check.utente != utente.id) {
 				throw new NumberFormatException();
 			}
+			return true;
 		} catch (NumberFormatException e) {
-			em.logout();
-			return;
+			return false;
 		}
-		String nome = req.getParameter("nome");
-		String indirizzo = req.getParameter("indirizzo");
-		String citta = req.getParameter("citta");
-		String cap = req.getParameter("cap");
-		String provincia = req.getParameter("provincia");
-		if (nome == null || indirizzo == null || citta == null || cap == null || provincia == null) {
-			return;
-		}
-		nome = nome.trim();
-		indirizzo = indirizzo.trim();
-		citta = citta.trim();
-		cap = cap.trim();
-		provincia = provincia.trim();
+	}
 
-		Indirizzo indirizzoObj = new Indirizzo(id, nome, indirizzo, citta, cap, provincia, uid);
-
-		IndirizzoValidator indirizzoValidator = new IndirizzoValidator(indirizzoObj);
-		if (indirizzoValidator.wrongInput()) {
-			em.notice("nome", indirizzoValidator.nome);
-			em.notice("indirizzo", indirizzoValidator.indirizzo);
-			em.notice("citta", indirizzoValidator.citta);
-			em.notice("cap", indirizzoValidator.cap);
-			em.notice("provincia", indirizzoValidator.provincia);
-		} else {
-			Indirizzo app = IndirizzoDAO.doRetrieveByNomeAndUtente(nome, uid);
-			if (app != null && app.id != id) {
-				// Un'altro indirizzo escluso quello che stiamo modificando, nel caso il nome rimanga lo stesso.
-				em.notice("nome", "Possiedi già un indirizzo con questo nome");
-			} else if (IndirizzoDAO.doUpdate(indirizzoObj)) {
-				em.done("Indirizzo modificato correttamente. Buona spesa!");
-				em.reload();
-			} else {
-				em.message("Al momento non è possibile modificare indirizzi sul proprio account. Riprova più tardi.");
-			}
+	private boolean dataInput(HttpServletRequest req) {
+		try {
+			nome = req.getParameter("nome").trim();
+			indirizzo = req.getParameter("indirizzo").trim();
+			citta = req.getParameter("citta").trim();
+			cap = req.getParameter("cap").trim();
+			provincia = req.getParameter("provincia").trim();
+			return true;
+		} catch (NullPointerException e) {
+			return false;
 		}
 	}
 
