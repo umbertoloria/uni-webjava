@@ -68,7 +68,6 @@
 			const quantita = $(this).find("input[type='number']").val();
 			addToCart(<%= prodotto.id %>, quantita, function (cart_count) {
 				$("#rightside li.carrello a label").html(cart_count);
-			}, function () {
 			});
 		});
 

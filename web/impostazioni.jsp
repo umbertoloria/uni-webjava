@@ -132,16 +132,13 @@
 							ev.stopPropagation();
 							const id = div.attr("data-indirizzo-id");
 							ajaxPostRequest("rimuoviIndirizzo", "id=" + id, function (out) {
-								if (out === 'logout') {
-									location.href = 'logout.jsp';
-								} else if (out === 'done') {
+								error_manager(JSON.parse(out), function (out) {
+									// out = "" (sempre)
 									div.animate({opacity: "0"}, 300);
 									setTimeout(function () {
 										div.remove();
 									}, 500);
-								} else {
-									location.reload();
-								}
+								});
 							});
 						}
 					});

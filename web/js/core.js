@@ -2,12 +2,13 @@ function ajaxPostRequest(url, queryString, success) {
 	const conn = new XMLHttpRequest();
 	conn.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
+			console.log(this.responseText.trim());
 			success(this.responseText.trim());
 		}
 	};
 	conn.open("POST", url, true);
 	conn.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-	conn.setRequestHeader("connection", "close");
+	// conn.setRequestHeader("connection", "close");
 	conn.send(queryString);
 }
 
@@ -29,8 +30,6 @@ function addProdottoFromDashboardToCart(elem, prodotto) {
 		addToCart(prodotto, 1, function (cart_count) {
 			notification("Prodotto aggiunto sul carrello.");
 			$("#rightside li.carrello a label").html(cart_count);
-		}, function (error) {
-			notification("Problema: " + error);
 		});
 	}
 }

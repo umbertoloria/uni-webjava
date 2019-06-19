@@ -3,6 +3,7 @@ package controller;
 import model.bean.Indirizzo;
 import model.bean.Utente;
 import model.dao.IndirizzoDAO;
+import util.ErrorManager;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,40 +14,38 @@ import java.io.IOException;
 @WebServlet("/rimuoviIndirizzo")
 public class RimuoviIndirizzo extends HttpServlet {
 
-	/** Possible output: "logout", "fail", "done" */
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		resp.setContentType("plain/text");
+		ErrorManager em = new ErrorManager(resp);
 
-		int uid;
-		{
-			Utente utente = (Utente) req.getSession().getAttribute("utente");
-			if (utente == null) {
-				resp.getWriter().println("logout");
-				return;
-			}
-			uid = utente.id;
-		}
-
-		int id;
-		try {
-			id = Integer.parseInt(req.getParameter("id").trim());
-		} catch (NullPointerException | NumberFormatException ignore) {
-			resp.getWriter().println("fail");
+		Utente utente = (Utente) req.getSession().getAttribute("utente");
+		if (utente == null) {
+			em.logout();
+			em.apply();
 			return;
 		}
 
-		Indirizzo indirizzo = IndirizzoDAO.doRetrieveByKey(id);
-		if (indirizzo == null) {
-			resp.getWriter().println("fail");
-		} else if (indirizzo.utente != uid) {
+		Indirizzo indirizzo;
+		try {
+			// L'indirizzo deve esistere e soprattutto deve essere di nostra proprietà.
 			// TODO: Testare con multipli utenti.
-			resp.getWriter().println("fail");
-		} else if (IndirizzoDAO.doRemoveByKey(id)) {
-			resp.getWriter().println("done");
-		} else {
-			resp.getWriter().println("fail");
+			int id = Integer.parseInt(req.getParameter("id").trim());
+			indirizzo = IndirizzoDAO.doRetrieveByKey(id);
+			if (indirizzo == null || indirizzo.utente != utente.id) {
+				throw new NullPointerException();
+			}
+		} catch (NullPointerException | NumberFormatException ignore) {
+			em.logout();
+			em.apply();
+			return;
 		}
 
+		if (IndirizzoDAO.doRemoveByKey(indirizzo.id)) {
+			em.info("");
+		} else {
+			em.notification("Al momento non è possibile cancellare un indirizzo sul proprio account. " +
+					"Riprova più tardi.");
+		}
+		em.apply();
 	}
 
 }

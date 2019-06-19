@@ -1,6 +1,7 @@
-function error_manager(response, notice, message, done, redirect, reload) {
-	// TODO: Separare redirect normale (che potrebbe ritardarsi) da logout che va fatto immediatamente...
-	// FIXME: Poi applicare questa distinzione su carrello.jsp, tanto per cominciare...
+function error_manager(response, info, notice, before_reload) {
+	if (response.hasOwnProperty("info")) {
+		info(response.info);
+	}
 	if (response.hasOwnProperty("notices")) {
 		for (let field in response.notices) {
 			if (response.notices.hasOwnProperty(field)) {
@@ -8,18 +9,28 @@ function error_manager(response, notice, message, done, redirect, reload) {
 			}
 		}
 	}
-	if (response.hasOwnProperty("message")) {
-		message(response.message);
-	}
-	if (response.hasOwnProperty("done")) {
-		done(response.done);
-	}
 	if (response.hasOwnProperty("redirect")) {
-		if (response.redirect === 'reload') {
-			reload();
+		const url = response.redirect.url;
+		const delay = response.redirect.delay;
+		if (delay === 0) {
+			if (url === 'reload') {
+				before_reload();
+				location.reload();
+			} else location.href = url;
 		} else {
-			redirect(response.redirect);
+			setTimeout(function () {
+				if (url === 'reload') {
+					before_reload();
+					location.reload();
+				} else location.href = url;
+			}, response.redirect.delay);
 		}
+	}
+	if (response.hasOwnProperty("overlay")) {
+		overlay(response.overlay);
+	}
+	if (response.hasOwnProperty("notification")) {
+		notification(response.notification);
 	}
 }
 
@@ -31,34 +42,23 @@ $(function () {
 		}
 		ev.preventDefault();
 		ajaxPostRequest(form.attr("action"), dataForm(form[0]), function (out) {
-			form.find("fieldset label label").remove();
-			form.find(".msg").removeClass("shown").html("");
 			const msg = form.find(".msg");
-			error_manager(JSON.parse(out), function (field, notice) {
-				const input = form.find("input[name=" + field + "]");
-				const label = input.parent().find("label");
-				if (label.length === 0) {
-					input.parent().append("<label>" + notice + "</label>");
+			form.find("fieldset label label").remove();
+			msg.removeClass("shown").html("");
+			error_manager(JSON.parse(out), null, function (field, notice) {
+				if (field === 'null') {
+					form.find(".msg").addClass("shown").html(notice);
 				} else {
-					label.html(notice);
+					const input = form.find("input[name=" + field + "]");
+					const label = input.siblings("label");
+					if (label.length === 0) {
+						input.parent().append("<label>" + notice + "</label>");
+					} else {
+						label.html(notice);
+					}
 				}
-			}, function (message) {
-				form.find(".msg").addClass("shown").html(message);
-			}, function (done) {
-				msg.removeClass("shown").html("");
-				form.find("input[name]").each(function () {
-					$(this).parent().children("label").remove();
-				});
-				overlay(done);
-			}, function (url) {
-				setTimeout(function () {
-					location.href = url;
-				}, 1500);
 			}, function () {
-				setTimeout(function () {
-					form[0].reset();
-					location.reload();
-				}, 1500);
+				form[0].reset();
 			});
 		});
 	});

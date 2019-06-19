@@ -29,7 +29,7 @@ public class UpdateCart extends HttpServlet {
 				throw new NumberFormatException();
 			}
 		} catch (NumberFormatException e) {
-			em.message("Il prodotto non esiste");
+			em.notification("Il prodotto non esiste");
 			em.apply();
 			return;
 		}
@@ -57,7 +57,7 @@ public class UpdateCart extends HttpServlet {
 				}
 			} else {
 				// Non si vorrebbe mai rimuovere un prodotto da un carrello già vuoto.
-				em.message("Il carrello è già vuoto.");
+				em.notification("Il carrello è già vuoto.");
 			}
 
 		} else {
@@ -70,7 +70,7 @@ public class UpdateCart extends HttpServlet {
 					throw new NumberFormatException();
 				}
 			} catch (NumberFormatException e) {
-				em.message("Quantità non valida");
+				em.notification("Quantità non valida");
 			}
 
 			if (quantita != null) {
@@ -100,7 +100,7 @@ public class UpdateCart extends HttpServlet {
 		}
 
 		if (!res.isEmpty()) {
-			em.done(res);
+			em.info(res);
 		}
 		em.apply();
 

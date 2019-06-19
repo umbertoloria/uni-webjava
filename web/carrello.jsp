@@ -82,7 +82,7 @@
 					%>
 				</select>
 			</label>
-			<input type="submit" value="Acquista" onclick="ordina(this)"/>
+			<input type="submit" value="Acquista" onclick="acquista(this)"/>
 			<%
 				}
 			%>
@@ -90,19 +90,11 @@
 	</div>
 	<script>
 
-		function ordina(btn) {
+		function acquista(btn) {
 			btn = $(btn);
 			const indirizzo = btn.prev().find("[name='indirizzo']").val();
 			ajaxPostRequest("acquista", "indirizzo=" + indirizzo, function (out) {
-				error_manager(JSON.parse(out), null, function (message) {
-					notification("Problema: " + message);
-				}, function (out) {
-					overlay(out);
-				}, function (url) {
-					location.href = url;
-				}, function () {
-					location.reload();
-				});
+				error_manager(JSON.parse(out));
 			});
 		}
 
@@ -123,8 +115,6 @@
 					// Sincronizzazione carrello
 					aggiornaCarrello();
 					// TODO: Forse, si potrebbe pensare di farsi arrivare direttamente qui anche il serial...
-				}, function (error) {
-					notification("Problema: " + error);
 				});
 			}, 300);
 		}
@@ -142,8 +132,6 @@
 				// Sincronizzazione carrello
 				aggiornaCarrello();
 				// TODO: Si potrebbe pensare come sopra...
-			}, function (error) {
-				notification("Problema: " + error);
 			});
 		}
 

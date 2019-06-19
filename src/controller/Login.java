@@ -15,45 +15,38 @@ import java.io.IOException;
 @WebServlet("/login")
 public class Login extends HttpServlet {
 
-	private Utente utente;
-
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		ErrorManager em = new ErrorManager(resp);
-		if (!input(req)) {
-			em.internalError();
-		} else {
 
-			UtenteValidator utenteValidator = new UtenteValidator(utente, false);
-			if (utenteValidator.wrongInput()) {
-				em.notice("email", utenteValidator.email);
-				em.notice("password", utenteValidator.password);
-			} else {
-				Utente saved = UtenteDAO.doRetrieveByEmail(utente.email);
-				if (saved == null || !saved.password.equals(utente.password)) {
-					em.message("Dati di accesso errati");
-				} else {
-					HttpSession session = req.getSession();
-					session.setMaxInactiveInterval(60 * 60);
-					session.setAttribute("utente", saved);
-					em.done("Accesso effettuato");
-					em.redirect(".");
-					// TODO: Scaricare carrello sulla sessione.
-				}
-			}
-
-		}
-		em.apply();
-	}
-
-	private boolean input(HttpServletRequest req) {
+		Utente utente;
 		try {
 			String email = req.getParameter("email").trim();
 			String password = req.getParameter("password").trim();
 			utente = new Utente(email, password);
-			return true;
 		} catch (NullPointerException e) {
-			return false;
+			em.logout();
+			em.apply();
+			return;
 		}
+
+		UtenteValidator utenteValidator = new UtenteValidator(utente, false);
+		if (utenteValidator.wrongInput()) {
+			em.notice("email", utenteValidator.email);
+			em.notice("password", utenteValidator.password);
+		} else {
+			Utente saved = UtenteDAO.doRetrieveByEmail(utente.email);
+			if (saved == null || !saved.password.equals(utente.password)) {
+				em.notice(null, "Dati di accesso errati");
+			} else {
+				HttpSession session = req.getSession();
+				session.setMaxInactiveInterval(60 * 60);
+				session.setAttribute("utente", saved);
+				em.overlay("Accesso effettuato");
+				em.redirect(".");
+				// TODO: Scaricare carrello sulla sessione.
+			}
+		}
+		em.apply();
 	}
 
 }

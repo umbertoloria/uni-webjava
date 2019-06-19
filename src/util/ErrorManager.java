@@ -8,37 +8,80 @@ import java.util.HashMap;
 
 public class ErrorManager {
 
+	private static class Redirect {
+
+		private final String url;
+		private final int delay;
+
+		Redirect(String url, int delay) {
+			this.url = url;
+			this.delay = delay;
+		}
+
+		JSONObject toJSON() {
+			JSONObject json = new JSONObject();
+			json.put("url", url);
+			json.put("delay", delay);
+			return json;
+		}
+
+	}
+
+	private static class Notices {
+
+		private final HashMap<String, Object> notices = new HashMap<>();
+
+		void add(String field, Object msg) {
+			if (msg != null) {
+				if (field == null) {
+					field = "null";
+				} else if (field.equals("null")) {
+					return;
+				}
+				if (!notices.containsKey(field)) {
+					notices.put(field, msg);
+				}
+			}
+		}
+
+		JSONObject toJSON() {
+			if (notices.isEmpty()) {
+				return null;
+			} else {
+				JSONObject json = new JSONObject();
+				for (String field : notices.keySet()) {
+					json.put(field, notices.get(field));
+				}
+				return json;
+			}
+		}
+
+	}
+
 	private HttpServletResponse resp;
-	private HashMap<String, Object> notices = new HashMap<>();
-	private Object message;
-	private Object done;
-	private Object redirect;
+	private Notices notices = new Notices();
+	private Object info;
+	private Redirect redirect;
+	private String overlay;
+	private String notification;
 
 	public ErrorManager(HttpServletResponse resp) {
 		this.resp = resp;
 	}
 
 	public void notice(String field, Object msg) {
-		if (field != null && msg != null && !notices.containsKey(field)) {
-			notices.put(field, msg);
+		notices.add(field, msg);
+	}
+
+	public void info(Object msg) {
+		if (info == null) {
+			info = msg;
 		}
 	}
 
-	public void message(Object msg) {
-		if (message == null) {
-			message = msg;
-		}
-	}
-
-	public void done(Object msg) {
-		if (done == null) {
-			done = msg;
-		}
-	}
-
-	public void redirect(Object url) {
+	public void redirect(String url) {
 		if (redirect == null) {
-			redirect = url;
+			redirect = new Redirect(url, 1500);
 		}
 	}
 
@@ -47,33 +90,32 @@ public class ErrorManager {
 	}
 
 	public void logout() {
-		// TODO: evitare che nel json ci siano altre info e voglio solo fare logout veloce veloce.
-		redirect("logout.jsp");
+		redirect = new Redirect("logout.jsp", 0);
 	}
 
-	public void internalError() {
-		message("Errore interno. Riprova più tardi.");
+	public void overlay(String msg) {
+		if (overlay == null) {
+			overlay = msg;
+		}
 	}
 
-	//	public void apply(PrintWriter out) {
+	public void notification(String msg) {
+		if (notification == null) {
+			notification = msg;
+		}
+	}
+
 	public void apply() throws IOException {
 		JSONObject json = new JSONObject();
-		if (!notices.isEmpty()) {
-			JSONObject jsonNotices = new JSONObject();
-			for (String field : notices.keySet()) {
-				jsonNotices.put(field, notices.get(field));
-			}
-			json.put("notices", jsonNotices);
+		if (notices != null) {
+			json.put("notices", notices.toJSON());
 		}
-		if (message != null) {
-			json.put("message", message);
-		}
-		if (done != null) {
-			json.put("done", done);
-		}
+		json.put("info", info);
 		if (redirect != null) {
-			json.put("redirect", redirect);
+			json.put("redirect", redirect.toJSON());
 		}
+		json.put("overlay", overlay);
+		json.put("notification", notification);
 		resp.setContentType("application/json");
 		resp.getWriter().print(json.toString());
 	}

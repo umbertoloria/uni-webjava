@@ -1,45 +1,40 @@
-function addToCart(prodotto, quantita, success, failure) {
+// TODO: Forse rinominare "success" in "action"
+function addToCart(prodotto, quantita, success) {
 	if (quantita >= 1) {
 		ajaxPostRequest("updateCart", "mode=add&p=" + prodotto + "&q=" + quantita, function (out) {
 			// Avrò solo message (per errori) o done (per aggiornamento dati)
-			error_manager(JSON.parse(out), null, function (message) {
-				failure(message);
-			}, function (out) {
+			error_manager(JSON.parse(out), function (out) {
 				const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
 				success(cart_count);
-			}, null, null);
+			});
 		});
 	} else {
-		failure("Quantità non valida");
+		notification("Quantità non valida");
 	}
 }
 
-function setToCart(prodotto, quantita, success, failure) {
+function setToCart(prodotto, quantita, success) {
 	if (quantita >= 1) {
 		ajaxPostRequest("updateCart", "mode=set&p=" + prodotto + "&q=" + quantita, function (out) {
-			error_manager(JSON.parse(out), null, function (message) {
-				failure(message);
-			}, function (out) {
+			error_manager(JSON.parse(out), function (out) {
 				const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
 				const product_total = out.hasOwnProperty("product_total") ? out.product_total : NaN;
 				const cart_total = out.hasOwnProperty("cart_total") ? out.cart_total : NaN;
 				success(cart_count, product_total, cart_total);
-			}, null, null);
+			});
 		});
 	} else {
-		failure("Quantità non valida");
+		notification("Quantità non valida");
 	}
 }
 
-function dropFromCart(prodotto, success, failure) {
+function dropFromCart(prodotto, success) {
 	ajaxPostRequest("updateCart", "mode=drop&p=" + prodotto, function (out) {
-		error_manager(JSON.parse(out), null, function (message) {
-			failure(message);
-		}, function (out) {
+		error_manager(JSON.parse(out), function (out) {
 			const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
 			const cart_total = out.hasOwnProperty("cart_total") ? out.cart_total : NaN;
 			success(cart_count, cart_total);
-		}, null, null);
+		});
 	});
 }
 
