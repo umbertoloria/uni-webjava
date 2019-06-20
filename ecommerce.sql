@@ -1,31 +1,3 @@
-create table categorie (
-    id   int auto_increment
-        primary key,
-    nome varchar(50) not null
-);
-
-create table sottocategorie (
-    id        int auto_increment
-        primary key,
-    categoria int          not null,
-    nome      varchar(50)  not null,
-    immagine  varchar(500) not null,
-    constraint nome
-        unique (nome),
-    constraint sottocategorie_ibfk_1
-        foreign key (categoria) references categorie (id)
-            on update cascade
-);
-
-create index categoria
-    on sottocategorie (categoria);
-
-create table produttori (
-    id   int auto_increment
-        primary key,
-    nome varchar(20) not null
-);
-
 create table utenti (
     id       int auto_increment
         primary key,
@@ -37,106 +9,14 @@ create table utenti (
         unique (email)
 );
 
-create table prodotti (
-    id             int auto_increment
+INSERT INTO ecommerce.utenti (id, email, password, nome, tipo)
+VALUES (1, 'umberto.loria@gmail.com', 'pwd', 'umbertolo', 'Normale');
+
+create table produttori (
+    id   int auto_increment
         primary key,
-    sottocategoria int           not null,
-    nome           varchar(50)   not null,
-    produttore     int           not null,
-    prezzo         decimal(6, 2) not null,
-    immagine       varchar(500)  not null,
-    descrizione    text          not null,
-    constraint prodotti_ibfk_1
-        foreign key (produttore) references produttori (id)
-            on update cascade,
-    constraint prodotti_ibfk_2
-        foreign key (sottocategoria) references sottocategorie (id)
-            on update cascade
+    nome varchar(20) not null
 );
-
-create index produttore
-    on prodotti (produttore);
-
-create index sottocategoria
-    on prodotti (sottocategoria);
-
-create table ordini (
-    id           int auto_increment
-        primary key,
-    utente       int          not null,
-    destinazione varchar(100) not null,
-    constraint ordini_ibfk_1
-        foreign key (utente) references utenti (id)
-            on update cascade
-);
-
-create index utente
-    on ordini (utente);
-
-create table ordine_has_prodotto (
-    ordine   int           not null,
-    prodotto int           not null,
-    prezzo   decimal(6, 2) not null,
-    quantita int           not null,
-    primary key (ordine, prodotto),
-    constraint ordine_has_prodotto_ibfk_1
-        foreign key (ordine) references ordini (id)
-            on update cascade,
-    constraint ordine_has_prodotto_ibfk_2
-        foreign key (prodotto) references prodotti (id)
-            on update cascade
-);
-
-create index prodotto
-    on ordine_has_prodotto (prodotto);
-
-create table carrello_items (
-    utente   int           not null,
-    prodotto int           not null,
-    quantita int default 1 not null,
-    primary key (utente, prodotto),
-    constraint carrello_items_ibfk_1
-        foreign key (utente) references utenti (id)
-            on update cascade,
-    constraint carrello_items_ibfk_2
-        foreign key (prodotto) references prodotti (id)
-            on update cascade
-);
-
-create index prodotto
-    on carrello_items (prodotto);
-
-create table indirizzi (
-    id        int auto_increment
-        primary key,
-    nome      varchar(100) not null,
-    indirizzo varchar(100) not null,
-    citta     varchar(50)  not null,
-    cap       int          not null,
-    provincia varchar(50)  not null,
-    utente    int          not null,
-    constraint nome_utente
-        unique (nome, utente),
-    constraint indirizzi_ibfk_1
-        foreign key (utente) references utenti (id)
-            on update cascade
-);
-
-create index utente
-    on indirizzi (utente);
-
-INSERT INTO ecommerce.categorie (id, nome)
-VALUES (1, 'Chitarra');
-INSERT INTO ecommerce.categorie (id, nome)
-VALUES (2, 'Basso');
-INSERT INTO ecommerce.categorie (id, nome)
-VALUES (3, 'Batteria');
-INSERT INTO ecommerce.categorie (id, nome)
-VALUES (4, 'Pianoforte');
-INSERT INTO ecommerce.categorie (id, nome)
-VALUES (5, 'Tastiera');
-INSERT INTO ecommerce.categorie (id, nome)
-VALUES (6, 'Microfono');
 
 INSERT INTO ecommerce.produttori (id, nome)
 VALUES (1, 'Sonor');
@@ -166,6 +46,41 @@ INSERT INTO ecommerce.produttori (id, nome)
 VALUES (13, 'Proel');
 INSERT INTO ecommerce.produttori (id, nome)
 VALUES (14, 'Behringer');
+
+create table categorie (
+    id   int auto_increment
+        primary key,
+    nome varchar(50) not null
+);
+
+INSERT INTO ecommerce.categorie (id, nome)
+VALUES (1, 'Chitarra');
+INSERT INTO ecommerce.categorie (id, nome)
+VALUES (2, 'Basso');
+INSERT INTO ecommerce.categorie (id, nome)
+VALUES (3, 'Batteria');
+INSERT INTO ecommerce.categorie (id, nome)
+VALUES (4, 'Pianoforte');
+INSERT INTO ecommerce.categorie (id, nome)
+VALUES (5, 'Tastiera');
+INSERT INTO ecommerce.categorie (id, nome)
+VALUES (6, 'Microfono');
+
+create table sottocategorie (
+    id        int auto_increment
+        primary key,
+    categoria int          not null,
+    nome      varchar(50)  not null,
+    immagine  varchar(500) not null,
+    constraint nome
+        unique (nome),
+    constraint sottocategorie_ibfk_1
+        foreign key (categoria) references categorie (id)
+            on update cascade
+);
+
+create index categoria
+    on sottocategorie (categoria);
 
 INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
 VALUES (1, 1, 'Chitarra Classica',
@@ -198,6 +113,29 @@ VALUES (11, 5, 'Arranger', 'https://www.smstrumentimusicali.it/wp-content/upload
 INSERT INTO ecommerce.sottocategorie (id, categoria, nome, immagine)
 VALUES (12, 6, 'Microfono vocale',
         'https://st2.depositphotos.com/6052698/8769/v/600/depositphotos_87694338-stock-video-microphone-on-stage-at-concert.jpg');
+
+create table prodotti (
+    id             int auto_increment
+        primary key,
+    sottocategoria int           not null,
+    nome           varchar(50)   not null,
+    produttore     int           not null,
+    prezzo         decimal(6, 2) not null,
+    immagine       varchar(500)  not null,
+    descrizione    text          not null,
+    constraint prodotti_ibfk_1
+        foreign key (produttore) references produttori (id)
+            on update cascade,
+    constraint prodotti_ibfk_2
+        foreign key (sottocategoria) references sottocategorie (id)
+            on update cascade
+);
+
+create index produttore
+    on prodotti (produttore);
+
+create index sottocategoria
+    on prodotti (sottocategoria);
 
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione)
 VALUES (1, 7, '507', 1, 550.00, 'https://d1aeri3ty3izns.cloudfront.net/media/9/9349/1200/preview.jpg',
@@ -260,10 +198,73 @@ VALUES (16, 12, 'XM8500', 14, 30.00,
         'https://www.bhphotovideo.com/images/images500x500/Behringer_Behringer_XM8500_15_XLR_Cable_Foam_890290.jpg',
         'Microfono cardioide dinamico.');
 
-INSERT INTO ecommerce.utenti (id, email, password, nome, tipo)
-VALUES (1, 'umberto.loria@gmail.com', 'pwd', 'umbertolo', 'Normale');
+create table carrello_items (
+    utente   int           not null,
+    prodotto int           not null,
+    quantita int default 1 not null,
+    primary key (utente, prodotto),
+    constraint carrello_items_ibfk_1
+        foreign key (utente) references utenti (id)
+            on update cascade,
+    constraint carrello_items_ibfk_2
+        foreign key (prodotto) references prodotti (id)
+            on update cascade
+);
+
+create index prodotto
+    on carrello_items (prodotto);
+
+create table indirizzi (
+    id        int auto_increment
+        primary key,
+    nome      varchar(100) not null,
+    indirizzo varchar(100) not null,
+    citta     varchar(50)  not null,
+    cap       int          not null,
+    provincia varchar(50)  not null,
+    utente    int          not null,
+    constraint nome_utente
+        unique (nome, utente),
+    constraint indirizzi_ibfk_1
+        foreign key (utente) references utenti (id)
+            on update cascade
+);
+
+create index utente
+    on indirizzi (utente);
 
 INSERT INTO ecommerce.indirizzi (id, nome, indirizzo, citta, cap, provincia, utente)
-VALUES (1, 'Casa', 'Via Marconi 51', 'Baronissi', 84081, 'Salerno', 1);
+VALUES (1, 'Casa', 'Via Guglielmo Marconi 51', 'Baronissi', 84081, 'Salerno', 1);
 INSERT INTO ecommerce.indirizzi (id, nome, indirizzo, citta, cap, provincia, utente)
-VALUES (2, 'Ufficio', 'Via Marconi 4', 'Baronissi', 84081, 'Salerno', 1);
+VALUES (2, 'Ufficio', 'Via Guglielmo Marconi 4', 'Baronissi', 84081, 'Salerno', 1);
+
+create table ordini (
+    id           int auto_increment
+        primary key,
+    utente       int                                not null,
+    destinazione varchar(100)                       not null,
+    momento      datetime default CURRENT_TIMESTAMP not null,
+    constraint ordini_ibfk_1
+        foreign key (utente) references utenti (id)
+            on update cascade
+);
+
+create index utente
+    on ordini (utente);
+
+create table ordine_has_prodotti (
+    ordine   int           not null,
+    prodotto int           not null,
+    prezzo   decimal(6, 2) not null,
+    quantita int           not null,
+    primary key (ordine, prodotto),
+    constraint ordine_has_prodotti_ibfk_1
+        foreign key (ordine) references ordini (id)
+            on update cascade,
+    constraint ordine_has_prodotti_ibfk_2
+        foreign key (prodotto) references prodotti (id)
+            on update cascade
+);
+
+create index prodotto
+    on ordine_has_prodotti (prodotto);

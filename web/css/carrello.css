@@ -1,3 +1,11 @@
+#carrello_container {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	grid-gap: 30px;
+	align-items: flex-start;
+}
+
 #carrello {
 	display: grid;
 	/*grid-template-columns: 1fr 1fr;*/
@@ -19,6 +27,7 @@
 
 #carrello > div > div:first-child {
 	flex-direction: row;
+	align-items: flex-start;
 }
 
 #carrello > div > div:first-child > a:first-child {
@@ -30,6 +39,7 @@
 }
 
 #carrello > div > div:first-child > a:first-child img {
+	display: block;
 	width: 130px;
 	height: 130px;
 	padding: 10px;
@@ -44,23 +54,12 @@
 
 #carrello > div > div:first-child > a:last-child {
 	font-size: 1.3em;
-	height: min-content;
 }
 
 #carrello > div > div:last-child {
 	flex-direction: column;
 	justify-content: space-between;
 }
-
-/*#carrello > div > div:last-child > div:first-child span {
-	display: inline-block;
-	background: var(--price);
-	color: rgba(255, 255, 255, .9);
-	font-weight: bold;
-	padding: 0 10px;
-	line-height: 35px;
-	border-radius: 10px;
-}*/
 
 #carrello > div > div:last-child > div:last-child {
 	display: flex;

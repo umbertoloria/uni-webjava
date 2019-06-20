@@ -2,7 +2,6 @@ function ajaxPostRequest(url, queryString, success) {
 	const conn = new XMLHttpRequest();
 	conn.onreadystatechange = function () {
 		if (this.readyState === 4 && this.status === 200) {
-			console.log(this.responseText.trim());
 			success(this.responseText.trim());
 		}
 	};
@@ -28,7 +27,7 @@ function addProdottoFromDashboardToCart(elem, prodotto) {
 			$(elem).removeAttr("disabled");
 		}, 3000);
 		addToCart(prodotto, 1, function (cart_count) {
-			notification("Prodotto aggiunto sul carrello.");
+			Notification.push("Prodotto aggiunto sul carrello.");
 			$("#rightside li.carrello a label").html(cart_count);
 		});
 	}

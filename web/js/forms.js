@@ -30,7 +30,7 @@ function error_manager(response, info, notice, before_reload) {
 		overlay(response.overlay);
 	}
 	if (response.hasOwnProperty("notification")) {
-		notification(response.notification);
+		Notification.push(response.notification);
 	}
 }
 

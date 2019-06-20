@@ -31,7 +31,6 @@ public class IndirizzoDAO extends DAO {
 
 	/** Ricerca tutti gli indirizzi appartenenti all'utente fornito. */
 	public static Indirizzo[] getAllThoseOf(Utente utente) {
-		// TODO: Predere quello più usato, aggiornando la documentazione sopra.
 		ArrayList<Indirizzo> indirizzi = new ArrayList<>();
 		Conn conn = Conn.hold();
 		Table t = conn.query("SELECT id, nome, indirizzo, citta, cap, provincia, utente " +

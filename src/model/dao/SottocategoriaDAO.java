@@ -20,7 +20,8 @@ public class SottocategoriaDAO extends DAO {
 	public static Sottocategoria[] getAllThoseOf(int categoria) {
 		ArrayList<Sottocategoria> sottocategorie = new ArrayList<>();
 		Conn conn = Conn.hold();
-		Table t = conn.query("SELECT id, categoria, nome, immagine FROM sottocategorie WHERE categoria = ?", categoria);
+		Table t = conn.query("SELECT id, categoria, nome, immagine " +
+				"FROM sottocategorie WHERE categoria = ?", categoria);
 		Conn.release(conn);
 		for (Record record : t) {
 			String[] r = record.asStringArray();

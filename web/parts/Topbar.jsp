@@ -59,6 +59,7 @@
 							<a>Account</a>
 							<ul>
 								<li><a href="impostazioni.jsp">Impostazioni</a></li>
+								<li><a href="ordini.jsp">Ordini</a></li>
 								<li><a href="logout.jsp">Logout</a></li>
 							</ul>
 						</li>
@@ -66,6 +67,9 @@
 					<c:otherwise>
 						<li>
 							<a href="login.jsp">Login</a>
+							<ul>
+								<li><a href="registrazione.jsp">Registrazione</a></li>
+							</ul>
 						</li>
 					</c:otherwise>
 				</c:choose>
@@ -82,7 +86,6 @@
 		<nav>
 			<ul>
 				<%
-					// TODO: Sincronizzare i dati sulla sessione con quelli sul DB.
 					Integer activeCategoria = (Integer) request.getAttribute("topbar_categoria");
 					Integer activeSottocategoria = (Integer) request.getAttribute("topbar_sottocategoria");
 					for (Categoria cat : CategoriaDAO.getAll()) {

@@ -68,41 +68,11 @@
 	object-fit: contain;
 }
 
-/*#indirizzi > div > div a:first-child img {
-	width: 18px;
-	height: 18px;
-	margin-left: 7px;
-	/*background-image: url("../images/edit.png");
-	background-size: 18px 18px;
-	background-position: 7px center;*
-}
-
-#indirizzi > div > div a:last-child {
-	/*background-image: url("../images/drop.png");
-	background-size: 30px 30px;
-	background-position: center;*
-	width: 30px;
-	height: 30px;
-	margin-left: 7px;
-}*/
-
-/*#indirizzi > div > div a:first-child {
-	background-image: url("../images/edit.png");
-	background-size: 18px 18px;
-	background-position: 7px center;
-}
-
-#indirizzi > div > div a:last-child {
-	background-image: url("../images/drop.png");
-	background-size: 30px 30px;
-	background-position: center;
-}*/
-
 #indirizzi > div > div a:hover {
 	margin-top: -4px;
 }
 
-#indirizzi > div h3 {
+#indirizzi > div h2 {
 	font-size: 1.2em;
 	margin: 0 0 10px 0;
 }

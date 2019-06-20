@@ -1,0 +1,70 @@
+#ordini {
+	width: 100%;
+}
+
+#ordini .ordine {
+	display: grid;
+	grid-template-columns: auto 200px;
+	grid-gap: 20px;
+	padding-bottom: 30px;
+	border-bottom: 2px solid #ddd;
+	margin-bottom: 30px;
+}
+
+#ordini .ordine:last-child {
+	padding-bottom: 0;
+	border-bottom: 0;
+	margin-bottom: 0;
+}
+
+#ordini .ordine .ordine_items {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-gap: 30px;
+	width: 100%;
+}
+
+#ordini .ordine .ordine_items > a {
+	transition: .2s;
+}
+
+#ordini .ordine .ordine_items > a:hover {
+	transform: scale(1.05);
+}
+
+#ordini .ordine .ordine_items > a > img {
+	display: block;
+	width: 100%;
+	height: 163px;
+	padding: 10px;
+	box-sizing: border-box;
+	object-fit: contain;
+	background: #fff;
+	border-radius: 3px;
+	margin-bottom: 20px;
+}
+
+#ordini .ordine .ordine_items > a label {
+	display: block;
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+
+#ordini .ordine .ordine_items > a span.pr {
+	color: var(--cl);
+}
+
+#ordini .ordine .ordine_items > a span.qu {
+	color: var(--price);
+}
+
+#ordini .ordine > div:last-child {
+	background: #ddd;
+	border-radius: 3px;
+	padding: 20px;
+}
+
+#ordini .ordine > div:last-child h2 {
+	font-size: 1em;
+	margin: 0 0 15px 0;
+}

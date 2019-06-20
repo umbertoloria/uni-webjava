@@ -21,7 +21,7 @@
 		} else {
 	%>
 	<h1>Carrello</h1>
-	<div style="display: grid; grid-template-columns: 2fr 1fr; grid-gap: 30px; width: 100%; align-items: flex-start;">
+	<div id="carrello_container">
 		<div id="carrello" data-serial="<%= carrello.serialize() %>">
 			<%
 				for (CarrelloItem carrelloItem : carrello) {

@@ -26,4 +26,8 @@ public final class Indirizzo {
 		this.utente = utente;
 	}
 
+	public String toString() {
+		return indirizzo + ", " + citta + ", " + cap + ", " + provincia;
+	}
+
 }

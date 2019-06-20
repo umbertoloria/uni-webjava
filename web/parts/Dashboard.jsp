@@ -25,8 +25,8 @@
 				<%= prodotto.nome %>
 			</label>
 			<span>
-			<%= Formats.euro(prodotto.prezzo) %>
-		</span>
+				<%= Formats.euro(prodotto.prezzo) %>
+			</span>
 			<a class="add_to_cart" onclick="addProdottoFromDashboardToCart(this, <%= prodotto.id %>)"></a>
 		</div>
 	</div>

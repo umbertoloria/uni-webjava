@@ -1,7 +1,6 @@
 package model.dao;
 
 import database.Conn;
-import database.Record;
 import database.Table;
 
 import java.sql.SQLException;
@@ -15,13 +14,7 @@ class DAO {
 		if (t.count() == 0) {
 			return null;
 		}
-		Record r = t.get(0);
-		String[] result = new String[r.getSize()];
-		int i = 0;
-		for (Object o : r) {
-			result[i++] = o.toString();
-		}
-		return result;
+		return t.get(0).asStringArray();
 	}
 
 	static void insert(String sql, Object... data) throws SQLException {
@@ -31,6 +24,17 @@ class DAO {
 		} finally {
 			Conn.release(conn);
 		}
+	}
+
+	static int insertButGetLastId(String sql, Object... data) throws SQLException {
+		int id;
+		Conn conn = Conn.hold();
+		try {
+			id = conn.updateButGetLastId(sql, data);
+		} finally {
+			Conn.release(conn);
+		}
+		return id;
 	}
 
 }

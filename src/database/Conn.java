@@ -29,13 +29,6 @@ public class Conn {
 		}
 	}
 
-//	public static Table query(String sql, Object... data) throws RuntimeException {
-//		Conn database = hold();
-//		Table t = database.query(sql, data);
-//		release(database);
-//		return t;
-//	}
-
 	private Connection conn;
 
 	private Conn(String url, int port, String usr, String pwd, String db) throws SQLException {
@@ -76,6 +69,18 @@ public class Conn {
 			stmt.setString(i++, d.toString());
 		}
 		stmt.executeUpdate();
+	}
+
+	public int updateButGetLastId(String query, Object... data) throws SQLException {
+		PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+		int i = 1;
+		for (Object d : data) {
+			stmt.setString(i++, d.toString());
+		}
+		stmt.executeUpdate();
+		ResultSet rs = stmt.getGeneratedKeys();
+		rs.next();
+		return rs.getInt(1);
 	}
 
 }

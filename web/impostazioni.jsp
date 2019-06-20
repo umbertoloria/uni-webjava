@@ -59,9 +59,9 @@
 								<img src="images/drop.png"/>
 							</a>
 						</div>
-						<h3 data-indirizzo-nome="<%= indirizzo.nome %>">
+						<h2 data-indirizzo-nome="<%= indirizzo.nome %>">
 							<%= indirizzo.nome %>
-						</h3>
+						</h2>
 						<ul>
 							<li data-indirizzo-indirizzo="<%= indirizzo.indirizzo %>">
 								<%= indirizzo.indirizzo %>

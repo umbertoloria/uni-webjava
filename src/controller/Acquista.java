@@ -5,6 +5,7 @@ import model.bean.Indirizzo;
 import model.bean.Ordine;
 import model.bean.Utente;
 import model.dao.IndirizzoDAO;
+import model.dao.OrdineDAO;
 import util.ErrorManager;
 
 import javax.servlet.annotation.WebServlet;
@@ -42,15 +43,16 @@ public class Acquista extends HttpServlet {
 			return;
 		}
 
-		Ordine o = Ordine.makeFromCart(carrello, indirizzo, utente);
-		if (o == null) {
+		Ordine o = new Ordine(utente.id, indirizzo.toString(), carrello);
+		if (OrdineDAO.doSave(o)) {
+			// Tutto ok.
+			req.getSession().removeAttribute("carrello");
+			em.overlay("Acquisto effettuato");
+			em.redirect("ordini.jsp");
+		} else {
 			// Si è verificato un problema non dovuto dall'utente.
 			em.overlay("Si è verificato un problema. Riprova più tardi.");
 			em.reload();
-		} else {
-			// Tutto ok.
-			em.overlay("Acquisto effettuato");
-			em.redirect("storico.jsp");
 		}
 		em.apply();
 	}
