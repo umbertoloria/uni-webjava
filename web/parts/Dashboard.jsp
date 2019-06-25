@@ -15,7 +15,7 @@
 	%>
 	<div>
 		<a href="prodotto.jsp?id=<%= prodotto.id %>" class="image">
-			<img src="<%= prodotto.immagine %>" alt="Immagine prodotto"/>
+			<img src="immagine?id=<%= prodotto.immagine %>" alt/>
 		</a>
 		<div>
 			<label>

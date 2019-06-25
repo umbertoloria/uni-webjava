@@ -58,6 +58,9 @@
 						<li>
 							<a>Account</a>
 							<ul>
+								<c:if test="${utente.admin()}">
+									<li><a href="amministrazione.jsp">Amministrazione</a></li>
+								</c:if>
 								<li><a href="impostazioni.jsp">Impostazioni</a></li>
 								<li><a href="ordini.jsp">Ordini</a></li>
 								<li><a href="logout.jsp">Logout</a></li>

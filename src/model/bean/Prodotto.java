@@ -2,13 +2,11 @@ package model.bean;
 
 public final class Prodotto {
 
-	public final int id, sottocategoria;
-	public final String nome;
-	public final int produttore;
+	public final int id, sottocategoria, produttore, immagine;
+	public final String nome, descrizione;
 	public final float prezzo;
-	public final String immagine, descrizione;
 
-	public Prodotto(int id, int sottocategoria, String nome, int produttore, float prezzo, String immagine,
+	public Prodotto(int id, int sottocategoria, String nome, int produttore, float prezzo, int immagine,
 	                String descrizione) {
 		this.id = id;
 		this.sottocategoria = sottocategoria;

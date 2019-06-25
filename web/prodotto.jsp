@@ -37,7 +37,7 @@
 <main>
 	<div id="prodotto">
 		<div>
-			<img src="<%=prodotto.immagine%>">
+			<img src="immagine?id=<%=prodotto.immagine%>">
 		</div>
 		<div>
 			<h2>

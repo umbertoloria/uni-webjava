@@ -37,7 +37,7 @@ function error_manager(response, info, notice, before_reload) {
 $(function () {
 	$("form").submit(function (ev) {
 		const form = $(this);
-		if (form.attr("method") !== "post") {
+		if (form.attr("method") !== "post" || form.attr("enctype") !== undefined) {
 			return;
 		}
 		ev.preventDefault();
@@ -45,7 +45,7 @@ $(function () {
 			const msg = form.find(".msg");
 			form.find("fieldset label label").remove();
 			msg.removeClass("shown").html("");
-			error_manager(JSON.parse(out), null, function (field, notice) {
+			error_manager(out, null, function (field, notice) {
 				if (field === 'null') {
 					form.find(".msg").addClass("shown").html(notice);
 				} else {

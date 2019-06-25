@@ -1,7 +1,7 @@
 function addToCart(prodotto, quantita, action) {
 	if (quantita >= 1) {
-		ajaxPostRequest("updateCart", "mode=add&p=" + prodotto + "&q=" + quantita, function (out) {
-			error_manager(JSON.parse(out), function (out) {
+		ajaxPostRequest("updateCart", "mode=add&p=" + prodotto + "&q=" + quantita, function (json) {
+			error_manager(json, function (out) {
 				const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
 				action(cart_count);
 			});
@@ -13,8 +13,8 @@ function addToCart(prodotto, quantita, action) {
 
 function setToCart(prodotto, quantita, action) {
 	if (quantita >= 1) {
-		ajaxPostRequest("updateCart", "mode=set&p=" + prodotto + "&q=" + quantita, function (out) {
-			error_manager(JSON.parse(out), function (out) {
+		ajaxPostRequest("updateCart", "mode=set&p=" + prodotto + "&q=" + quantita, function (json) {
+			error_manager(json, function (out) {
 				const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
 				const product_total = out.hasOwnProperty("product_total") ? out.product_total : NaN;
 				const cart_total = out.hasOwnProperty("cart_total") ? out.cart_total : NaN;
@@ -27,8 +27,8 @@ function setToCart(prodotto, quantita, action) {
 }
 
 function dropFromCart(prodotto, action) {
-	ajaxPostRequest("updateCart", "mode=drop&p=" + prodotto, function (out) {
-		error_manager(JSON.parse(out), function (out) {
+	ajaxPostRequest("updateCart", "mode=drop&p=" + prodotto, function (json) {
+		error_manager(json, function (out) {
 			const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
 			const cart_total = out.hasOwnProperty("cart_total") ? out.cart_total : NaN;
 			action(cart_count, cart_total);
@@ -37,8 +37,7 @@ function dropFromCart(prodotto, action) {
 }
 
 function aggiornaCarrello() {
-	ajaxPostRequest("reloadCart", "", function (out) {
-		const json = $.parseJSON(out);
+	ajaxPostRequest("reloadCart", "", function (json) {
 		const cart_count = json.hasOwnProperty("cart_count") ? json.cart_count : NaN;
 		const cart_serial = json.hasOwnProperty("cart_serial") ? json.cart_serial : NaN;
 		$("#rightside li.carrello a label").html(cart_count);

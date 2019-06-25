@@ -1,23 +1,24 @@
-function ajaxPostRequest(url, queryString, success) {
-	const conn = new XMLHttpRequest();
-	conn.onreadystatechange = function () {
-		if (this.readyState === 4 && this.status === 200) {
-			success(this.responseText.trim());
+function ajaxPostRequest(url, data, success) {
+	$.ajax({
+		url: url,
+		data: data,
+		// dataType: "json", TODO: Pensaci...
+		type: 'POST',
+		success: function (out, status) {
+			if (status === "success") {
+				success(out);
+			}
 		}
-	};
-	conn.open("POST", url, true);
-	conn.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-	// conn.setRequestHeader("connection", "close");
-	conn.send(queryString);
+	});
 }
 
 function dataForm(form) {
 	const formData = new FormData(form);
-	let queryString = "";
+	let data = {};
 	for (let entry of formData.entries()) {
-		queryString += entry[0] + "=" + entry[1] + "&";
+		data[entry[0]] = entry[1];
 	}
-	return queryString;
+	return data;
 }
 
 function addProdottoFromDashboardToCart(elem, prodotto) {

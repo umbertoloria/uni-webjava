@@ -19,7 +19,7 @@ public class ProdottoDAO extends DAO {
 			return null;
 		}
 		return new Prodotto(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2], Integer.parseInt(r[3]),
-				Float.parseFloat(r[4]), r[5], r[6]);
+				Float.parseFloat(r[4]), Integer.parseInt(r[5]), r[6]);
 	}
 
 	/** Restituisce tutti i prodotti ordinati per nome. */
@@ -37,13 +37,14 @@ public class ProdottoDAO extends DAO {
 	public static Prodotto[] search(String[] words) {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();
+		Object[] matches = new Object[words.length];
 		for (int i = 0; i < words.length; i++) {
-			words[i] = "%" + words[i] + "%";
+			matches[i] = "%" + words[i] + "%";
 		}
 		Table t = conn.query("SELECT * FROM (SELECT prodotti.id, sottocategoria, prodotti.nome, produttore, " +
 				"prezzo, prodotti.immagine, descrizione, CONCAT(prodotti.nome, ' ', produttori.nome) full " +
 				"FROM prodotti JOIN produttori ON prodotti.produttore = produttori.id) t WHERE" +
-				" full LIKE ? AND".repeat(words.length - 1) + " full LIKE ? ORDER BY nome", (Object[]) words);
+				" full LIKE ? AND".repeat(words.length - 1) + " full LIKE ? ORDER BY nome", matches);
 		Conn.release(conn);
 		fillIn(t, prodotti);
 		return prodotti.toArray(new Prodotto[0]);
@@ -87,7 +88,7 @@ public class ProdottoDAO extends DAO {
 		for (Record record : t) {
 			String[] r = record.asStringArray();
 			prodotti.add(new Prodotto(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2], Integer.parseInt(r[3]),
-					Float.parseFloat(r[4]), r[5], r[6]));
+					Float.parseFloat(r[4]), Integer.parseInt(r[5]), r[6]));
 		}
 	}
 

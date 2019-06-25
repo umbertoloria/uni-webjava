@@ -31,6 +31,10 @@ public class Conn {
 
 	private Connection conn;
 
+	public Connection getConnection() {
+		return conn;
+	}
+
 	private Conn(String url, int port, String usr, String pwd, String db) throws SQLException {
 		conn = DriverManager.getConnection(makeURI(url, port, db), usr, pwd);
 		if (conn == null) {

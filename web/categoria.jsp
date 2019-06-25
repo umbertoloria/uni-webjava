@@ -35,7 +35,7 @@
 			for (Sottocategoria sottocategoria : SottocategoriaDAO.getAllThoseOf(categoria.id)) {
 		%>
 		<a href="sottocategoria.jsp?id=<%= sottocategoria.id %>">
-			<img src="<%= sottocategoria.immagine %>"/>
+			<img src="immagine?id=<%= sottocategoria.immagine %>" alt/>
 			<div><span><%= sottocategoria.nome %></span></div>
 		</a>
 		<%

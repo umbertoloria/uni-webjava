@@ -9,7 +9,7 @@
 		assert produt != null;
 %>
 <a href='prodotto.jsp?id=<%= prod.id %>'>
-	<img src='<%= prod.immagine %>'/>
+	<img src='immagine?id=<%= prod.immagine %>' alt/>
 	<span><b><%= produt.nome %></b> <%= prod.nome %></span>
 </a>
 <%

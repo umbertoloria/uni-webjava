@@ -33,7 +33,7 @@
 			<div data-product-id="<%= prodotto.id %>">
 				<div>
 					<a href="prodotto.jsp?id=<%= prodotto.id %>">
-						<img src="<%= prodotto.immagine %>" alt="Immagine prodotto"/>
+						<img src="immagine?id=<%= prodotto.immagine %>" alt/>
 					</a>
 					<a href="prodotto.jsp?id=<%= prodotto.id %>">
 						<b>
@@ -94,7 +94,7 @@
 			btn = $(btn);
 			const indirizzo = btn.prev().find("[name='indirizzo']").val();
 			ajaxPostRequest("acquista", "indirizzo=" + indirizzo, function (out) {
-				error_manager(JSON.parse(out));
+				error_manager(out);
 			});
 		}
 

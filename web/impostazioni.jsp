@@ -53,10 +53,10 @@
 					<div data-indirizzo-id="<%= indirizzo.id %>">
 						<div>
 							<a>
-								<img src="images/edit.png"/>
+								<img src="images/edit.png" alt/>
 							</a>
 							<a>
-								<img src="images/drop.png"/>
+								<img src="images/drop.png" alt/>
 							</a>
 						</div>
 						<h2 data-indirizzo-nome="<%= indirizzo.nome %>">
@@ -132,8 +132,7 @@
 							ev.stopPropagation();
 							const id = div.attr("data-indirizzo-id");
 							ajaxPostRequest("rimuoviIndirizzo", "id=" + id, function (out) {
-								error_manager(JSON.parse(out), function (out) {
-									// out = "" (sempre)
+								error_manager(out, function () {
 									div.animate({opacity: "0"}, 300);
 									setTimeout(function () {
 										div.remove();

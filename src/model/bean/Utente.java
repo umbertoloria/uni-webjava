@@ -29,4 +29,8 @@ public final class Utente {
 		this.tipo = null;
 	}
 
+	public boolean admin() {
+		return tipo != null && tipo.equals("Amministratore");
+	}
+
 }

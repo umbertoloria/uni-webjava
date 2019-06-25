@@ -14,7 +14,7 @@ public class SottocategoriaDAO extends DAO {
 		if (r == null) {
 			return null;
 		}
-		return new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2], r[3]);
+		return new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2], Integer.parseInt(r[3]));
 	}
 
 	public static Sottocategoria[] getAllThoseOf(int categoria) {
@@ -25,7 +25,8 @@ public class SottocategoriaDAO extends DAO {
 		Conn.release(conn);
 		for (Record record : t) {
 			String[] r = record.asStringArray();
-			sottocategorie.add(new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2], r[3]));
+			sottocategorie.add(new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2],
+					Integer.parseInt(r[3])));
 		}
 		return sottocategorie.toArray(new Sottocategoria[0]);
 	}
