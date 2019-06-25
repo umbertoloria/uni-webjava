@@ -1,43 +1,11 @@
-<%@ page import="model.bean.Prodotto" %>
-<%@ page import="model.bean.Produttore" %>
-<%@ page import="model.dao.ProdottoDAO" %>
-<%@ page import="model.dao.ProduttoreDAO" %>
-<%@ page import="util.Breadcrumb" %>
 <%@ page import="util.Formats" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
-	Prodotto prodotto;
-	Produttore produttore;
-	try {
-		String s = request.getParameter("id");
-		if (s == null || s.trim().isEmpty()) {
-			throw new NumberFormatException();
-		}
-		prodotto = ProdottoDAO.doRetrieveByKey(Integer.parseInt(s));
-		if (prodotto == null) {
-			throw new NumberFormatException();
-		}
-		produttore = ProduttoreDAO.doRetrieveByKey(prodotto.produttore);
-		if (produttore == null) {
-			throw new NumberFormatException();
-		}
-	} catch (NumberFormatException e) {
-		response.sendRedirect("./");
-		return;
-	}
-%>
-<jsp:include page="parts/Head.jsp"/>
-<%
-	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add(produttore.nome);
-	breadcrumb.add(prodotto.nome);
-	request.setAttribute("breadcrumb", breadcrumb);
-%>
-<jsp:include page="parts/Topbar.jsp"/>
+<jsp:useBean id="prodotto" type="model.bean.Prodotto" scope="request"/>
+<jsp:useBean id="produttore" type="model.bean.Produttore" scope="request"/>
 <main>
 	<div id="prodotto">
 		<div>
-			<img src="immagine?id=<%=prodotto.immagine%>">
+			<img src="immagine?id=<%= prodotto.immagine %>" alt="">
 		</div>
 		<div>
 			<h2>
@@ -92,4 +60,3 @@
 
 	</script>
 </main>
-<jsp:include page="parts/Footer.jsp"/>

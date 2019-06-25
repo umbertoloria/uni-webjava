@@ -1,21 +1,16 @@
-<%
-	String s = request.getParameter("q");
-	if (s == null || s.trim().isEmpty()) {
-		response.sendRedirect("./");
-		return;
-	}
-	String[] ss = s.split(" ");
-	for (int i = 0; i < ss.length; i++) {
-		ss[i] = ss[i].trim();
-	}
-%>
-<%@ page import="model.dao.ProdottoDAO" %>
+<%@ page import="model.bean.Prodotto" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:include page="parts/Head.jsp"/>
-<jsp:include page="parts/Topbar.jsp"/>
 <main>
-	<!-- TODO: Messaggio nel caso di nessun risultato. -->
-	<% request.setAttribute("prodotti", ProdottoDAO.search(ss)); %>
+	<%
+		Prodotto[] prodotti = (Prodotto[]) request.getAttribute("prodotti");
+		if (prodotti == null || prodotti.length == 0) {
+	%>
+	<h1>Nessun prodotto trovato</h1>
+	<%
+	} else {
+	%>
 	<jsp:include page="parts/Dashboard.jsp"/>
+	<%
+		}
+	%>
 </main>
-<jsp:include page="parts/Footer.jsp"/>

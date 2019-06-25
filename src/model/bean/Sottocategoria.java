@@ -12,4 +12,8 @@ public final class Sottocategoria {
 		this.immagine = immagine;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
 }

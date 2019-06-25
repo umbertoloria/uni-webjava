@@ -14,12 +14,12 @@
 			assert produttore != null;
 	%>
 	<div>
-		<a href="prodotto.jsp?id=<%= prodotto.id %>" class="image">
+		<a href="prodotto?id=<%= prodotto.id %>" class="image">
 			<img src="immagine?id=<%= prodotto.immagine %>" alt/>
 		</a>
 		<div>
 			<label>
-				<a href="produttore.jsp?id=<%= produttore.id %>">
+				<a href="produttore?id=<%= produttore.id %>">
 					<%= produttore.nome %>
 				</a>
 				<%= prodotto.nome %>

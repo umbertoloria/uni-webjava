@@ -1,7 +1,4 @@
-<%@ page isErrorPage="true" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:include page="parts/Head.jsp"/>
-<jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<article>
 		<h1>Studenti</h1>
@@ -19,4 +16,3 @@
 		</p>
 	</article>
 </main>
-<jsp:include page="parts/Footer.jsp"/>

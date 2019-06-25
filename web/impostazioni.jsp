@@ -1,22 +1,5 @@
 <%@ page import="model.bean.Indirizzo" %>
-<%@ page import="model.bean.Utente" %>
-<%@ page import="model.dao.IndirizzoDAO" %>
-<%@ page import="util.Breadcrumb" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<%
-	Utente utente = (Utente) request.getSession().getAttribute("utente");
-	if (utente == null) {
-		response.sendRedirect("./");
-		return;
-	}
-%>
-<jsp:include page="parts/Head.jsp"/>
-<%
-	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add("Impostazioni");
-	request.setAttribute("breadcrumb", breadcrumb);
-%>
-<jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<div class="tabs">
 		<ul class="tabs_header">
@@ -48,7 +31,7 @@
 			<div>
 				<div id="indirizzi">
 					<%
-						for (Indirizzo indirizzo : IndirizzoDAO.getAllThoseOf(utente)) {
+						for (Indirizzo indirizzo : (Indirizzo[]) request.getAttribute("indirizzi")) {
 					%>
 					<div data-indirizzo-id="<%= indirizzo.id %>">
 						<div>
@@ -180,4 +163,3 @@
 		</div>
 	</div>
 </main>
-<jsp:include page="parts/Footer.jsp"/>

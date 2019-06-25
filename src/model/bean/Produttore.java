@@ -10,4 +10,8 @@ public final class Produttore {
 		this.nome = nome;
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
 }

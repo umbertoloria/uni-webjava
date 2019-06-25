@@ -1,14 +1,6 @@
-<%@ page import="util.Breadcrumb" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:include page="parts/Head.jsp"/>
-<%
-	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add("Login");
-	request.setAttribute("breadcrumb", breadcrumb);
-%>
-<jsp:include page="parts/Topbar.jsp"/>
 <main>
-	<form action="login" method="post">
+	<form action="servlet_login" method="post">
 		<fieldset>
 			<label>
 				<span>E-Mail</span>
@@ -22,6 +14,5 @@
 		<input type="submit" value="Accedi"/>
 		<div class="msg"></div>
 	</form>
-	<a href="registrazione.jsp">Non hai un account? Creane uno</a>
+	<a href="registrazione">Non hai un account? Creane uno</a>
 </main>
-<jsp:include page="parts/Footer.jsp"/>

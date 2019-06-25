@@ -4,28 +4,28 @@
 		<ul>
 			<li>Umberto</li>
 			<li>
-				<a href="credits.jsp">Crediti</a>
+				<a href="credits">Crediti</a>
 			</li>
 			<li>
-				<a href="credits.jsp">Altri crediti</a>
+				<a href="credits">Altri crediti</a>
 			</li>
 		</ul>
 		<ul>
 			<li>Mario</li>
 			<li>
-				<a href="credits.jsp">Crediti</a>
+				<a href="credits">Crediti</a>
 			</li>
 			<li>
-				<a href="credits.jsp">Altri crediti</a>
+				<a href="credits">Altri crediti</a>
 			</li>
 		</ul>
 		<ul>
 			<li>Antonio</li>
 			<li>
-				<a href="credits.jsp">Crediti</a>
+				<a href="credits">Crediti</a>
 			</li>
 			<li>
-				<a href="credits.jsp">Altri crediti</a>
+				<a href="credits">Altri crediti</a>
 			</li>
 		</ul>
 	</div>

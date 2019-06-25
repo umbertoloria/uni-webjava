@@ -3,16 +3,8 @@
 <%@ page import="model.dao.IndirizzoDAO" %>
 <%@ page import="model.dao.ProdottoDAO" %>
 <%@ page import="model.dao.ProduttoreDAO" %>
-<%@ page import="util.Breadcrumb" %>
 <%@ page import="util.Formats" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:include page="parts/Head.jsp"/>
-<%
-	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add("Carrello");
-	request.setAttribute("breadcrumb", breadcrumb);
-%>
-<jsp:include page="parts/Topbar.jsp"/>
 <main>
 	<%
 		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
@@ -32,10 +24,10 @@
 			%>
 			<div data-product-id="<%= prodotto.id %>">
 				<div>
-					<a href="prodotto.jsp?id=<%= prodotto.id %>">
+					<a href="prodotto?id=<%= prodotto.id %>">
 						<img src="immagine?id=<%= prodotto.immagine %>" alt/>
 					</a>
-					<a href="prodotto.jsp?id=<%= prodotto.id %>">
+					<a href="prodotto?id=<%= prodotto.id %>">
 						<b>
 							<%= produttore.nome %>
 						</b>
@@ -140,4 +132,3 @@
 		}
 	%>
 </main>
-<jsp:include page="parts/Footer.jsp"/>

@@ -1,14 +1,6 @@
-<%@ page import="util.Breadcrumb" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<jsp:include page="parts/Head.jsp"/>
-<%
-	Breadcrumb breadcrumb = new Breadcrumb();
-	breadcrumb.add("Registrazione");
-	request.setAttribute("breadcrumb", breadcrumb);
-%>
-<jsp:include page="parts/Topbar.jsp"/>
 <main>
-	<form action="registrazione" method="post">
+	<form action="servlet_registrazione" method="post">
 		<fieldset>
 			<label>
 				<span>Nome</span>
@@ -31,4 +23,3 @@
 		<div class="msg"></div>
 	</form>
 </main>
-<jsp:include page="parts/Footer.jsp"/>

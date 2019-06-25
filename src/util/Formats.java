@@ -3,7 +3,7 @@ package util;
 public class Formats {
 
 	public static String euro(float prezzo) {
-		StringBuilder r = new StringBuilder("€");
+		StringBuilder r = new StringBuilder("€ ");
 		String val = Math.round(prezzo * 100f) / 100f + "";
 		r.append(val.replace('.', ','));
 		if (r.toString().indexOf(',') == -1) {

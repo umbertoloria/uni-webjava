@@ -1,9 +1,10 @@
 <%@ page import="model.bean.Categoria" %>
 <%@ page import="model.bean.Sottocategoria" %>
-<%@ page import="model.dao.CategoriaDAO" %>
-<%@ page import="model.dao.SottocategoriaDAO" %>
 <%@ page import="util.Breadcrumb" %>
 <%@ page import="util.BreadcrumbItem" %>
+<%@ page import="util.TopbarCategoria" %>
+<%@ page import="util.TopbarContainer" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
@@ -42,7 +43,7 @@
 				</c:catch>--%>
 			</div>
 			<div id="centerside">
-				<form id="search_form" action="cerca.jsp" method="get">
+				<form id="search_form" action="cerca" method="get">
 					<input type="text" id="search_input" name="q" autocomplete="off"
 					       placeholder="Cerca uno strumento..."/>
 					<input type="submit" value=""/>
@@ -59,25 +60,25 @@
 							<a>Account</a>
 							<ul>
 								<c:if test="${utente.admin()}">
-									<li><a href="amministrazione.jsp">Amministrazione</a></li>
+									<li><a href="amministrazione">Amministrazione</a></li>
 								</c:if>
-								<li><a href="impostazioni.jsp">Impostazioni</a></li>
-								<li><a href="ordini.jsp">Ordini</a></li>
-								<li><a href="logout.jsp">Logout</a></li>
+								<li><a href="impostazioni">Impostazioni</a></li>
+								<li><a href="ordini">Ordini</a></li>
+								<li><a href="logout">Logout</a></li>
 							</ul>
 						</li>
 					</c:when>
 					<c:otherwise>
 						<li>
-							<a href="login.jsp">Login</a>
+							<a href="login">Login</a>
 							<ul>
-								<li><a href="registrazione.jsp">Registrazione</a></li>
+								<li><a href="registrazione">Registrazione</a></li>
 							</ul>
 						</li>
 					</c:otherwise>
 				</c:choose>
 				<li class="carrello">
-					<a href="carrello.jsp">
+					<a href="carrello">
 						Carrello
 						<label></label>
 					</a>
@@ -91,17 +92,19 @@
 				<%
 					Integer activeCategoria = (Integer) request.getAttribute("topbar_categoria");
 					Integer activeSottocategoria = (Integer) request.getAttribute("topbar_sottocategoria");
-					for (Categoria cat : CategoriaDAO.getAll()) {
+					TopbarContainer topbar = (TopbarContainer) request.getAttribute("topbar_categorie_data");
+					for (TopbarCategoria topbarCategoria : topbar) {
+						Categoria cat = topbarCategoria.getCategoria();
 						if (activeCategoria != null && activeCategoria == cat.id) {
 							out.println("<li class=\"active\">");
 						} else {
 							out.println("<li>");
 						}
-						out.println("<a href=\"categoria.jsp?id=" + cat.id + "\">");
+						out.println("<a href=\"categoria?id=" + cat.id + "\">");
 						out.println(cat.nome);
 						out.println("</a>");
-						Sottocategoria[] sottocats = SottocategoriaDAO.getAllThoseOf(cat.id);
-						if (sottocats.length > 0) {
+						List<Sottocategoria> sottocats = topbarCategoria.getSottocategorie();
+						if (sottocats.size() > 0) {
 							out.println("<ul>");
 							for (Sottocategoria sottocat : sottocats) {
 								if (activeSottocategoria != null && activeSottocategoria == sottocat.id) {
@@ -109,7 +112,7 @@
 								} else {
 									out.println("<li>");
 								}
-								out.println("<a href=\"sottocategoria.jsp?id=" + sottocat.id + "\">");
+								out.println("<a href=\"sottocategoria?id=" + sottocat.id + "\">");
 								out.println(sottocat.nome);
 								out.println("</a>");
 								out.println("</li>");
