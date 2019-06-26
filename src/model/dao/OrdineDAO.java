@@ -5,6 +5,7 @@ import database.Record;
 import database.Table;
 import model.bean.Ordine;
 import model.bean.OrdineHasProdotto;
+import model.bean.Prodotto;
 import model.bean.Utente;
 
 import java.sql.SQLException;
@@ -60,6 +61,15 @@ public class OrdineDAO extends DAO {
 		} catch (SQLException e) {
 			return false;
 		}
+	}
+
+	public static boolean himHasAlreadyBoughtThis(Utente utente, Prodotto prodotto) {
+		Conn conn = Conn.hold();
+		Table t = conn.query("SELECT * FROM ordini INNER JOIN ordine_has_prodotti ON " +
+				"ordini.id = ordine_has_prodotti.ordine WHERE utente = ? and prodotto = ?", utente.id, prodotto.id);
+		Conn.release(conn);
+		System.out.println(utente.nome + ", " + prodotto.nome + ", " + t.count());
+		return t.count() >= 1;
 	}
 
 }

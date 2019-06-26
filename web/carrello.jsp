@@ -59,15 +59,17 @@
 			<%
 				Utente u = (Utente) request.getSession().getAttribute("utente");
 				if (u == null) {
-					out.println("<a href=\"login\">Accedi</a> per poter completare l'ordine");
+					out.println("<a href=\"login\">Accedi</a> per completare l'ordine");
 				} else {
+
+					Indirizzo[] indirizzi = IndirizzoDAO.getAllThoseOf(u);
+					if (indirizzi.length > 0) {
 			%>
 			<label>
 				<span>Dove vorresti che ti recapitassimo l'ordine?</span>
 				<select name="indirizzo">
 					<option disabled value="">Scegli un indirizzo...</option>
 					<%
-						Indirizzo[] indirizzi = IndirizzoDAO.getAllThoseOf(u);
 						for (Indirizzo indirizzo : indirizzi) {
 							out.println("<option value=\"" + indirizzo.id + "\">" + indirizzo.nome + "</option>");
 						}
@@ -76,6 +78,9 @@
 			</label>
 			<input type="submit" value="Acquista" onclick="acquista(this)"/>
 			<%
+					} else {
+						out.println("<a href=\"impostazioni#2\">Aggiungi un indirizzo</a> per completare l'ordine");
+					}
 				}
 			%>
 		</div>
@@ -85,7 +90,7 @@
 		function acquista(btn) {
 			btn = $(btn);
 			const indirizzo = btn.prev().find("[name='indirizzo']").val();
-			ajaxPostRequest("acquista", "indirizzo=" + indirizzo, function (out) {
+			ajaxPostRequest("servlet_acquista", "indirizzo=" + indirizzo, function (out) {
 				error_manager(out);
 			});
 		}

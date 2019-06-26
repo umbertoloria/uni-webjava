@@ -33,4 +33,8 @@ public final class Utente {
 		return tipo != null && tipo.equals("Amministratore");
 	}
 
+	public String getNome() {
+		return nome;
+	}
+
 }

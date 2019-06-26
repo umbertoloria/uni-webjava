@@ -10,7 +10,7 @@ create table utenti (
 );
 
 INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (1, 'umberto.loria@gmail.com',
-'37fa265330ad83eaa879efb1e2db6380896cf639', 'Umberto Loria', 'Amministratore');
+'1e4e888ac66f8dd41e00c5a7ac36a32a9950d271', 'Umberto Loria', 'Amministratore');
 INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (2, 'marioromano1998@gmail.com',
 'addb47291ee169f330801ce73520b96f2eaf20ea', 'Mario Romano', 'Normale');
 INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (3, 'anapoli1998ant@gmail.com',
@@ -206,6 +206,8 @@ INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (1, 1, '
 INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (2, 1, 'Via Guglielmo Marconi 4, Baronissi, 84081, Salerno', '2019-06-26 11:21:56');
 INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (3, 1, 'Via Guglielmo Marconi 51, Baronissi, 84081, Salerno', '2019-06-26 11:22:29');
 INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (4, 1, 'Via Guglielmo Marconi 51, Baronissi, 84081, Salerno', '2019-06-26 11:22:48');
+INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (5, 3, 'Via Tal dei Tali 92, Baronissi, 84081, Salerno', '2019-06-26 13:35:55');
+INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (6, 2, 'Via Regina Pacis 21/2, Mercato San Severino, 84085, Salerno', '2019-06-26 16:13:14');
 
 create table ordine_has_prodotti (
     ordine   int           not null,
@@ -231,3 +233,29 @@ INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) V
 INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (2, 8, 298.00, 1);
 INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (3, 13, 248.00, 1);
 INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (4, 15, 20.00, 3);
+
+create table recensioni (
+    id       int auto_increment
+        primary key,
+    prodotto int                                not null,
+    voto     int                                not null,
+    titolo   varchar(100)                       not null,
+    commento text                               not null,
+    utente   int                                not null,
+    momento  datetime default CURRENT_TIMESTAMP not null,
+    constraint utente
+        unique (utente, prodotto),
+    constraint recensioni_ibfk_1
+        foreign key (utente) references utenti (id)
+            on update cascade,
+    constraint recensioni_ibfk_2
+        foreign key (prodotto) references prodotti (id)
+            on update cascade
+);
+
+create index prodotto
+    on recensioni (prodotto);
+
+INSERT INTO ecommerce.recensioni (id, prodotto, voto, titolo, commento, utente, momento) VALUES (1, 8, 5, 'Bella', 'okokok', 3, '2019-06-26 16:11:10');
+INSERT INTO ecommerce.recensioni (id, prodotto, voto, titolo, commento, utente, momento) VALUES (2, 8, 4, 'Pure per me', 'sadkjfsad', 1, '2019-06-26 16:11:42');
+INSERT INTO ecommerce.recensioni (id, prodotto, voto, titolo, commento, utente, momento) VALUES (3, 8, 2, 'Qualità scarsa', 'Per me non è tanto buona infatti per me non è tanto buona infatti per me non è tanto buona infatti per me non è tanto buona infatti per me non è tanto buona infatti per me non è tanto buona infatti per me.', 2, '2019-06-26 16:14:10');

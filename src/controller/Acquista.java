@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/acquista")
+@WebServlet("/servlet_acquista")
 public class Acquista extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

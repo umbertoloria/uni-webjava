@@ -126,7 +126,7 @@
 					});
 
 				</script>
-				<form action="aggiungiIndirizzo" method="post" id="indirizzi_form">
+				<form action="servlet_aggiungiIndirizzo" method="post" id="indirizzi_form">
 					<fieldset>
 						<label>
 							<span>Nome</span>

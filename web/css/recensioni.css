@@ -1,0 +1,102 @@
+#recensioni {
+	width: 1200px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-gap: 30px;
+	margin: 50px auto;
+}
+
+#recensioni > div {
+	padding: 30px;
+	background: #fff;
+	border-radius: 3px;
+	position: relative;
+}
+
+#recensioni > div > .stelle {
+	display: block;
+	position: absolute;
+	top: -10px;
+	margin: 0;
+}
+
+.stelle {
+	display: inline-block;
+	min-width: 20px;
+	max-width: 100px;
+	margin-left: 10px;
+	margin-bottom: -3px;
+	height: 20px;
+	background-image: url("https://cdn4.iconfinder.com/data/icons/small-n-flat/24/star-256.png");
+	background-size: 20px 20px;
+	background-repeat: repeat-x;
+	background-position: 0 0;
+}
+
+.stelle.mark1 {
+	width: 20px;
+}
+
+.stelle.mark2 {
+	width: 40px;
+}
+
+.stelle.mark3 {
+	width: 60px;
+}
+
+.stelle.mark4 {
+	width: 80px;
+}
+
+.stelle.mark5 {
+	width: 100px;
+}
+
+#recensioni > div > h2 {
+	font-size: 1.2em;
+	margin: 0 0 10px 0;
+}
+
+#recensioni > div > p {
+	text-align: justify;
+	margin-bottom: 20px;
+}
+
+#recensioni > div > label {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: space-between;
+	border-top: 2px solid #eee;
+}
+
+#recensioni > div > label > span:first-child {
+	display: block;
+	padding-left: 20px;
+	line-height: 30px;
+}
+
+#recensioni > div > label > span:last-child {
+	display: block;
+	padding-right: 20px;
+	line-height: 30px;
+}
+
+@media only screen and (max-width: 1000px) {
+
+	#recensioni {
+		grid-template-columns: 1fr 1fr;
+	}
+
+}
+
+@media only screen and (max-width: 700px) {
+
+	#recensioni {
+		grid-template-columns: 1fr;
+	}
+
+}

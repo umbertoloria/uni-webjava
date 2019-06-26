@@ -49,7 +49,7 @@ $(function () {
 				if (field === 'null') {
 					form.find(".msg").addClass("shown").html(notice);
 				} else {
-					const input = form.find("input[name=" + field + "]");
+					const input = form.find("[name=" + field + "]");
 					const label = input.siblings("label");
 					if (label.length === 0) {
 						input.parent().append("<label>" + notice + "</label>");

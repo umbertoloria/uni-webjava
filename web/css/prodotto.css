@@ -2,10 +2,12 @@
 	display: grid;
 	grid-template-columns: 280px auto 240px;
 	grid-column-gap: 50px;
-	width: 100%;
+	width: 1200px;
+	margin: 50px auto;
 }
 
 #prodotto > div:first-child {
+	align-self: start;
 	overflow: hidden;
 	background: #fff;
 	border-radius: 3px;
@@ -78,6 +80,15 @@
 	color: #fff;
 }
 
-#prodotto form p:nth-child(4) {
-	color: green;
+@media only screen and (max-width: 1000px) {
+
+	#prodotto {
+		grid-template-columns: 150px auto 240px;
+	}
+
+	#prodotto > div:first-child img {
+		width: 150px;
+		height: 150px;
+	}
+
 }

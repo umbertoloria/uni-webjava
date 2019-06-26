@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/index")
-public class HomePage extends GenericPage {
+public class HomePagge extends GenericPage {
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Carousel carousel = new Carousel();

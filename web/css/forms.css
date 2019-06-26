@@ -14,11 +14,25 @@ select {
 	transition: .2s;
 }
 
+textarea {
+	font-family: inherit;
+	width: 100%;
+	min-height: 50px;
+	padding: 5px 10px;
+	box-sizing: border-box;
+	border: 2px solid #ccc;
+	border-radius: 3px;
+	outline: 0;
+	resize: vertical;
+	transition: 0s resize, .2s all;
+}
+
 input[type='text']:hover,
 input[type='password']:hover,
 input[type='number']:hover,
 input[type='email']:hover,
-select:hover {
+select:hover,
+textarea:hover {
 	border-color: #999;
 }
 
@@ -26,7 +40,8 @@ input[type='text']:focus,
 input[type='password']:focus,
 input[type='number']:focus,
 input[type='email']:focus,
-select:focus {
+select:focus,
+textarea:focus {
 	border-color: var(--cl);
 	box-shadow: 0 0 15px rgba(0, 0, 0, .15);
 }

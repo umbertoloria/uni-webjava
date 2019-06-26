@@ -13,7 +13,7 @@ import javax.servlet.http.Part;
 import java.io.IOException;
 
 @MultipartConfig
-@WebServlet("/aggiungiProdotto")
+@WebServlet("/servlet_aggiungiProdotto")
 public class AggiungiProdotto extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {

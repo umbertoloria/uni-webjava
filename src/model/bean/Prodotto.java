@@ -17,4 +17,8 @@ public final class Prodotto {
 		this.descrizione = descrizione;
 	}
 
+	public int getId() {
+		return id;
+	}
+
 }

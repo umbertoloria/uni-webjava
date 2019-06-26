@@ -1,46 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico|Patrick+Hand');
 
-/*aside {
-	display: block;
-	width: 200px;
-	margin-left: 20px;
-}
-
-aside .sidebox {
-	background: #fff;
-	border-radius: 3px;
-}
-
-aside .sidebox h1 {
-	font-size: 1.2em;
-	padding: 20px 20px 10px 20px;
-	border-bottom: 2px dashed #ccc;
-}
-
-aside .sidebox ul {
-	display: block;
-	margin: 0;
-	padding: 10px 0;
-	list-style: none;
-}
-
-aside .sidebox ul li {
-	display: block;
-}
-
-aside .sidebox ul li a {
-	display: block;
-	padding: 0 20px;
-	line-height: 30px;
-	transition: .3s;
-}
-
-aside .sidebox ul li:hover a {
-	background: #eee;
-	padding-left: 15px;
-	box-shadow: inset -5px 0 0 #ccc;
-}*/
-
 article {
 	background-image: url("../images/paper.png");
 	background-repeat: repeat;
@@ -94,7 +53,7 @@ article p::first-letter {
 
 @media only screen and (min-width: 1001px) and (max-width: 1400px) {
 
-	footer > div, main, h1, #dashboard, #mosaic, #firstbar, nav {
+	footer > div, main, h1, #dashboard, #mosaic, #firstbar, nav, #prodotto, #recensioni {
 		width: 800px;
 	}
 
@@ -102,7 +61,7 @@ article p::first-letter {
 
 @media only screen and (max-width: 1000px) {
 
-	footer > div, main, h1, #dashboard, #mosaic, #firstbar, nav {
+	footer > div, main, h1, #dashboard, #mosaic, #firstbar, nav, #prodotto, #recensioni {
 		width: 600px;
 	}
 

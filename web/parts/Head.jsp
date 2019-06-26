@@ -14,6 +14,7 @@
 	<link rel='stylesheet' href='css/carrello.css'/>
 	<link rel='stylesheet' href='css/tabs.css'/>
 	<link rel='stylesheet' href='css/prodotto.css'/>
+	<link rel='stylesheet' href='css/recensioni.css'/>
 	<link rel='stylesheet' href='css/indirizzi.css'/>
 	<link rel='stylesheet' href='css/ordini.css'/>
 	<link rel='stylesheet' href='css/carousel.css'/>
