@@ -1,7 +1,8 @@
 package page;
 
 import model.bean.Utente;
-import model.dao.IndirizzoDAO;
+import model.dao.ProduttoreDAO;
+import model.dao.SottocategoriaDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,17 +13,17 @@ import java.io.IOException;
 @WebServlet("/amministrazione")
 public class AmministrazionePage extends GenericPage {
 
-	private Utente utente;
-
 	boolean canWatch(HttpServletRequest req, HttpServletResponse resp) {
-		utente = (Utente) req.getSession().getAttribute("utente");
-		return utente != null;
+		Utente utente = (Utente) req.getSession().getAttribute("utente");
+		return utente != null && utente.admin();
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("indirizzi", IndirizzoDAO.getAllThoseOf(utente));
+		req.setAttribute("sottocategorie", SottocategoriaDAO.getAll());
+		req.setAttribute("produttori", ProduttoreDAO.getAll());
 		req.getRequestDispatcher("amministrazione.jsp").include(req, resp);
-		req.removeAttribute("indirizzi");
+		req.removeAttribute("sottocategorie");
+		req.removeAttribute("produttori");
 	}
 
 }

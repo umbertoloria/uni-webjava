@@ -41,6 +41,7 @@
 	box-sizing: border-box;
 	background: #ddd;
 	border-radius: 5px;
+	align-self: start;
 }
 
 #prodotto form div {

@@ -15,10 +15,6 @@
 		</p>
 	</div>
 	<form>
-		<p> Qui ci vanno le stelline </p>
-		<a> Recensisci il prodotto </a>
-		<p> Spedizione Gratuita </p>
-		<p> Consegna in 24 Ore </p>
 		<div>
 			<input type="number" min="1" value="1"/>
 			<span data-prezzo-unitario="<%= prodotto.prezzo %>" class="price">

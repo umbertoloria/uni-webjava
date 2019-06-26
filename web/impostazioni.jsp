@@ -207,7 +207,7 @@
 			form.find("[name=provincia]").val(provincia);
 			form.append("<input type='hidden' name='id' value='" + id + "'/>");
 			form.find("[type='submit']").val("Modifica indirizzo");
-			form.attr("action", "modificaIndirizzo");
+			form.attr("action", "servlet_modificaIndirizzo");
 		}
 	});
 

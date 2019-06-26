@@ -8,6 +8,7 @@ import model.bean.Prodotto;
 import model.bean.Produttore;
 import model.bean.Sottocategoria;
 
+import java.sql.*;
 import java.util.ArrayList;
 
 public class ProdottoDAO extends DAO {
@@ -93,6 +94,31 @@ public class ProdottoDAO extends DAO {
 			prodotti.add(new Prodotto(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2], Integer.parseInt(r[3]),
 					Float.parseFloat(r[4]), Integer.parseInt(r[5]), r[6]));
 		}
+	}
+
+	public static Prodotto doSave(Prodotto prodotto) {
+		Conn c = Conn.hold();
+		Connection co = c.getConnection();
+		Prodotto result = null;
+		try {
+			PreparedStatement stm = co.prepareStatement("INSERT INTO prodotti SET sottocategoria = ?, nome = ?, " +
+							"produttore = ?, prezzo = ?, immagine = ?, descrizione = ?",
+					Statement.RETURN_GENERATED_KEYS);
+			stm.setInt(1, prodotto.sottocategoria);
+			stm.setString(2, prodotto.nome);
+			stm.setInt(3, prodotto.produttore);
+			stm.setFloat(4, prodotto.prezzo);
+			stm.setInt(5, prodotto.immagine);
+			stm.setString(6, prodotto.descrizione);
+			if (stm.executeUpdate() == 1) {
+				ResultSet rs = stm.getGeneratedKeys();
+				rs.next();
+				result = doRetrieveByKey(rs.getInt(1));
+			}
+		} catch (SQLException ignore) {
+		}
+		Conn.release(c);
+		return result;
 	}
 
 }

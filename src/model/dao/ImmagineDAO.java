@@ -26,15 +26,18 @@ public class ImmagineDAO extends DAO {
 		return immagine;
 	}
 
-	public static boolean doSave(Immagine immagine) {
+	public static Immagine doSave(Immagine immagine) {
 		Conn c = Conn.hold();
 		Connection co = c.getConnection();
-		boolean result = false;
+		Immagine result = null;
 		try {
-			PreparedStatement stm = co.prepareStatement("INSERT INTO immagini SET data = ?");
+			PreparedStatement stm = co.prepareStatement("INSERT INTO immagini SET data = ?",
+					Statement.RETURN_GENERATED_KEYS);
 			stm.setBlob(1, immagine.stream);
 			if (stm.executeUpdate() == 1) {
-				result = true;
+				ResultSet rs = stm.getGeneratedKeys();
+				rs.next();
+				result = doRetrieveByKey(rs.getInt(1));
 			}
 		} catch (SQLException ignore) {
 		}

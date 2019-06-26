@@ -67,7 +67,7 @@
 			<label>
 				<span>Dove vorresti che ti recapitassimo l'ordine?</span>
 				<select name="indirizzo">
-					<option disabled value="">Scegli un indirizzo...</option>
+					<option selected disabled value="">Scegli un indirizzo...</option>
 					<%
 						for (Indirizzo indirizzo : indirizzi) {
 							out.println("<option value=\"" + indirizzo.id + "\">" + indirizzo.nome + "</option>");
@@ -78,7 +78,7 @@
 			<label>
 				<span>Su quale carta dovremo addebitarti l'ordine?</span>
 				<select name="carta">
-					<option disabled value="">Scegli una carta...</option>
+					<option selected disabled value="">Scegli una carta...</option>
 					<%
 						for (CartaCredito carta : carte) {
 							out.println("<option value=\"" + carta.numero + "\">" + carta.numero + "</option>");

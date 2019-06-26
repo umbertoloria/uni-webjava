@@ -17,6 +17,17 @@ public final class Prodotto {
 		this.descrizione = descrizione;
 	}
 
+	public Prodotto(int sottocategoria, String nome, int produttore, float prezzo, int immagine,
+	                String descrizione) {
+		this.id = -1;
+		this.sottocategoria = sottocategoria;
+		this.nome = nome;
+		this.produttore = produttore;
+		this.prezzo = prezzo;
+		this.immagine = immagine;
+		this.descrizione = descrizione;
+	}
+
 	public int getId() {
 		return id;
 	}

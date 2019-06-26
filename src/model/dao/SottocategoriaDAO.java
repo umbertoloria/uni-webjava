@@ -49,4 +49,17 @@ public class SottocategoriaDAO extends DAO {
 		return sottocategorie.toArray(new Sottocategoria[0]);
 	}
 
+	public static Object getAll() {
+		ArrayList<Sottocategoria> sottocategorie = new ArrayList<>();
+		Conn conn = Conn.hold();
+		Table t = conn.query("SELECT id, categoria, nome, immagine FROM sottocategorie ORDER BY nome");
+		Conn.release(conn);
+		for (Record record : t) {
+			String[] r = record.asStringArray();
+			sottocategorie.add(new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2],
+					Integer.parseInt(r[3])));
+		}
+		return sottocategorie.toArray(new Sottocategoria[0]);
+	}
+
 }
