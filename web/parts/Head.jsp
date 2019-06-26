@@ -28,6 +28,7 @@
 	<script type='text/javascript' src='js/carrello.js'></script>
 	<script type='text/javascript' src='js/tabs.js'></script>
 	<script type='text/javascript' src='js/dashboard.js'></script>
+	<script type='text/javascript' src='js/validation.js'></script>
 </head>
 <body>
 <div id="overlay"></div>
