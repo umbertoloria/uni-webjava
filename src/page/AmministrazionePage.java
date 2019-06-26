@@ -1,4 +1,4 @@
-package pages;
+package page;
 
 import model.bean.Utente;
 import model.dao.IndirizzoDAO;

@@ -2,7 +2,7 @@ package controller;
 
 import model.bean.Utente;
 import model.dao.UtenteDAO;
-import model.validators.CambioPasswordValidator;
+import model.validator.CambioPasswordValidator;
 import util.ErrorManager;
 import util.Security;
 

@@ -15,18 +15,19 @@ public class OrdineDAO extends DAO {
 
 	public static Ordine doRetrieveByKey(int id) {
 		Conn c = Conn.hold();
-		Table t = c.query("SELECT id, utente, destinazione, momento FROM ordini WHERE id = ?", id);
+		Table t = c.query("SELECT id, utente, destinazione, pagamento, momento FROM ordini WHERE id = ?", id);
 		if (t.count() == 0) {
 			return null;
 		}
 		int ordine_id, ordine_utente;
-		String ordine_destinazione, ordine_momento;
+		String ordine_destinazione, ordine_pagamento, ordine_momento;
 		{
 			Record r = t.get(0);
 			ordine_id = Integer.parseInt(r.get(0).toString());
 			ordine_utente = Integer.parseInt(r.get(1).toString());
 			ordine_destinazione = r.get(2).toString();
-			ordine_momento = r.get(3).toString();
+			ordine_pagamento = r.get(3).toString();
+			ordine_momento = r.get(4).toString();
 		}
 		ArrayList<OrdineHasProdotto> ordineHasProdotti = new ArrayList<>();
 		t = c.query("SELECT prodotto, prezzo, quantita FROM ordine_has_prodotti WHERE ordine = ?", id);
@@ -34,7 +35,7 @@ public class OrdineDAO extends DAO {
 			ordineHasProdotti.add(new OrdineHasProdotto(Integer.parseInt(r.get(0).toString()),
 					Float.parseFloat(r.get(1).toString()), Integer.parseInt(r.get(2).toString())));
 		}
-		return new Ordine(ordine_id, ordine_utente, ordine_destinazione, ordine_momento,
+		return new Ordine(ordine_id, ordine_utente, ordine_destinazione, ordine_pagamento, ordine_momento,
 				ordineHasProdotti.toArray(new OrdineHasProdotto[0]));
 	}
 
@@ -51,8 +52,8 @@ public class OrdineDAO extends DAO {
 
 	public static boolean doSave(Ordine ordine) {
 		try {
-			int lastId = insertButGetLastId("INSERT INTO ordini SET utente = ?, destinazione = ?",
-					ordine.utente, ordine.destinazione);
+			int lastId = insertButGetLastId("INSERT INTO ordini SET utente = ?, destinazione = ?, pagamento = ?",
+					ordine.utente, ordine.destinazione, ordine.pagamento);
 			for (OrdineHasProdotto item : ordine) {
 				insert("INSERT INTO ordine_has_prodotti SET ordine = ?, prodotto = ?, prezzo = ?, quantita = ?",
 						lastId, item.prodotto, item.prezzo, item.quantita);
@@ -68,7 +69,6 @@ public class OrdineDAO extends DAO {
 		Table t = conn.query("SELECT * FROM ordini INNER JOIN ordine_has_prodotti ON " +
 				"ordini.id = ordine_has_prodotti.ordine WHERE utente = ? and prodotto = ?", utente.id, prodotto.id);
 		Conn.release(conn);
-		System.out.println(utente.nome + ", " + prodotto.nome + ", " + t.count());
 		return t.count() >= 1;
 	}
 

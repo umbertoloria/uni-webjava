@@ -2,7 +2,7 @@ package controller;
 
 import model.bean.Utente;
 import model.dao.UtenteDAO;
-import model.validators.RegistrazioneValidator;
+import model.validator.RegistrazioneValidator;
 import util.ErrorManager;
 import util.Security;
 

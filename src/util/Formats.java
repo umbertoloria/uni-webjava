@@ -15,7 +15,7 @@ public class Formats {
 		return r.toString();
 	}
 
-	private static final String[] mesi = {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Agosto",
+	public static final String[] mesi = {"Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Agosto",
 			"Settembre", "Ottobre", "Novembre", "Dicembre"};
 
 	public static String date(String datetime) {

@@ -1,4 +1,4 @@
-package model.validators;
+package model.validator;
 
 public class CambioPasswordValidator {
 	public final String nuova;

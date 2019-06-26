@@ -8,17 +8,16 @@ import java.util.Iterator;
 
 public class Ordine implements Iterable<OrdineHasProdotto> {
 
-	public final int id;
-	public final int utente;
-	public final String destinazione;
-	public final String momento;
+	public final int id, utente;
+	public final String destinazione, pagamento, momento;
 	private HashMap<Integer, OrdineHasProdotto> prodotti = new HashMap<>();
 
 	/** Ogni coppia di OrdineHasProdotto deve contenere valori differenti di 'prodotto' */
-	public Ordine(int utente, String destinazione, Carrello carrello) {
+	public Ordine(int utente, String destinazione, String pagamento, Carrello carrello) {
 		this.id = -1;
 		this.utente = utente;
 		this.destinazione = destinazione;
+		this.pagamento = pagamento;
 		this.momento = null;
 		for (CarrelloItem item : carrello) {
 			Prodotto p = ProdottoDAO.doRetrieveByKey(item.prodotto);
@@ -28,10 +27,12 @@ public class Ordine implements Iterable<OrdineHasProdotto> {
 	}
 
 	/** Ogni coppia di OrdineHasProdotto deve contenere valori differenti di 'prodotto' */
-	public Ordine(int id, int utente, String destinazione, String momento, OrdineHasProdotto[] ordineHasProdotti) {
+	public Ordine(int id, int utente, String destinazione, String pagamento, String momento,
+	              OrdineHasProdotto[] ordineHasProdotti) {
 		this.id = id;
 		this.utente = utente;
 		this.destinazione = destinazione;
+		this.pagamento = pagamento;
 		this.momento = momento;
 		for (OrdineHasProdotto item : ordineHasProdotti) {
 			prodotti.put(item.prodotto, new OrdineHasProdotto(item.prodotto, item.prezzo, item.quantita));

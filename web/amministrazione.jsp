@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <main>
 	<form action="servlet_aggiungiProdotto" method="post" enctype="multipart/form-data">
+		<%-- TODO: Implementare... --%>
 		<fieldset>
 			<label>
 				<span>Immagine</span>

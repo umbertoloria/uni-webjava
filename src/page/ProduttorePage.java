@@ -1,7 +1,9 @@
-package pages;
+package page;
 
+import model.bean.Produttore;
 import model.container.ProdottoContainer;
 import model.dao.ProdottoDAO;
+import model.dao.ProduttoreDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,30 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/cerca")
-public class CercaPage extends GenericPage {
+@WebServlet("/produttore")
+public class ProduttorePage extends GenericPage {
 
-	private String[] ss;
+	private Produttore produttore;
 
 	boolean canWatch(HttpServletRequest req, HttpServletResponse resp) {
-		String s = req.getParameter("q");
-		if (s == null) {
-			ss = null;
-			return false;
-		} else {
-			ss = s.split(" ");
-			for (int i = 0; i < ss.length; i++) {
-				ss[i] = ss[i].trim();
-			}
-			return true;
-		}
+		produttore = ProduttoreDAO.doRetrieveByKey(Integer.parseInt(req.getParameter("id")));
+		return produttore != null;
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("filtri", true);
-		req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.search(ss)));
+		req.setAttribute("title", produttore.nome);
+		req.setAttribute("prodotti", ProdottoContainer.getInfoWith(ProdottoDAO.getFromProduttore(produttore),
+				produttore));
 		req.getRequestDispatcher("parts/Dashboard.jsp").include(req, resp);
-		req.removeAttribute("filtri");
+		req.removeAttribute("title");
 		req.removeAttribute("prodotti");
 	}
 

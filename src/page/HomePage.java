@@ -1,4 +1,4 @@
-package pages;
+package page;
 
 import model.Carousel;
 import model.bean.Sottocategoria;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebServlet("/index")
-public class HomePagge extends GenericPage {
+public class HomePage extends GenericPage {
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		Carousel carousel = new Carousel();

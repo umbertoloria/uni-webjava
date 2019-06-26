@@ -1,6 +1,5 @@
 <%@ page import="model.Carrello" %>
 <%@ page import="model.bean.*" %>
-<%@ page import="model.dao.IndirizzoDAO" %>
 <%@ page import="model.dao.ProdottoDAO" %>
 <%@ page import="model.dao.ProduttoreDAO" %>
 <%@ page import="util.Formats" %>
@@ -61,9 +60,9 @@
 				if (u == null) {
 					out.println("<a href=\"login\">Accedi</a> per completare l'ordine");
 				} else {
-
-					Indirizzo[] indirizzi = IndirizzoDAO.getAllThoseOf(u);
-					if (indirizzi.length > 0) {
+					Indirizzo[] indirizzi = (Indirizzo[]) request.getAttribute("indirizzi");
+					CartaCredito[] carte = (CartaCredito[]) request.getAttribute("carte");
+					if (indirizzi.length > 0 && carte.length > 0) {
 			%>
 			<label>
 				<span>Dove vorresti che ti recapitassimo l'ordine?</span>
@@ -76,8 +75,21 @@
 					%>
 				</select>
 			</label>
+			<label>
+				<span>Su quale carta dovremo addebitarti l'ordine?</span>
+				<select name="carta">
+					<option disabled value="">Scegli una carta...</option>
+					<%
+						for (CartaCredito carta : carte) {
+							out.println("<option value=\"" + carta.numero + "\">" + carta.numero + "</option>");
+						}
+					%>
+				</select>
+			</label>
 			<input type="submit" value="Acquista" onclick="acquista(this)"/>
 			<%
+					} else if (indirizzi.length > 0) {
+						out.println("<a href=\"impostazioni#3\">Aggiungi una carta</a> per completare l'ordine");
 					} else {
 						out.println("<a href=\"impostazioni#2\">Aggiungi un indirizzo</a> per completare l'ordine");
 					}
@@ -89,8 +101,9 @@
 
 		function acquista(btn) {
 			btn = $(btn);
-			const indirizzo = btn.prev().find("[name='indirizzo']").val();
-			ajaxPostRequest("servlet_acquista", "indirizzo=" + indirizzo, function (out) {
+			const indirizzo = btn.parent().find("[name='indirizzo']").val();
+			const carta = btn.parent().find("[name='carta']").val();
+			ajaxPostRequest("servlet_acquista", "indirizzo=" + indirizzo + "&carta=" + carta, function (out) {
 				error_manager(out);
 			});
 		}

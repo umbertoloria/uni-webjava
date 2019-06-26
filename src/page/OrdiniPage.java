@@ -1,7 +1,7 @@
-package pages;
+package page;
 
 import model.bean.Utente;
-import model.dao.IndirizzoDAO;
+import model.dao.OrdineDAO;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,8 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/impostazioni")
-public class ImpostazioniPage extends GenericPage {
+@WebServlet("/ordini")
+public class OrdiniPage extends GenericPage {
 
 	private Utente utente;
 
@@ -20,9 +20,9 @@ public class ImpostazioniPage extends GenericPage {
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("indirizzi", IndirizzoDAO.getAllThoseOf(utente));
-		req.getRequestDispatcher("impostazioni.jsp").include(req, resp);
-		req.removeAttribute("indirizzi");
+		req.setAttribute("ordini", OrdineDAO.getAllThoseOf(utente));
+		req.getRequestDispatcher("ordini.jsp").include(req, resp);
+		req.removeAttribute("ordini");
 	}
 
 }

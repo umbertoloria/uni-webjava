@@ -1,4 +1,4 @@
-package pages;
+package page;
 
 import model.bean.Prodotto;
 import model.bean.Produttore;

@@ -1,11 +1,11 @@
 function error_manager(response, info, notice, before_reload) {
 	if (response.hasOwnProperty("info")) {
-		info(response.info);
+		if (typeof info === 'function') info(response.info);
 	}
 	if (response.hasOwnProperty("notices")) {
 		for (let field in response.notices) {
 			if (response.notices.hasOwnProperty(field)) {
-				notice(field, response.notices[field]);
+				if (typeof notice === 'function') notice(field, response.notices[field]);
 			}
 		}
 	}
@@ -14,13 +14,13 @@ function error_manager(response, info, notice, before_reload) {
 		const delay = response.redirect.delay;
 		if (delay === 0) {
 			if (url === 'reload') {
-				before_reload();
+				if (typeof before_reload === 'function') before_reload();
 				location.reload();
 			} else location.href = url;
 		} else {
 			setTimeout(function () {
 				if (url === 'reload') {
-					before_reload();
+					if (typeof before_reload === 'function') before_reload();
 					location.reload();
 				} else location.href = url;
 			}, response.redirect.delay);

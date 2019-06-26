@@ -1,11 +1,13 @@
+<%@ page import="model.bean.CartaCredito" %>
 <%@ page import="model.bean.Indirizzo" %>
+<%@ page import="util.Formats" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <main>
 	<div class="tabs">
 		<ul class="tabs_header">
 			<li><a>Cambia password</a></li>
 			<li><a>Gestisci indirizzi</a></li>
-			<li><a>Informazioni personali</a></li>
+			<li><a>Gestisci carte di credito</a></li>
 		</ul>
 		<div class="tabs_container">
 			<div>
@@ -29,16 +31,16 @@
 				</form>
 			</div>
 			<div>
-				<div id="indirizzi">
+				<div class="card indirizzi">
 					<%
 						for (Indirizzo indirizzo : (Indirizzo[]) request.getAttribute("indirizzi")) {
 					%>
 					<div data-indirizzo-id="<%= indirizzo.id %>">
 						<div>
-							<a>
+							<a class="edit">
 								<img src="images/edit.png" alt/>
 							</a>
-							<a>
+							<a class="drop">
 								<img src="images/drop.png" alt/>
 							</a>
 						</div>
@@ -64,68 +66,6 @@
 						}
 					%>
 				</div>
-				<script>
-
-					$("#indirizzi > div").click(function () {
-						if ($(this).is("[disabled]") && !$(this).is("[data-wait]")) {
-							const form = $("#indirizzi_form");
-							form.find("[name=nome]").val("");
-							form.find("[name=indirizzo]").val("");
-							form.find("[name=citta]").val("");
-							form.find("[name=cap]").val("");
-							form.find("[name=provincia]").val("");
-							form.find("input[type=hidden]").remove();
-							form.find("[type='submit']").val("Aggiungi indirizzo");
-							form.attr("action", "aggiungiIndirizzo");
-							$(this).removeAttr("disabled");
-						}
-					});
-
-					$("#indirizzi > div > div > a:first-child").click(function (ev) {
-						const div = $(this).parent().parent();
-						if (!div.is("[disabled]")) {
-							ev.stopPropagation();
-							div.attr("disabled", "disabled");
-							div.attr("data-wait", "");
-							setTimeout(function () {
-								div.removeAttr("data-wait");
-							}, 500);
-							div.siblings().removeAttr("disabled");
-							const id = div.attr("data-indirizzo-id");
-							const nome = div.find("[data-indirizzo-nome]").attr("data-indirizzo-nome");
-							const indirizzo = div.find("[data-indirizzo-indirizzo]").attr("data-indirizzo-indirizzo");
-							const citta = div.find("[data-indirizzo-citta]").attr("data-indirizzo-citta");
-							const cap = div.find("[data-indirizzo-cap]").attr("data-indirizzo-cap");
-							const provincia = div.find("[data-indirizzo-provincia]").attr("data-indirizzo-provincia");
-							const form = $("#indirizzi_form");
-							form.find("[name=nome]").val(nome);
-							form.find("[name=indirizzo]").val(indirizzo);
-							form.find("[name=citta]").val(citta);
-							form.find("[name=cap]").val(cap);
-							form.find("[name=provincia]").val(provincia);
-							form.append("<input type='hidden' name='id' value='" + id + "'/>");
-							form.find("[type='submit']").val("Modifica indirizzo");
-							form.attr("action", "modificaIndirizzo");
-						}
-					});
-
-					$("#indirizzi > div > div a:last-child").click(function (ev) {
-						const div = $(this).parent().parent();
-						if (!div.is("[disabled]") && confirm("Sei sicuro di voler cancellare questo indirizzo?")) {
-							ev.stopPropagation();
-							const id = div.attr("data-indirizzo-id");
-							ajaxPostRequest("rimuoviIndirizzo", "id=" + id, function (out) {
-								error_manager(out, function () {
-									div.animate({opacity: "0"}, 300);
-									setTimeout(function () {
-										div.remove();
-									}, 500);
-								});
-							});
-						}
-					});
-
-				</script>
 				<form action="servlet_aggiungiIndirizzo" method="post" id="indirizzi_form">
 					<fieldset>
 						<label>
@@ -153,13 +93,154 @@
 					<div class="msg"></div>
 				</form>
 			</div>
-			<div>Terzo: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been
-				the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type
-				and scrambled it to make a type specimen book. It has survived not only five centuries, but also the
-				leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with
-				the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-				publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			<div>
+				<div class="card carte">
+					<%
+						for (CartaCredito carta : (CartaCredito[]) request.getAttribute("carte")) {
+					%>
+					<div data-carta-numero="<%= carta.numero %>">
+						<div>
+							<a class="drop">
+								<img src="images/drop.png" alt/>
+							</a>
+						</div>
+						<h2>
+							<%= carta.numero %>
+						</h2>
+						<ul>
+							<li>
+								<%= carta.mese %> / <%= carta.anno %>
+							</li>
+							<li>
+								<%= carta.cvv %>
+							</li>
+							<li>
+								<%= Formats.euro(carta.saldo) %>
+							</li>
+						</ul>
+					</div>
+					<%
+						}
+					%>
+				</div>
+				<form action="servlet_aggiungiCarta" method="post">
+					<fieldset>
+						<label>
+							<span>Carta di credito</span>
+							<input type="text" name="numero" min="0000000000000000" max="9999999999999999"
+							       placeholder="Numero della carta">
+						</label>
+						<label>
+							<span>Mese</span>
+							<select name="mese">
+								<%
+									for (String mese : Formats.mesi) {
+										out.println("<option value='" + mese + "'>" + mese + "</option>");
+									}
+								%>
+							</select>
+						</label>
+						<label>
+							<span>Anno</span>
+							<select name="anno">
+								<%
+									for (int anno = 2018; anno < 2026; anno++) {
+										out.println("<option value='" + anno + "'>" + anno + "</option>");
+									}
+								%>
+							</select>
+						</label>
+						<label>
+							<span>CVV</span>
+							<input type="text" name="cvv" placeholder="CVV"/>
+						</label>
+						<label>
+							<span>Saldo</span>
+							<input type="text" name="saldo" placeholder="Soldi sulla carta"/>
+						</label>
+					</fieldset>
+					<input type="submit" value="Aggiungi carta"/>
+					<div class="msg"></div>
+				</form>
 			</div>
 		</div>
 	</div>
 </main>
+<script>
+
+	$(".card.indirizzi > div").click(function () {
+		if ($(this).is("[disabled]") && !$(this).is("[data-wait]")) {
+			const form = $("#indirizzi_form");
+			form.find("[name=nome]").val("");
+			form.find("[name=indirizzo]").val("");
+			form.find("[name=citta]").val("");
+			form.find("[name=cap]").val("");
+			form.find("[name=provincia]").val("");
+			form.find("input[type=hidden]").remove();
+			form.find("[type='submit']").val("Aggiungi indirizzo");
+			form.attr("action", "aggiungiIndirizzo");
+			$(this).removeAttr("disabled");
+		}
+	});
+
+	$(".card.indirizzi > div > div > a.edit").click(function (ev) {
+		const div = $(this).parent().parent();
+		if (!div.is("[disabled]")) {
+			ev.stopPropagation();
+			div.attr("disabled", "disabled");
+			div.attr("data-wait", "");
+			setTimeout(function () {
+				div.removeAttr("data-wait");
+			}, 500);
+			div.siblings().removeAttr("disabled");
+			const id = div.attr("data-indirizzo-id");
+			const nome = div.find("[data-indirizzo-nome]").attr("data-indirizzo-nome");
+			const indirizzo = div.find("[data-indirizzo-indirizzo]").attr("data-indirizzo-indirizzo");
+			const citta = div.find("[data-indirizzo-citta]").attr("data-indirizzo-citta");
+			const cap = div.find("[data-indirizzo-cap]").attr("data-indirizzo-cap");
+			const provincia = div.find("[data-indirizzo-provincia]").attr("data-indirizzo-provincia");
+			const form = $("#indirizzi_form");
+			form.find("[name=nome]").val(nome);
+			form.find("[name=indirizzo]").val(indirizzo);
+			form.find("[name=citta]").val(citta);
+			form.find("[name=cap]").val(cap);
+			form.find("[name=provincia]").val(provincia);
+			form.append("<input type='hidden' name='id' value='" + id + "'/>");
+			form.find("[type='submit']").val("Modifica indirizzo");
+			form.attr("action", "modificaIndirizzo");
+		}
+	});
+
+	$(".card.indirizzi > div > div a.drop").click(function (ev) {
+		const div = $(this).parent().parent();
+		if (!div.is("[disabled]") && confirm("Sei sicuro di voler cancellare questo indirizzo?")) {
+			ev.stopPropagation();
+			const id = div.attr("data-indirizzo-id");
+			ajaxPostRequest("rimuoviIndirizzo", "id=" + id, function (out) {
+				error_manager(out, function () {
+					div.animate({opacity: "0"}, 300);
+					setTimeout(function () {
+						div.remove();
+					}, 500);
+				});
+			});
+		}
+	});
+
+	$(".card.carte > div > div a.drop").click(function (ev) {
+		const div = $(this).parent().parent();
+		if (!div.is("[disabled]") && confirm("Sei sicuro di voler cancellare questa carta?")) {
+			ev.stopPropagation();
+			const num = div.attr("data-carta-numero");
+			ajaxPostRequest("rimuoviCarta", "num=" + num, function (out) {
+				error_manager(out, function () {
+					div.animate({opacity: "0"}, 300);
+					setTimeout(function () {
+						div.remove();
+					}, 500);
+				});
+			});
+		}
+	});
+
+</script>

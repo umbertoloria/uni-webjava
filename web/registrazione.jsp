@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <main>
-	<form action="servlet_registrazione" method="post">
+	<form action="servlet_registrazione" method="post" onsubmit="return checkRegistrazione(this);">
 		<fieldset>
 			<label>
 				<span>Nome</span>

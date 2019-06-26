@@ -3,7 +3,7 @@ package controller;
 import model.bean.Recensione;
 import model.bean.Utente;
 import model.dao.RecensioneDAO;
-import model.validators.RecensioneValidator;
+import model.validator.RecensioneValidator;
 import util.ErrorManager;
 
 import javax.servlet.annotation.WebServlet;
@@ -45,7 +45,6 @@ public class AggiungiRecensione extends HttpServlet {
 			titolo = req.getParameter("titolo").trim();
 			commento = req.getParameter("commento").trim();
 		} catch (NullPointerException e) {
-			System.out.println("fuck3");
 			em.logout();
 			em.apply();
 			return;

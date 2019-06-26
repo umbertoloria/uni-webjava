@@ -50,6 +50,9 @@
 				<h2>
 					Spedito il <%= Formats.date(ordine.momento) %>
 				</h2>
+				<h2>
+					Acquistato con <%= ordine.pagamento %>
+				</h2>
 				<span class="price">
 			<%= Formats.euro(ordine.getTotale()) %>
 		</span>

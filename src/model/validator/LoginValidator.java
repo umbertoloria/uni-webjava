@@ -1,4 +1,4 @@
-package model.validators;
+package model.validator;
 
 public final class LoginValidator {
 

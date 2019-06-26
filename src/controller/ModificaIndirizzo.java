@@ -3,7 +3,7 @@ package controller;
 import model.bean.Indirizzo;
 import model.bean.Utente;
 import model.dao.IndirizzoDAO;
-import model.validators.IndirizzoValidator;
+import model.validator.IndirizzoValidator;
 import util.ErrorManager;
 
 import javax.servlet.annotation.WebServlet;

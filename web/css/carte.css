@@ -1,11 +1,11 @@
-.card {
+#carte {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-gap: 30px;
 	margin-bottom: 30px;
 }
 
-.card > div {
+#carte > div {
 	position: relative;
 	background: #fff;
 	border-radius: 3px;
@@ -13,7 +13,7 @@
 	transition: .3s all, 0s background-position;
 }
 
-.card > div[disabled] {
+#carte > div[disabled] {
 	background-color: #ddd;
 	background-image: url("../images/drop.png");
 	background-position: center;
@@ -24,12 +24,12 @@
 	cursor: pointer;
 }
 
-.card > div:not([disabled]):hover {
+#carte > div:not([disabled]):hover {
 	transform: scale(1.05);
 	box-shadow: 0 0 20px rgba(0, 0, 0, .2);
 }
 
-.card > div > div {
+#carte > div > div {
 	position: absolute;
 	top: -15px;
 	right: 10px;
@@ -41,12 +41,12 @@
 	transition: .3s;
 }
 
-.card > div:not([disabled]):hover > div {
+#carte > div:not([disabled]):hover > div {
 	opacity: 1;
 	visibility: visible;
 }
 
-.card > div > div a {
+#carte > div > div a {
 	display: block;
 	border-radius: 100%;
 	width: 30px;
@@ -57,33 +57,33 @@
 	cursor: pointer;
 }
 
-.card > div:hover > div a {
+#carte > div:hover > div a {
 	transform: none;
 }
 
-.card > div > div a img {
+#carte > div > div a img {
 	width: 16px;
 	height: 16px;
 	margin: 7px;
 	object-fit: contain;
 }
 
-.card > div > div a:hover {
+#carte > div > div a:hover {
 	margin-top: -4px;
 }
 
-.card > div h2 {
+#carte > div h2 {
 	font-size: 1.2em;
 	margin: 0 0 10px 0;
 }
 
-.card > div ul {
+#carte > div ul {
 	display: block;
 	list-style: none;
 	padding: 0;
 	margin: 0;
 }
 
-.card > div ul li {
+#carte > div ul li {
 	display: block;
 }

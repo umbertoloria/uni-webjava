@@ -1,4 +1,4 @@
-package model.validators;
+package model.validator;
 
 import model.bean.Indirizzo;
 

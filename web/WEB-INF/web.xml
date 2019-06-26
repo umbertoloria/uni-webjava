@@ -17,7 +17,7 @@
 	</error-page>
 	<!--<security-constraint>
 		<web-resource-collection>
-			<web-resource-name>Part pages</web-resource-name>
+			<web-resource-name>Part page</web-resource-name>
 			<url-pattern>/parts/*.jsp</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>

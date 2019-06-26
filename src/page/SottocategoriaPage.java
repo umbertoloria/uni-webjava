@@ -1,4 +1,4 @@
-package pages;
+package page;
 
 import model.bean.Categoria;
 import model.bean.Sottocategoria;

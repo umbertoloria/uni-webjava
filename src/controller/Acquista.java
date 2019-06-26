@@ -1,9 +1,11 @@
 package controller;
 
 import model.Carrello;
+import model.bean.CartaCredito;
 import model.bean.Indirizzo;
 import model.bean.Ordine;
 import model.bean.Utente;
+import model.dao.CartaCreditoDAO;
 import model.dao.IndirizzoDAO;
 import model.dao.OrdineDAO;
 import util.ErrorManager;
@@ -43,8 +45,27 @@ public class Acquista extends HttpServlet {
 			return;
 		}
 
-		Ordine o = new Ordine(utente.id, indirizzo.toString(), carrello);
-		if (OrdineDAO.doSave(o)) {
+		CartaCredito carta;
+		try {
+			// La carta è indispensabile per effettuare l'ordine.
+			String numero = req.getParameter("carta").trim();
+			carta = CartaCreditoDAO.doRetrieveByKey(numero);
+			if (carta == null) {
+				throw new NumberFormatException();
+			}
+		} catch (NumberFormatException | NullPointerException e) {
+			em.logout();
+			em.apply();
+			return;
+		}
+
+		Ordine o = new Ordine(utente.id, indirizzo.toString(), carta.toString(), carrello);
+		if (carta.saldo < o.getTotale()) {
+			em.overlay("Non ci sono abbastanza soldi su questa carta.");
+			em.reload();
+		} else if (OrdineDAO.doSave(o)) {
+			CartaCreditoDAO.doUpdate(new CartaCredito(carta.numero, carta.mese, carta.anno, carta.cvv,
+					carta.saldo - o.getTotale(), carta.utente));
 			// Tutto ok.
 			req.getSession().removeAttribute("carrello");
 			em.overlay("Acquisto effettuato");
