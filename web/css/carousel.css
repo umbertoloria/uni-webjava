@@ -1,6 +1,5 @@
 #carousel {
-	width: 1100px;
-	height: 500px;
+	height: 300px;
 	margin: 50px auto;
 	overflow: hidden;
 	position: relative;
@@ -49,7 +48,7 @@
 }
 
 #carousel > a.active span {
-	bottom: 80px;
+	bottom: 50px;
 }
 
 #carousel:hover > a.active span {

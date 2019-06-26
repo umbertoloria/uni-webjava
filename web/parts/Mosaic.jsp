@@ -1,6 +1,6 @@
 <%@ page import="model.bean.Sottocategoria" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-<div id="mosaic">
+<main id="mosaic">
 	<%
 		for (Sottocategoria sottocategoria : (Sottocategoria[]) request.getAttribute("sottocategorie")) {
 	%>
@@ -11,4 +11,4 @@
 	<%
 		}
 	%>
-</div>
+</main>

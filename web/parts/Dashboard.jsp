@@ -30,52 +30,49 @@
 		}
 		Boolean filtri = (Boolean) request.getAttribute("filtri");
 		if (filtri != null && filtri) {
-%>
-<main>
-	<%
+//			out.println("<main style='display: flex;'>");
+			out.println("<main>");
+			out.println("<div id='dashboard'>");
+		} else {
+			out.println("<main id='dashboard'>");
 		}
-	%>
-	<div id="dashboard">
-		<%
-			for (ProdottoContainer p : pcs) {
-		%>
-		<div data-price="<%= p.prodotto_prezzo %>">
-			<a href="prodotto?id=<%= p.prodotto_id %>" class="image">
-				<img src="immagine?id=<%= p.prodotto_immagine %>" alt/>
+		for (ProdottoContainer p : pcs) {
+%>
+<div data-price="<%= p.prodotto_prezzo %>">
+	<a href="prodotto?id=<%= p.prodotto_id %>" class="image">
+		<img src="immagine?id=<%= p.prodotto_immagine %>" alt/>
+	</a>
+	<div>
+		<label>
+			<a href="produttore?id=<%= p.produttore_id %>">
+				<%= p.produttore_nome %>
 			</a>
-			<div>
-				<label>
-					<a href="produttore?id=<%= p.produttore_id %>">
-						<%= p.produttore_nome %>
-					</a>
-					<%= p.prodotto_nome %>
-				</label>
-				<span>
+			<%= p.prodotto_nome %>
+		</label>
+		<span>
 				<%= Formats.euro(p.prodotto_prezzo) %>
 			</span>
-				<a class="add_to_cart" onclick="addProdottoFromDashboardToCart(this, <%= p.prodotto_id %>)"></a>
-			</div>
-		</div>
-		<%
-			}
-		%>
+		<a class="add_to_cart" onclick="addProdottoFromDashboardToCart(this, <%= p.prodotto_id %>)"></a>
 	</div>
-	<%
-		if (filtri != null && filtri) {
-	%>
-	<div id="filtri">
-		<label>
-			<span>Prezzo minimo <label></label></span>
-			<input type="range" name="min" min="1" max="1000" value="<%= minPrezzo != null ? minPrezzo : 1 %>">
-		</label>
-		<label>
-			<span>Prezzo massimo <label></label></span>
-			<input type="range" name="max" min="1" max="1000" value="<%= maxPrezzo != null ? maxPrezzo : 1000 %>">
-		</label>
-		<input type="submit" value="Apply"/>
-	</div>
-</main>
+</div>
+<%
+	}
+	if (filtri != null && filtri) {
+		out.println("</div>");
+%>
+<div id="filtri">
+	<label>
+		<span>Prezzo minimo <label></label></span>
+		<input type="range" name="min" min="1" max="1000" value="<%= minPrezzo != null ? minPrezzo : 1 %>">
+	</label>
+	<label>
+		<span>Prezzo massimo <label></label></span>
+		<input type="range" name="max" min="1" max="1000" value="<%= maxPrezzo != null ? maxPrezzo : 1000 %>">
+	</label>
+	<input type="submit" value="Apply"/>
+</div>
 <%
 		}
+		out.println("</main>");
 	}
 %>

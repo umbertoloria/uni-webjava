@@ -10,7 +10,7 @@ create table utenti (
 );
 
 INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (1, 'umberto.loria@gmail.com',
-'1e4e888ac66f8dd41e00c5a7ac36a32a9950d271', 'Umberto Loria', 'Amministratore');
+'0f8deb0b2620578ac0eb466d753cd58e446e39fe', 'Umberto Loria', 'Amministratore');
 INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (2, 'marioromano1998@gmail.com',
 'addb47291ee169f330801ce73520b96f2eaf20ea', 'Mario Romano', 'Normale');
 INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (3, 'anapoli1998ant@gmail.com',

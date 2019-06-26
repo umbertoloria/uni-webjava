@@ -4,7 +4,6 @@ import model.bean.Categoria;
 import model.bean.Sottocategoria;
 import model.dao.CategoriaDAO;
 import model.dao.SottocategoriaDAO;
-import util.Breadcrumb;
 import util.TopbarContainer;
 
 import javax.servlet.ServletException;
@@ -32,7 +31,6 @@ public abstract class GenericPage extends HttpServlet {
 			}
 		}
 		req.setAttribute("topbar_categorie_data", topbar);
-		req.setAttribute("breadcrumb", makeBreadcrumb(req, resp));
 		if (getTopbarCategoria() >= 0) {
 			req.setAttribute("topbar_categoria", getTopbarCategoria());
 		}
@@ -41,7 +39,6 @@ public abstract class GenericPage extends HttpServlet {
 		}
 		req.getRequestDispatcher("parts/Topbar.jsp").include(req, resp);
 		req.removeAttribute("topbar_categorie_data");
-		req.removeAttribute("breadcrumb");
 		req.removeAttribute("topbar_categoria");
 		req.removeAttribute("topbar_sottocategoria");
 		fillPage(req, resp);
@@ -59,10 +56,6 @@ public abstract class GenericPage extends HttpServlet {
 
 	int getTopbarSottocategoria() {
 		return -1;
-	}
-
-	Breadcrumb makeBreadcrumb(HttpServletRequest req, HttpServletResponse resp) {
-		return new Breadcrumb();
 	}
 
 	abstract void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException;

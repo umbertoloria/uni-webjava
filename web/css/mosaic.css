@@ -1,9 +1,7 @@
 #mosaic {
-	width: 1200px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-gap: 30px;
-	margin: 50px auto;
 }
 
 #mosaic a {

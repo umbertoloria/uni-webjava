@@ -1,10 +1,8 @@
 #dashboard {
-	width: 1200px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-column-gap: 30px;
 	grid-row-gap: 50px;
-	margin: 50px auto;
 }
 
 #dashboard > div a.image {
@@ -18,7 +16,7 @@
 
 #dashboard > div a.image img {
 	width: 100%;
-	height: 250px;
+	height: 230px;
 	object-fit: contain;
 	line-height: 25px;
 	transition: .5s;
@@ -79,24 +77,8 @@
 	transform: rotate(90deg);
 }
 
-@media only screen and (min-width: 1001px) and (max-width: 1400px) {
-
-	#dashboard {
-		grid-template-columns: 1fr 1fr 1fr;
-	}
-
-}
-
-@media only screen and (max-width: 1000px) {
-
-	#dashboard {
-		grid-template-columns: 1fr 1fr;
-	}
-
-}
-
 main #dashboard {
-	width: 970px;
+	width: calc(100% - 230px);
 	margin: 0 30px 0 0;
 }
 
@@ -111,8 +93,6 @@ main #filtri {
 	width: 200px;
 	padding: 30px;
 	box-sizing: border-box;
-	/*border: 1px solid #ddd;*/
-	/*background: #ddd;*/
 	background: #fff;
 	border-radius: 3px;
 }

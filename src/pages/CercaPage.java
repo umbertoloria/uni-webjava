@@ -2,7 +2,6 @@ package pages;
 
 import model.container.ProdottoContainer;
 import model.dao.ProdottoDAO;
-import util.Breadcrumb;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,12 +26,6 @@ public class CercaPage extends GenericPage {
 			}
 			return true;
 		}
-	}
-
-	Breadcrumb makeBreadcrumb(HttpServletRequest req, HttpServletResponse resp) {
-		Breadcrumb breadcrumb = new Breadcrumb();
-		breadcrumb.add("Ricerca");
-		return breadcrumb;
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

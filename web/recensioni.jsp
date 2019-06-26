@@ -6,7 +6,7 @@
 <jsp:useBean id="recensioni" scope="request" type="java.util.List"/>
 <c:choose>
 	<c:when test="${not empty recensioni}">
-		<div id="recensioni">
+		<main id="recensioni">
 			<c:forEach items="${recensioni}" var="rec">
 				<div>
 					<div class="stelle mark<c:out value="${rec.voto}"/>"></div>
@@ -20,7 +20,7 @@
 					</label>
 				</div>
 			</c:forEach>
-		</div>
+		</main>
 	</c:when>
 </c:choose>
 

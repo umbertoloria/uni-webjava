@@ -6,7 +6,6 @@ import model.container.ProdottoContainer;
 import model.dao.CategoriaDAO;
 import model.dao.ProdottoDAO;
 import model.dao.SottocategoriaDAO;
-import util.Breadcrumb;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,13 +36,6 @@ public class SottocategoriaPage extends GenericPage {
 
 	int getTopbarSottocategoria() {
 		return sottocategoria.id;
-	}
-
-	Breadcrumb makeBreadcrumb(HttpServletRequest req, HttpServletResponse resp) {
-		Breadcrumb breadcrumb = new Breadcrumb();
-		breadcrumb.add(categoria.nome, "./categoria?id=" + categoria.id);
-		breadcrumb.add(sottocategoria.nome);
-		return breadcrumb;
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

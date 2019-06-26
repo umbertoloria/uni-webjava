@@ -1,12 +1,15 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico|Patrick+Hand');
 
 article {
+	display: block;
+	width: 100%;
 	background-image: url("../images/paper.png");
 	background-repeat: repeat;
 	padding: 0 45px 10px 65px;
 	position: relative;
 	border-radius: 3px;
 	overflow: hidden;
+	text-align: center;
 }
 
 article::before,
@@ -35,6 +38,7 @@ article > * {
 }
 
 article h1 {
+	width: calc(100% - 80px);
 	font-family: Pacifico, serif;
 	font-size: 1.2em;
 }
@@ -49,20 +53,4 @@ article p {
 
 article p::first-letter {
 	font-weight: bold;
-}
-
-@media only screen and (min-width: 1001px) and (max-width: 1400px) {
-
-	footer > div, main, h1, #dashboard, #mosaic, #firstbar, nav, #prodotto, #recensioni {
-		width: 800px;
-	}
-
-}
-
-@media only screen and (max-width: 1000px) {
-
-	footer > div, main, h1, #dashboard, #mosaic, #firstbar, nav, #prodotto, #recensioni {
-		width: 600px;
-	}
-
 }

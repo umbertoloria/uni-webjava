@@ -14,5 +14,4 @@
 		<input type="submit" value="Accedi"/>
 		<div class="msg"></div>
 	</form>
-	<a href="registrazione">Non hai un account? Creane uno</a>
 </main>

@@ -3,7 +3,7 @@
 <jsp:useBean id="carousel" scope="request" type="model.Carousel"/>
 <c:choose>
 	<c:when test="${not empty carousel}">
-		<div id="carousel">
+		<main id="carousel">
 			<c:forEach items="${carousel.iterator()}" var="item">
 				<a href="<c:out value="${item.url}"/>">
 					<img src="<c:out value="${item.immagine}"/>" alt/>
@@ -12,7 +12,7 @@
 					</span>
 				</a>
 			</c:forEach>
-		</div>
+		</main>
 	</c:when>
 </c:choose>
 <script>

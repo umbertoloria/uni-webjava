@@ -1,7 +1,5 @@
 <%@ page import="model.bean.Categoria" %>
 <%@ page import="model.bean.Sottocategoria" %>
-<%@ page import="util.Breadcrumb" %>
-<%@ page import="util.BreadcrumbItem" %>
 <%@ page import="util.TopbarCategoria" %>
 <%@ page import="util.TopbarContainer" %>
 <%@ page import="java.util.List" %>
@@ -9,38 +7,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
 	<div>
-		<div id="firstbar">
+		<main id="firstbar">
 			<div id="leftside">
 				<a href="./"></a>
-				<%
-					Breadcrumb bc = (Breadcrumb) request.getAttribute("breadcrumb");
-					if (bc != null) {
-						for (BreadcrumbItem bci : bc) {
-							if (bci.link == null) {
-								out.println("<a>" + bci.nome + "</a>");
-							} else {
-								out.println("<a href=\"" + bci.link + "\">" + bci.nome + "</a>");
-							}
-						}
-					}
-				%>
-				<%--<c:catch>
-					<jsp:useBean id="breadcrumb" scope="request" type="util.Breadcrumb"/>
-					<c:choose>
-						<c:when test="${breadcrumb != null}">
-							<c:forEach items="${breadcrumb.iterator()}" var="bci">
-								<c:choose>
-									<c:when test="${bci.link == null}">
-										<a><c:out value="${bci.nome}"/></a>
-									</c:when>
-									<c:otherwise>
-										<a href="<c:out value="bci.link"/>"><c:out value="bci.nome"/></a>
-									</c:otherwise>
-								</c:choose>
-							</c:forEach>
-						</c:when>
-					</c:choose>
-				</c:catch>--%>
 			</div>
 			<div id="centerside">
 				<form id="search_form" action="cerca" method="get">
@@ -84,7 +53,7 @@
 					</a>
 				</li>
 			</ul>
-		</div>
+		</main>
 	</div>
 	<div>
 		<nav>

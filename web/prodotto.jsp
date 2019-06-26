@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <jsp:useBean id="prodotto" type="model.bean.Prodotto" scope="request"/>
 <jsp:useBean id="produttore" type="model.bean.Produttore" scope="request"/>
-<div id="prodotto">
+<main id="prodotto">
 	<div>
 		<img src="immagine?id=<%= prodotto.immagine %>" alt="">
 	</div>
@@ -27,7 +27,7 @@
 		</div>
 		<input type="submit" value="Aggiungi al carrello">
 	</form>
-</div>
+</main>
 <script>
 
 	$("#prodotto form").submit(function (event) {

@@ -8,7 +8,6 @@ import model.dao.OrdineDAO;
 import model.dao.ProdottoDAO;
 import model.dao.ProduttoreDAO;
 import model.dao.RecensioneDAO;
-import util.Breadcrumb;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,13 +33,6 @@ public class ProdottoPage extends GenericPage {
 			produttore = ProduttoreDAO.doRetrieveByKey(prodotto.produttore);
 			return true;
 		}
-	}
-
-	Breadcrumb makeBreadcrumb(HttpServletRequest req, HttpServletResponse resp) {
-		Breadcrumb breadcrumb = new Breadcrumb();
-		breadcrumb.add(produttore.nome, "produttore?id=" + produttore.id);
-		breadcrumb.add(prodotto.nome);
-		return breadcrumb;
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

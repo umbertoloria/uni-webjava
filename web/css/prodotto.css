@@ -2,8 +2,6 @@
 	display: grid;
 	grid-template-columns: 280px auto 240px;
 	grid-column-gap: 50px;
-	width: 1200px;
-	margin: 50px auto;
 }
 
 #prodotto > div:first-child {

@@ -36,7 +36,7 @@ main {
 	width: 1200px;
 	display: flex;
 	flex-wrap: wrap;
-	margin: auto;
+	margin: 50px auto;
 	position: relative;
 }
 

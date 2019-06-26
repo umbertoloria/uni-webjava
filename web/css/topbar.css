@@ -20,7 +20,6 @@ header > div:last-child {
 }
 
 #firstbar {
-	width: 1200px;
 	margin: auto;
 	display: grid;
 	grid-template-columns: auto auto auto;
@@ -34,34 +33,12 @@ header > div:last-child {
 
 #firstbar #leftside a {
 	display: block;
-	line-height: 25px;
-}
-
-#firstbar #leftside a::after {
-	content: "";
-	display: block;
-	float: right;
-	margin: 3px 5px 0 5px;
-	background-image: url("https://cdn4.iconfinder.com/data/icons/ionicons/512/icon-ios7-arrow-right-256.png");
-	background-size: cover;
-	width: 20px;
-	height: 20px;
-}
-
-#firstbar #leftside a:first-child {
-	margin-right: 10px;
-	box-shadow: 1px 0 0 #999;
+	width: 140px;
+	height: 25px;
 	background-image: url("../images/logo.png");
 	background-size: 130px auto;
 	background-repeat: no-repeat;
 	background-position: left center;
-	width: 140px;
-	height: 25px;
-}
-
-#firstbar #leftside a:first-child::after,
-#firstbar #leftside a:last-child::after {
-	display: none;
 }
 
 #firstbar #centerside form {
@@ -254,13 +231,14 @@ nav ul {
 
 nav ul li {
 	display: block;
+	margin: 0 5px;
 }
 
 nav ul li a {
 	display: block;
 	line-height: 35px;
 	padding: 0 15px;
-	margin: 10px 10px 10px 0;
+	margin: 10px 0;
 	border-radius: 10px;
 	color: #666;
 	font-size: 1.2em;
@@ -303,6 +281,10 @@ nav ul li:hover ul {
 	visibility: visible;
 }
 
+nav ul li ul li {
+	margin: 0;
+}
+
 nav ul li ul li a {
 	line-height: 30px;
 	padding: 0 15px;
@@ -321,4 +303,20 @@ nav ul li ul li:hover > a {
 nav ul li ul li.active > a {
 	background: #ddd;
 	box-shadow: none;
+}
+
+
+@media only screen and (max-width: 700px) {
+
+	nav ul li {
+		margin: 0 2px;
+	}
+
+	nav ul li a {
+		line-height: 28px;
+		padding: 0 10px;
+		margin: 5px 0;
+		font-size: 1.1em;
+	}
+
 }

@@ -1,32 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <footer>
 	<div>
-		<ul>
-			<li>Umberto</li>
-			<li>
-				<a href="credits">Crediti</a>
-			</li>
-			<li>
-				<a href="credits">Altri crediti</a>
-			</li>
-		</ul>
-		<ul>
-			<li>Mario</li>
-			<li>
-				<a href="credits">Crediti</a>
-			</li>
-			<li>
-				<a href="credits">Altri crediti</a>
-			</li>
-		</ul>
-		<ul>
-			<li>Antonio</li>
-			<li>
-				<a href="credits">Crediti</a>
-			</li>
-			<li>
-				<a href="credits">Altri crediti</a>
-			</li>
-		</ul>
+		<h2> MCommerce </h2>
+		<a href="registrazione">Registrati</a>
+		<a href="login">Accedi</a>
+		<a href="credits">Crediti</a>
 	</div>
 </footer>

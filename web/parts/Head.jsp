@@ -19,6 +19,7 @@
 	<link rel='stylesheet' href='css/ordini.css'/>
 	<link rel='stylesheet' href='css/carousel.css'/>
 	<link rel='stylesheet' href='css/layout.css'/>
+	<link rel='stylesheet' href='css/responsive.css'/>
 	<script type='text/javascript' src='js/jQuery.min.js'></script>
 	<script type='text/javascript' src='js/core.js'></script>
 	<script type='text/javascript' src='js/topbar.js'></script>
