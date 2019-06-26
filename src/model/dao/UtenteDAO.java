@@ -1,8 +1,12 @@
 package model.dao;
 
+import database.Conn;
+import database.Record;
+import database.Table;
 import model.bean.Utente;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UtenteDAO extends DAO {
 
@@ -39,6 +43,18 @@ public class UtenteDAO extends DAO {
 		} catch (SQLException e) {
 			return false;
 		}
+	}
+
+	public static Utente[] getAll() {
+		ArrayList<Utente> utenti = new ArrayList<>();
+		Conn conn = Conn.hold();
+		Table t = conn.query("SELECT id, email, password, nome, tipo FROM utenti ORDER BY nome");
+		Conn.release(conn);
+		for (Record r : t) {
+			utenti.add(new Utente(Integer.parseInt(r.get(0).toString()), r.get(1).toString(), r.get(2).toString(),
+					r.get(3).toString(), r.get(4).toString()));
+		}
+		return utenti.toArray(new Utente[0]);
 	}
 
 }

@@ -58,3 +58,26 @@ span.price {
 	border-radius: 10px;
 	text-align: center;
 }
+
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	background: #eee;
+}
+
+table tr th,
+table tr td {
+	height: 35px;
+	padding: 0 10px;
+	border-bottom: 1px solid #ddd;
+}
+
+table tr th {
+	text-align: left;
+	font-weight: bold;
+}
+
+table tr:nth-child(2n) td {
+	background: #e5e5e5;
+}

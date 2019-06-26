@@ -17,7 +17,7 @@ public class ProduttoreDAO extends DAO {
 		return new Produttore(Integer.parseInt(r[0]), r[1]);
 	}
 
-	public static Object getAll() {
+	public static Produttore[] getAll() {
 		ArrayList<Produttore> produttori = new ArrayList<>();
 		Conn conn = Conn.hold();
 		Table t = conn.query("SELECT id, nome FROM produttori ORDER BY nome");

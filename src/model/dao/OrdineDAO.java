@@ -72,4 +72,15 @@ public class OrdineDAO extends DAO {
 		return t.count() >= 1;
 	}
 
+	public static Ordine[] getAll() {
+		ArrayList<Ordine> ordini = new ArrayList<>();
+		Conn conn = Conn.hold();
+		Table t = conn.query("SELECT id FROM ordini ORDER BY momento DESC");
+		Conn.release(conn);
+		for (Record r : t) {
+			ordini.add(doRetrieveByKey(Integer.parseInt(r.get(0).toString())));
+		}
+		return ordini.toArray(new Ordine[0]);
+	}
+
 }
