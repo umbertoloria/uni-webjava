@@ -27,7 +27,6 @@ public class RimuoviIndirizzo extends HttpServlet {
 		Indirizzo indirizzo;
 		try {
 			// L'indirizzo deve esistere e soprattutto deve essere di nostra proprietà.
-			// TODO: Testare con multipli utenti.
 			int id = Integer.parseInt(req.getParameter("id").trim());
 			indirizzo = IndirizzoDAO.doRetrieveByKey(id);
 			if (indirizzo == null || indirizzo.utente != utente.id) {

@@ -1,14 +1,10 @@
-<%@ page import="model.bean.Ordine" %>
-<%@ page import="model.bean.OrdineHasProdotto" %>
-<%@ page import="model.bean.Prodotto" %>
-<%@ page import="model.bean.Produttore" %>
-<%@ page import="model.dao.ProdottoDAO" %>
-<%@ page import="model.dao.ProduttoreDAO" %>
+<%@ page import="model.container.OrdineContainer" %>
+<%@ page import="model.container.OrdineHasProdottoContainer" %>
 <%@ page import="util.Formats" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <main>
 	<%
-		Ordine[] ordini = (Ordine[]) request.getAttribute("ordini");
+		OrdineContainer[] ordini = (OrdineContainer[]) request.getAttribute("ordini");
 		if (ordini == null || ordini.length == 0) {
 	%>
 	<h1>Non hai ancora effettuato un ordine</h1>
@@ -17,27 +13,23 @@
 	%>
 	<div id="ordini">
 		<%
-			for (Ordine ordine : ordini) {
+			for (OrdineContainer ordine : ordini) {
 		%>
 		<div class="ordine">
 			<div class="ordine_items">
 				<%
-					for (OrdineHasProdotto item : ordine) {
-						Prodotto prodotto = ProdottoDAO.doRetrieveByKey(item.prodotto);
-						assert prodotto != null;
-						Produttore produttore = ProduttoreDAO.doRetrieveByKey(prodotto.produttore);
-						assert produttore != null;
+					for (OrdineHasProdottoContainer itema : ordine) {
 				%>
-				<a href="prodotto?id=<%= item.prodotto %>">
-					<img src="immagine?id=<%= prodotto.immagine %>" alt/>
+				<a href="prodotto?id=<%= itema.prodotto_id %>">
+					<img src="immagine?id=<%= itema.prodotto_immagine %>" alt/>
 					<label>
 						<b>
-							<%= produttore.nome %>
+							<%= itema.produttore_nome %>
 						</b>
-						<%= prodotto.nome %>
+						<%= itema.prodotto_nome %>
 					</label>
-					<span class="pr"><%= Formats.euro(item.prezzo * item.quantita) %></span>
-					<span class="qu">x<%= item.quantita %></span>
+					<span class="pr"><%= Formats.euro(itema.prezzo * itema.quantita) %></span>
+					<span class="qu">x<%= itema.quantita %></span>
 				</a>
 				<%
 					}
@@ -45,13 +37,13 @@
 			</div>
 			<div>
 				<h2>
-					Spedito a <%= ordine.destinazione %>
+					Spedito a <%= ordine.getDestinazione() %>
 				</h2>
 				<h2>
-					Spedito il <%= Formats.date(ordine.momento) %>
+					Spedito il <%= Formats.date(ordine.getMomento()) %>
 				</h2>
 				<h2>
-					Acquistato con <%= ordine.pagamento %>
+					Acquistato con <%= ordine.getPagamento() %>
 				</h2>
 				<span class="price">
 			<%= Formats.euro(ordine.getTotale()) %>

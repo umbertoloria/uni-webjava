@@ -1,6 +1,8 @@
 package page;
 
+import model.bean.Ordine;
 import model.bean.Utente;
+import model.container.OrdineContainer;
 import model.dao.OrdineDAO;
 
 import javax.servlet.ServletException;
@@ -20,7 +22,12 @@ public class OrdiniPage extends GenericPage {
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("ordini", OrdineDAO.getAllThoseOf(utente));
+		Ordine[] ordini = OrdineDAO.getAllThoseOf(utente);
+		OrdineContainer[] ordiniContainers = new OrdineContainer[ordini.length];
+		for (int i = 0; i < ordini.length; i++) {
+			ordiniContainers[i] = new OrdineContainer(ordini[i]);
+		}
+		req.setAttribute("ordini", ordiniContainers);
 		req.getRequestDispatcher("ordini.jsp").include(req, resp);
 		req.removeAttribute("ordini");
 	}

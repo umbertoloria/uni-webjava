@@ -33,7 +33,6 @@ public class UpdateCart extends HttpServlet {
 			em.apply();
 			return;
 		}
-		// TODO: Sincronizzare Carrello con DB se loggato.
 
 		// Il prodotto esiste. Mode: "drop" | "add" | "set".
 		Carrello carrello = (Carrello) req.getSession().getAttribute("carrello");

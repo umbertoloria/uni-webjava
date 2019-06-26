@@ -1,6 +1,8 @@
 package page;
 
+import model.Carrello;
 import model.bean.Utente;
+import model.container.CarrelloContainer;
 import model.dao.CartaCreditoDAO;
 import model.dao.IndirizzoDAO;
 
@@ -19,9 +21,14 @@ public class CarrelloPage extends GenericPage {
 			req.setAttribute("indirizzi", IndirizzoDAO.getAllThoseOf(u));
 			req.setAttribute("carte", CartaCreditoDAO.getAllThoseOf(u));
 		}
+		Carrello carrello = (Carrello) req.getSession().getAttribute("carrello");
+		if (carrello != null) {
+			req.setAttribute("carrello", new CarrelloContainer(carrello));
+		}
 		req.getRequestDispatcher("carrello.jsp").include(req, resp);
 		req.removeAttribute("indirizzi");
 		req.removeAttribute("carte");
+		req.removeAttribute("carrello");
 	}
 
 }

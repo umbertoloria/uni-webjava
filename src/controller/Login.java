@@ -43,7 +43,6 @@ public class Login extends HttpServlet {
 				session.setAttribute("utente", saved);
 				em.overlay("Accesso effettuato");
 				em.redirect(".");
-				// TODO: Scaricare carrello sulla sessione.
 			}
 		}
 		em.apply();

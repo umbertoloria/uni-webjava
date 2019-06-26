@@ -1,12 +1,13 @@
-<%@ page import="model.Carrello" %>
-<%@ page import="model.bean.*" %>
-<%@ page import="model.dao.ProdottoDAO" %>
-<%@ page import="model.dao.ProduttoreDAO" %>
+<%@ page import="model.bean.CartaCredito" %>
+<%@ page import="model.bean.Indirizzo" %>
+<%@ page import="model.bean.Utente" %>
+<%@ page import="model.container.CarrelloContainer" %>
+<%@ page import="model.container.CarrelloItemContainer" %>
 <%@ page import="util.Formats" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <main>
 	<%
-		Carrello carrello = (Carrello) request.getSession().getAttribute("carrello");
+		CarrelloContainer carrello = (CarrelloContainer) request.getAttribute("carrello");
 		if (carrello == null) {
 			out.println("<h1>Il carrello è vuoto</h1>");
 		} else {
@@ -15,34 +16,30 @@
 	<div id="carrello_container">
 		<div id="carrello" data-serial="<%= carrello.serialize() %>">
 			<%
-				for (CarrelloItem carrelloItem : carrello) {
-					Prodotto prodotto = ProdottoDAO.doRetrieveByKey(carrelloItem.prodotto);
-					assert prodotto != null;
-					Produttore produttore = ProduttoreDAO.doRetrieveByKey(prodotto.produttore);
-					assert produttore != null;
+				for (CarrelloItemContainer item : carrello) {
 			%>
-			<div data-product-id="<%= prodotto.id %>">
+			<div data-product-id="<%= item.prodotto_id %>">
 				<div>
-					<a href="prodotto?id=<%= prodotto.id %>">
-						<img src="immagine?id=<%= prodotto.immagine %>" alt/>
+					<a href="prodotto?id=<%= item.prodotto_id %>">
+						<img src="immagine?id=<%= item.prodotto_immagine %>" alt/>
 					</a>
-					<a href="prodotto?id=<%= prodotto.id %>">
+					<a href="prodotto?id=<%= item.prodotto_id %>">
 						<b>
-							<%= produttore.nome %>
+							<%= item.produttore_nome %>
 						</b>
-						<%= prodotto.nome %>
+						<%= item.prodotto_nome %>
 					</a>
 				</div>
 				<div>
 					<div>
 					<span class="price">
-						<%= Formats.euro(prodotto.prezzo * carrelloItem.quantita) %>
+						<%= Formats.euro(item.prodotto_prezzo * item.quantita) %>
 					</span>
 					</div>
 					<div>
-						<input type="number" min="1" value="<%= carrelloItem.quantita%>"
-						       onchange="updateCartSet(this, <%= prodotto.id %>, value)"/>
-						<a onclick="updateCartDrop(this, <%= prodotto.id %>)">Rimuovi</a>
+						<input type="number" min="1" value="<%= item.quantita%>"
+						       onchange="updateCartSet(this, <%= item.prodotto_id %>, value)"/>
+						<a onclick="updateCartDrop(this, <%= item.prodotto_id %>)">Rimuovi</a>
 					</div>
 				</div>
 			</div>
