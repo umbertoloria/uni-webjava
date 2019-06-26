@@ -48,7 +48,7 @@ public class Acquista extends HttpServlet {
 			// Tutto ok.
 			req.getSession().removeAttribute("carrello");
 			em.overlay("Acquisto effettuato");
-			em.redirect("ordini.jsp");
+			em.redirect("ordini");
 		} else {
 			// Si è verificato un problema non dovuto dall'utente.
 			em.overlay("Si è verificato un problema. Riprova più tardi.");

@@ -92,7 +92,7 @@ header > div:last-child {
 	border: 1px solid #ccc;
 	color: var(--cl);
 	background-color: #eee;
-	background-image: url("https://cdn4.iconfinder.com/data/icons/developer-set-3/128/find-512.png");
+	background-image: url("../images/search.png");
 	background-size: 15px 15px;
 	background-position: center;
 	background-repeat: no-repeat;

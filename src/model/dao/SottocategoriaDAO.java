@@ -32,4 +32,21 @@ public class SottocategoriaDAO extends DAO {
 		return sottocategorie.toArray(new Sottocategoria[0]);
 	}
 
+
+	public static Sottocategoria[] getFirstMoreProvided(int count) {
+		ArrayList<Sottocategoria> sottocategorie = new ArrayList<>();
+		Conn conn = Conn.hold();
+		Table t = conn.query("SELECT sottocategorie.id, sottocategorie.categoria, sottocategorie.nome, " +
+				"sottocategorie.immagine, count(prodotti.id) a FROM sottocategorie " +
+				"LEFT JOIN prodotti ON prodotti.sottocategoria = sottocategorie.id GROUP BY sottocategorie.id " +
+				"ORDER BY a DESC LIMIT " + count);
+		Conn.release(conn);
+		for (Record record : t) {
+			String[] r = record.asStringArray();
+			sottocategorie.add(new Sottocategoria(Integer.parseInt(r[0]), Integer.parseInt(r[1]), r[2],
+					Integer.parseInt(r[3])));
+		}
+		return sottocategorie.toArray(new Sottocategoria[0]);
+	}
+
 }

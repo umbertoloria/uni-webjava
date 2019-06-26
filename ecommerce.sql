@@ -9,7 +9,8 @@ create table utenti (
         unique (email)
 );
 
-INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (1, 'umberto.loria@gmail.com', 'pwd', 'umbertolo', 'Amministratore');
+INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (1, 'umberto.loria@gmail.com',
+'37fa265330ad83eaa879efb1e2db6380896cf639', 'umbertolo', 'Amministratore');
 
 create table produttori (
     id   int auto_increment

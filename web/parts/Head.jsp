@@ -8,7 +8,6 @@
 	<link rel='stylesheet' href='css/topbar.css'/>
 	<link rel='stylesheet' href='css/dashboard.css'/>
 	<link rel='stylesheet' href='css/forms.css'/>
-	<link rel='stylesheet' href='css/layout.css'/>
 	<link rel='stylesheet' href='css/footer.css'/>
 	<link rel='stylesheet' href='css/overlay.css'/>
 	<link rel='stylesheet' href='css/mosaic.css'/>
@@ -17,6 +16,8 @@
 	<link rel='stylesheet' href='css/prodotto.css'/>
 	<link rel='stylesheet' href='css/indirizzi.css'/>
 	<link rel='stylesheet' href='css/ordini.css'/>
+	<link rel='stylesheet' href='css/carousel.css'/>
+	<link rel='stylesheet' href='css/layout.css'/>
 	<script type='text/javascript' src='js/jQuery.min.js'></script>
 	<script type='text/javascript' src='js/core.js'></script>
 	<script type='text/javascript' src='js/topbar.js'></script>

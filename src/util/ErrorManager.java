@@ -90,7 +90,7 @@ public class ErrorManager {
 	}
 
 	public void logout() {
-		redirect = new Redirect("logout.jsp", 0);
+		redirect = new Redirect("logout", 0);
 	}
 
 	public void overlay(String msg) {

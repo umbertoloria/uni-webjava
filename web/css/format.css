@@ -28,32 +28,16 @@ h1 {
 	display: block;
 	font-weight: normal;
 	text-align: center;
-	margin: 30px auto;
+	margin: 50px auto;
 	font-size: 2em;
 }
 
-h1:before,
-h1:after {
-	content: "";
-	width: 150px;
-	height: 2px;
-	background: -webkit-linear-gradient(left, transparent, #ddd);
-	float: left;
-	margin: 18px 15px 0 0;
-}
-
-h1:after {
-	float: right;
-	background: -webkit-linear-gradient(left, #ddd, transparent);
-	margin: 18px 0 0 15px;
-}
-
 main {
+	width: 1200px;
 	display: flex;
 	flex-wrap: wrap;
-	position: relative;
 	margin: auto;
-	width: 1200px;
+	position: relative;
 }
 
 main > :first-child {

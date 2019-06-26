@@ -2,8 +2,9 @@ package controller;
 
 import model.bean.Utente;
 import model.dao.UtenteDAO;
-import model.validators.PasswordValidator;
+import model.validators.CambioPasswordValidator;
 import util.ErrorManager;
+import util.Security;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/cambiaPassword")
+@WebServlet("/servlet_cambiaPassword")
 public class CambiaPassword extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -19,7 +20,6 @@ public class CambiaPassword extends HttpServlet {
 
 		Utente utente = (Utente) req.getSession().getAttribute("utente");
 		if (utente == null) {
-			// Vado al "logout" perché esso cancella anche "age" nella sessione, che non è ancora implementato.
 			em.logout();
 			em.apply();
 			return;
@@ -36,12 +36,12 @@ public class CambiaPassword extends HttpServlet {
 			return;
 		}
 
-		PasswordValidator passwordValidator = new PasswordValidator(nuova, conferma);
-		if (passwordValidator.wrongInput()) {
-			em.notice("nuova", passwordValidator.nuova);
-			em.notice("conferma", passwordValidator.conferma);
+		CambioPasswordValidator validator = new CambioPasswordValidator(nuova, conferma);
+		if (validator.wrongInput()) {
+			em.notice("nuova", validator.nuova);
+			em.notice("conferma", validator.conferma);
 		} else if (!nuova.equals(conferma)) {
-			em.notice("password2", "Le password non coincidono");
+			em.notice("conferma", "Le password non coincidono");
 		} else if (vecchia.equals(nuova)) {
 			em.notice("vecchia", "La tua password è già questa.");
 		} else {
@@ -52,6 +52,8 @@ public class CambiaPassword extends HttpServlet {
 			Utente actual = UtenteDAO.doRetrieveByKey(utente.id);
 			assert actual != null;
 
+			vecchia = Security.sha1(vecchia);
+			nuova = Security.sha1(nuova);
 			if (!vecchia.equals(actual.password)) {
 				em.notice("vecchia", "La vecchia password è errata");
 			} else {
@@ -60,7 +62,7 @@ public class CambiaPassword extends HttpServlet {
 					// Se è possibile cambiare la password, salviamo 'changed' in sessione.
 					req.getSession().setAttribute("utente", changed);
 					em.overlay("Riaccedi per poter usare la tua nuova password");
-					em.redirect("logout.jsp");
+					em.redirect("logout");
 				} else {
 					// Se non è possibile cambiare la password, salviamo comunque la versione aggiornata
 					// dell'utente in sessione.

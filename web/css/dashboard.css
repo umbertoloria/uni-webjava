@@ -1,9 +1,10 @@
 #dashboard {
-	width: 100%;
+	width: 1200px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr;
 	grid-column-gap: 30px;
 	grid-row-gap: 50px;
+	margin: 50px auto;
 }
 
 #dashboard > div a.image {

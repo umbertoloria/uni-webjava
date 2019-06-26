@@ -50,10 +50,12 @@ public class UpdateCart extends HttpServlet {
 					req.getSession().setAttribute("carrello", carrello);
 					res.put("cart_count", cart_count);
 					res.put("cart_total", Formats.euro(carrello.getTotal()));
+					res.put("cart_serial", carrello.serialize());
 				} else {
 					req.getSession().removeAttribute("carrello");
 					res.put("cart_count", 0);
 					res.put("cart_total", Formats.euro(0));
+					res.put("cart_serial", "");
 				}
 			} else {
 				// Non si vorrebbe mai rimuovere un prodotto da un carrello già vuoto.
@@ -94,6 +96,7 @@ public class UpdateCart extends HttpServlet {
 				req.getSession().setAttribute("carrello", carrello);
 				res.put("cart_count", carrello.getCount());
 				res.put("cart_total", Formats.euro(carrello.getTotal()));
+				res.put("cart_serial", carrello.serialize());
 
 			}
 

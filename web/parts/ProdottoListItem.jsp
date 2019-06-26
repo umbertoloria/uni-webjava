@@ -1,16 +1,11 @@
-<%@ page import="model.bean.Prodotto" %>
-<%@ page import="model.bean.Produttore" %>
-<%@ page import="model.dao.ProduttoreDAO" %>
+<%@ page import="model.container.ProdottoContainer" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%
-	Prodotto[] prodotti = (Prodotto[]) request.getAttribute("prodotti");
-	for (Prodotto prod : prodotti) {
-		Produttore produt = ProduttoreDAO.doRetrieveByKey(prod.produttore);
-		assert produt != null;
+	for (ProdottoContainer p : (ProdottoContainer[]) request.getAttribute("prodotti")) {
 %>
-<a href='prodotto?id=<%= prod.id %>'>
-	<img src='immagine?id=<%= prod.immagine %>' alt/>
-	<span><b><%= produt.nome %></b> <%= prod.nome %></span>
+<a href='prodotto?id=<%= p.prodotto_id %>'>
+	<img src='immagine?id=<%= p.prodotto_immagine %>' alt/>
+	<span><b><%= p.produttore_nome %></b> <%= p.prodotto_nome %></span>
 </a>
 <%
 	}

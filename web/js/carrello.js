@@ -3,7 +3,8 @@ function addToCart(prodotto, quantita, action) {
 		ajaxPostRequest("updateCart", "mode=add&p=" + prodotto + "&q=" + quantita, function (json) {
 			error_manager(json, function (out) {
 				const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
-				action(cart_count);
+				const cart_serial = out.hasOwnProperty("cart_serial") ? out.cart_serial : NaN;
+				action(cart_count, cart_serial);
 			});
 		});
 	} else {
@@ -18,7 +19,8 @@ function setToCart(prodotto, quantita, action) {
 				const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
 				const product_total = out.hasOwnProperty("product_total") ? out.product_total : NaN;
 				const cart_total = out.hasOwnProperty("cart_total") ? out.cart_total : NaN;
-				action(cart_count, product_total, cart_total);
+				const cart_serial = out.hasOwnProperty("cart_serial") ? out.cart_serial : NaN;
+				action(cart_count, product_total, cart_total, cart_serial);
 			});
 		});
 	} else {
@@ -31,28 +33,31 @@ function dropFromCart(prodotto, action) {
 		error_manager(json, function (out) {
 			const cart_count = out.hasOwnProperty("cart_count") ? out.cart_count : NaN;
 			const cart_total = out.hasOwnProperty("cart_total") ? out.cart_total : NaN;
-			action(cart_count, cart_total);
+			const cart_serial = out.hasOwnProperty("cart_serial") ? out.cart_serial : NaN;
+			action(cart_count, cart_total, cart_serial);
 		});
 	});
 }
 
-function aggiornaCarrello() {
-	ajaxPostRequest("reloadCart", "", function (json) {
-		const cart_count = json.hasOwnProperty("cart_count") ? json.cart_count : NaN;
-		const cart_serial = json.hasOwnProperty("cart_serial") ? json.cart_serial : NaN;
-		$("#rightside li.carrello a label").html(cart_count);
-		const carrello = $("#carrello");
-		if (carrello.length === 1) {
-			if (carrello.attr("data-serial") !== cart_serial) {
-				location.reload();
-			}
-		}
-	})
-}
-
 $(function () {
+
+	function aggiornaCarrello() {
+		ajaxPostRequest("reloadCart", "", function (json) {
+			const cart_count = json.hasOwnProperty("cart_count") ? json.cart_count : NaN;
+			const cart_serial = json.hasOwnProperty("cart_serial") ? json.cart_serial : NaN;
+			$("#rightside li.carrello a label").html(cart_count);
+			const carrello = $("#carrello");
+			if (carrello.length === 1) {
+				if (carrello.attr("data-serial") !== cart_serial) {
+					location.reload();
+				}
+			}
+		})
+	}
+
 	aggiornaCarrello();
 	setInterval(aggiornaCarrello, 30000);
+
 });
 
 class Serializator {

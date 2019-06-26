@@ -1,6 +1,7 @@
 package pages;
 
 import model.bean.Produttore;
+import model.container.ProdottoContainer;
 import model.dao.ProdottoDAO;
 import model.dao.ProduttoreDAO;
 import util.Breadcrumb;
@@ -16,7 +17,7 @@ public class ProduttorePage extends GenericPage {
 
 	private Produttore produttore;
 
-	boolean canWatch(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	boolean canWatch(HttpServletRequest req, HttpServletResponse resp) {
 		produttore = ProduttoreDAO.doRetrieveByKey(Integer.parseInt(req.getParameter("id")));
 		return produttore != null;
 	}
@@ -28,11 +29,12 @@ public class ProduttorePage extends GenericPage {
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("prodotti", ProdottoDAO.getFromProduttore(produttore));
-		req.setAttribute("produttore", produttore);
-		req.getRequestDispatcher("produttore.jsp").include(req, resp);
+		req.setAttribute("title", produttore.nome);
+		req.setAttribute("prodotti", ProdottoContainer.getInfoWith(ProdottoDAO.getFromProduttore(produttore),
+				produttore));
+		req.getRequestDispatcher("parts/Dashboard.jsp").include(req, resp);
+		req.removeAttribute("title");
 		req.removeAttribute("prodotti");
-		req.removeAttribute("produttore");
 	}
 
 }

@@ -20,7 +20,6 @@ public class ModificaIndirizzo extends HttpServlet {
 
 		Utente utente = (Utente) req.getSession().getAttribute("utente");
 		if (utente == null) {
-			// Vado al "logout" perché esso cancella anche "age" nella sessione, che non è ancora implementato.
 			em.logout();
 			em.apply();
 			return;

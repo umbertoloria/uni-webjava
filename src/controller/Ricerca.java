@@ -1,5 +1,6 @@
 package controller;
 
+import model.container.ProdottoContainer;
 import model.dao.ProdottoDAO;
 
 import javax.servlet.ServletException;
@@ -21,7 +22,7 @@ public class Ricerca extends HttpServlet {
 			for (int i = 0; i < qs.length; i++) {
 				qs[i] = qs[i].trim();
 			}
-			req.setAttribute("prodotti", ProdottoDAO.search(qs));
+			req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.search(qs)));
 			req.getRequestDispatcher("parts/ProdottoListItem.jsp").include(req, resp);
 		}
 	}

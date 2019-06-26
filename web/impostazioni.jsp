@@ -9,7 +9,7 @@
 		</ul>
 		<div class="tabs_container">
 			<div>
-				<form action="cambiaPassword" method="post">
+				<form action="servlet_cambiaPassword" method="post">
 					<fieldset>
 						<label>
 							<span>Vecchia password</span>

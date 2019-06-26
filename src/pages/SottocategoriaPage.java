@@ -2,6 +2,7 @@ package pages;
 
 import model.bean.Categoria;
 import model.bean.Sottocategoria;
+import model.container.ProdottoContainer;
 import model.dao.CategoriaDAO;
 import model.dao.ProdottoDAO;
 import model.dao.SottocategoriaDAO;
@@ -46,10 +47,10 @@ public class SottocategoriaPage extends GenericPage {
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("sottocategoria", sottocategoria);
-		req.setAttribute("prodotti", ProdottoDAO.getFromSottocategoria(sottocategoria));
-		req.getRequestDispatcher("sottocategoria.jsp").include(req, resp);
-		req.removeAttribute("sottocategoria");
+		req.setAttribute("title", sottocategoria.nome);
+		req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.getFromSottocategoria(sottocategoria)));
+		req.getRequestDispatcher("parts/Dashboard.jsp").include(req, resp);
+		req.removeAttribute("title");
 		req.removeAttribute("prodotti");
 	}
 

@@ -2,8 +2,9 @@ package controller;
 
 import model.bean.Utente;
 import model.dao.UtenteDAO;
-import model.validators.UtenteValidator;
+import model.validators.LoginValidator;
 import util.ErrorManager;
+import util.Security;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,24 +19,23 @@ public class Login extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		ErrorManager em = new ErrorManager(resp);
 
-		Utente utente;
+		String email, password;
 		try {
-			String email = req.getParameter("email").trim();
-			String password = req.getParameter("password").trim();
-			utente = new Utente(email, password);
+			email = req.getParameter("email").trim();
+			password = req.getParameter("password").trim();
 		} catch (NullPointerException e) {
 			em.logout();
 			em.apply();
 			return;
 		}
 
-		UtenteValidator utenteValidator = new UtenteValidator(utente, false);
-		if (utenteValidator.wrongInput()) {
-			em.notice("email", utenteValidator.email);
-			em.notice("password", utenteValidator.password);
+		LoginValidator validator = new LoginValidator(email, password);
+		if (validator.wrongInput()) {
+			em.notice("email", validator.emailMsg);
+			em.notice("password", validator.passwordMsg);
 		} else {
-			Utente saved = UtenteDAO.doRetrieveByEmail(utente.email);
-			if (saved == null || !saved.password.equals(utente.password)) {
+			Utente saved = UtenteDAO.doRetrieveByEmail(email);
+			if (saved == null || !saved.password.equals(Security.sha1(password))) {
 				em.notice(null, "Dati di accesso errati");
 			} else {
 				HttpSession session = req.getSession();

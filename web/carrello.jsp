@@ -59,7 +59,7 @@
 			<%
 				Utente u = (Utente) request.getSession().getAttribute("utente");
 				if (u == null) {
-					out.println("<a href=\"login.jsp\">Accedi</a> per poter completare l'ordine");
+					out.println("<a href=\"login\">Accedi</a> per poter completare l'ordine");
 				} else {
 			%>
 			<label>
@@ -97,16 +97,18 @@
 			inputTimeout = setTimeout(function () {
 				const div = $(input).parent().parent().parent();
 				const dad = div.parent();
-				setToCart(prodotto, quantita, function (cart_count, product_total, cart_total) {
-					// Aggiornamento serial
-					dad.attr("data-serial", Serializator.set(dad.attr("data-serial"), prodotto, quantita));
+				setToCart(prodotto, quantita, function (cart_count, product_total, cart_total, cart_serial) {
 					// Aggiornamento dati visibili
 					$("#rightside li.carrello a label").html(cart_count);
 					div.find("div:last-child div:first-child span").html(product_total);
 					$("#cart_total").html(cart_total);
 					// Sincronizzazione carrello
-					aggiornaCarrello();
-					// TODO: Forse, si potrebbe pensare di farsi arrivare direttamente qui anche il serial...
+					const newserial = Serializator.set(dad.attr("data-serial"), prodotto, quantita);
+					if (newserial === cart_serial) {
+						dad.attr("data-serial", newserial);
+					} else {
+						location.reload();
+					}
 				});
 			}, 300);
 		}
@@ -114,16 +116,18 @@
 		function updateCartDrop(input, prodotto) {
 			const div = $(input).parent().parent().parent();
 			const dad = div.parent();
-			dropFromCart(prodotto, function (cart_count, cart_total) {
-				// Aggiornamento serial
-				dad.attr("data-serial", Serializator.drop(dad.attr("data-serial"), prodotto));
+			dropFromCart(prodotto, function (cart_count, cart_total, cart_serial) {
 				// Aggiorna dati visibili
 				$("#rightside li.carrello a label").html(cart_count);
 				div.remove();
 				$("#cart_total").html(cart_total);
 				// Sincronizzazione carrello
-				aggiornaCarrello();
-				// TODO: Si potrebbe pensare come sopra...
+				const newserial = Serializator.drop(dad.attr("data-serial"), prodotto);
+				if (newserial === cart_serial) {
+					dad.attr("data-serial", newserial);
+				} else {
+					location.reload();
+				}
 			});
 		}
 

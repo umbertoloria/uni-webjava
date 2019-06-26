@@ -1,6 +1,7 @@
 package pages;
 
 import model.bean.Categoria;
+import model.container.ProdottoContainer;
 import model.dao.CategoriaDAO;
 import model.dao.ProdottoDAO;
 import model.dao.SottocategoriaDAO;
@@ -33,12 +34,13 @@ public class CategoriaPage extends GenericPage {
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("categoria", categoria);
 		req.setAttribute("sottocategorie", SottocategoriaDAO.getAllThoseOf(categoria));
-		req.setAttribute("prodotti", ProdottoDAO.getFromCategoria(categoria));
-		req.getRequestDispatcher("categoria.jsp").include(req, resp);
-		req.removeAttribute("categoria");
+		req.getRequestDispatcher("parts/Mosaic.jsp").include(req, resp);
 		req.removeAttribute("sottocategorie");
+		req.setAttribute("title", categoria.nome);
+		req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.getFromCategoria(categoria)));
+		req.getRequestDispatcher("parts/Dashboard.jsp").include(req, resp);
+		req.removeAttribute("title");
 		req.removeAttribute("prodotti");
 	}
 

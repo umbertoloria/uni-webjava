@@ -94,7 +94,7 @@ article p::first-letter {
 
 @media only screen and (min-width: 1001px) and (max-width: 1400px) {
 
-	footer > div, main, #firstbar, nav {
+	footer > div, main, h1, #dashboard, #mosaic, #firstbar, nav {
 		width: 800px;
 	}
 
@@ -102,7 +102,7 @@ article p::first-letter {
 
 @media only screen and (max-width: 1000px) {
 
-	footer > div, main, #firstbar, nav {
+	footer > div, main, h1, #dashboard, #mosaic, #firstbar, nav {
 		width: 600px;
 	}
 

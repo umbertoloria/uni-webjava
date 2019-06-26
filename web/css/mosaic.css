@@ -1,9 +1,9 @@
 #mosaic {
-	width: 100%;
+	width: 1200px;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr;
 	grid-gap: 30px;
-	margin-bottom: 30px;
+	margin: 0 auto 50px auto;
 }
 
 #mosaic a {
@@ -43,4 +43,12 @@
 #mosaic a:hover div span {
 	opacity: 1;
 	margin-bottom: 108px;
+}
+
+@media only screen and (max-width: 1000px) {
+
+	#mosaic {
+		grid-template-columns: 1fr 1fr;
+	}
+
 }

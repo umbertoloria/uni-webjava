@@ -1,5 +1,6 @@
 package pages;
 
+import model.container.ProdottoContainer;
 import model.dao.ProdottoDAO;
 import util.Breadcrumb;
 
@@ -35,8 +36,8 @@ public class CercaPage extends GenericPage {
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("prodotti", ProdottoDAO.search(ss));
-		req.getRequestDispatcher("cerca.jsp").include(req, resp);
+		req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.search(ss)));
+		req.getRequestDispatcher("parts/Dashboard.jsp").include(req, resp);
 		req.removeAttribute("prodotti");
 	}
 

@@ -2,8 +2,9 @@ package controller;
 
 import model.bean.Utente;
 import model.dao.UtenteDAO;
-import model.validators.UtenteValidator;
+import model.validators.RegistrazioneValidator;
 import util.ErrorManager;
+import util.Security;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,7 +17,6 @@ public class Registrazione extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		ErrorManager em = new ErrorManager(resp);
-		// TODO: Cifrare la password prima di salvarla.
 
 		String nome, email, password, password2;
 		try {
@@ -30,20 +30,19 @@ public class Registrazione extends HttpServlet {
 			return;
 		}
 
-		Utente utente = new Utente(email, password, nome);
-		UtenteValidator utenteValidator = new UtenteValidator(utente, true);
-		if (utenteValidator.wrongInput()) {
-			em.notice("nome", utenteValidator.nome);
-			em.notice("email", utenteValidator.email);
-			em.notice("password", utenteValidator.password);
-		} else if (!password.equals(password2)) {
-			em.notice("password2", "Le password devono coincidere");
+		RegistrazioneValidator validator = new RegistrazioneValidator(nome, email, password, password2);
+		if (validator.wrongInput()) {
+			em.notice("nome", validator.nomeMsg);
+			em.notice("email", validator.emailMsg);
+			em.notice("password", validator.passwordMsg);
+			em.notice("password2", validator.password2Msg);
 		} else if (UtenteDAO.doRetrieveByEmail(email) != null) {
 			em.notice("email", "L'E-Mail fornita è già usata da un altro utente");
 		} else {
+			Utente utente = new Utente(email, Security.sha1(password), nome);
 			if (UtenteDAO.doSave(utente)) {
 				em.overlay("Registrazione effettuata");
-				em.redirect("login.jsp");
+				em.redirect("login");
 			} else {
 				em.notice(null, "Al momento non è possibile accedere al proprio account. Riprova più tardi.");
 			}

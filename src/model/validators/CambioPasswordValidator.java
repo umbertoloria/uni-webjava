@@ -1,10 +1,10 @@
 package model.validators;
 
-public class PasswordValidator {
+public class CambioPasswordValidator {
 	public final String nuova;
 	public final String conferma;
 
-	public PasswordValidator(String nuova, String conferma) {
+	public CambioPasswordValidator(String nuova, String conferma) {
 		if (nuova.length() < 3) {
 			this.nuova = "Password non valida: minimo 3 caratteri";
 		} else if (nuova.length() > 16) {
