@@ -23,11 +23,14 @@ public class ProdottoDAO extends DAO {
 	}
 
 	/** Restituisce tutti i prodotti ordinati per nome. */
-	public static Prodotto[] getAll() {
+	public static Prodotto[] getTop12() {
 		ArrayList<Prodotto> prodotti = new ArrayList<>();
 		Conn conn = Conn.hold();
-		Table t = conn.query("SELECT id, sottocategoria, nome, produttore, prezzo, immagine, descrizione " +
-				"FROM prodotti ORDER BY nome");
+		Table t = conn.query("SELECT id, sottocategoria, nome, produttore, prezzo, immagine, descrizione, " +
+				"IF(totale IS NULL, 0, totale) totale FROM (SELECT id, sottocategoria, nome, produttore, " +
+				"prodotti.prezzo, immagine, descrizione, SUM(quantita) totale FROM prodotti LEFT JOIN " +
+				"ordine_has_prodotti ON prodotti.id = ordine_has_prodotti.prodotto GROUP BY prodotti.id) t " +
+				"ORDER BY totale DESC LIMIT 12");
 		Conn.release(conn);
 		fillIn(t, prodotti);
 		return prodotti.toArray(new Prodotto[0]);

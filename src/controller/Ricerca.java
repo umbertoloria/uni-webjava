@@ -14,7 +14,6 @@ import java.io.IOException;
 public class Ricerca extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-		// TODO: Usare JSON anche qui!
 		resp.setContentType("text/html");
 		String q = req.getParameter("q").trim();
 		if (q.length() >= 3) {

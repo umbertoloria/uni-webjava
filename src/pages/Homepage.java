@@ -23,8 +23,8 @@ public class HomePage extends GenericPage {
 		req.setAttribute("carousel", carousel);
 		req.getRequestDispatcher("parts/Carousel.jsp").include(req, resp);
 		req.removeAttribute("carousel");
-		req.setAttribute("title", "Top 10");
-		req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.getAll()));
+		req.setAttribute("title", "Top 12");
+		req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.getTop12()));
 		req.getRequestDispatcher("parts/Dashboard.jsp").include(req, resp);
 		req.removeAttribute("title");
 		req.removeAttribute("prodotti");

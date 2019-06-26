@@ -62,7 +62,6 @@ public class Conn {
 			ResultSet rs = stmt.executeQuery();
 			return new Table(rs);
 		} catch (SQLException e) {
-			System.out.println(e.getMessage());
 			throw new RuntimeException();
 		}
 	}

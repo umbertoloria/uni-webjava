@@ -46,17 +46,5 @@
 			span.html(euro_format(prezzo_unitario * quantita));
 		});
 
-		function euro_format(prezzo) {
-			prezzo = "€ " + Math.round(prezzo * 100) / 100;
-			prezzo = prezzo.replace(".", ",");
-			if (prezzo.indexOf(",") === -1) {
-				prezzo += ",00";
-			}
-			while (prezzo.indexOf(",") > prezzo.length - 3) {
-				prezzo += "0";
-			}
-			return prezzo;
-		}
-
 	</script>
 </main>

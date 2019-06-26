@@ -28,7 +28,7 @@ public class OrdiniPage extends GenericPage {
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("ordini", OrdineDAO.getAllThoseOf(utente));
-		req.getRequestDispatcher("impostazioni.jsp").include(req, resp);
+		req.getRequestDispatcher("ordini.jsp").include(req, resp);
 		req.removeAttribute("ordini");
 	}
 

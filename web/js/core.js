@@ -2,7 +2,6 @@ function ajaxPostRequest(url, data, success) {
 	$.ajax({
 		url: url,
 		data: data,
-		// dataType: "json", TODO: Pensaci...
 		type: 'POST',
 		success: function (out, status) {
 			if (status === "success") {
@@ -32,4 +31,16 @@ function addProdottoFromDashboardToCart(elem, prodotto) {
 			$("#rightside li.carrello a label").html(cart_count);
 		});
 	}
+}
+
+function euro_format(prezzo) {
+	prezzo = "€ " + Math.round(prezzo * 100) / 100;
+	prezzo = prezzo.replace(".", ",");
+	if (prezzo.indexOf(",") === -1) {
+		prezzo += ",00";
+	}
+	while (prezzo.indexOf(",") > prezzo.length - 3) {
+		prezzo += "0";
+	}
+	return prezzo;
 }

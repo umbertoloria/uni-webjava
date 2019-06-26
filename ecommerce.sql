@@ -10,7 +10,11 @@ create table utenti (
 );
 
 INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (1, 'umberto.loria@gmail.com',
-'37fa265330ad83eaa879efb1e2db6380896cf639', 'umbertolo', 'Amministratore');
+'37fa265330ad83eaa879efb1e2db6380896cf639', 'Umberto Loria', 'Amministratore');
+INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (2, 'marioromano1998@gmail.com',
+'addb47291ee169f330801ce73520b96f2eaf20ea', 'Mario Romano', 'Normale');
+INSERT INTO ecommerce.utenti (id, email, password, nome, tipo) VALUES (3, 'anapoli1998ant@gmail.com',
+'a08f08bac39aeae6c9580ade7aa8387b5a0e7428', 'Antonio Napoli', 'Normale');
 
 create table produttori (
     id   int auto_increment
@@ -162,22 +166,6 @@ INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, im
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione) VALUES (15, 12, 'DM800', 13, 20.00, 15, 'Microfono cardioide per voce.');
 INSERT INTO ecommerce.prodotti (id, sottocategoria, nome, produttore, prezzo, immagine, descrizione) VALUES (16, 12, 'XM8500', 14, 30.00, 16, 'Microfono cardioide dinamico.');
 
-create table carrello_items (
-    utente   int           not null,
-    prodotto int           not null,
-    quantita int default 1 not null,
-    primary key (utente, prodotto),
-    constraint carrello_items_ibfk_1
-        foreign key (utente) references utenti (id)
-            on update cascade,
-    constraint carrello_items_ibfk_2
-        foreign key (prodotto) references prodotti (id)
-            on update cascade
-);
-
-create index prodotto
-    on carrello_items (prodotto);
-
 create table indirizzi (
     id        int auto_increment
         primary key,
@@ -215,6 +203,9 @@ create index utente
     on ordini (utente);
 
 INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (1, 1, 'Via Guglielmo Marconi 51, Baronissi, 84081, Salerno', '2019-06-25 18:51:21');
+INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (2, 1, 'Via Guglielmo Marconi 4, Baronissi, 84081, Salerno', '2019-06-26 11:21:56');
+INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (3, 1, 'Via Guglielmo Marconi 51, Baronissi, 84081, Salerno', '2019-06-26 11:22:29');
+INSERT INTO ecommerce.ordini (id, utente, destinazione, momento) VALUES (4, 1, 'Via Guglielmo Marconi 51, Baronissi, 84081, Salerno', '2019-06-26 11:22:48');
 
 create table ordine_has_prodotti (
     ordine   int           not null,
@@ -235,3 +226,8 @@ create index prodotto
 
 INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (1, 8, 298.00, 1);
 INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (1, 9, 179.00, 1);
+INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (2, 1, 550.00, 1);
+INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (2, 5, 69.00, 1);
+INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (2, 8, 298.00, 1);
+INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (3, 13, 248.00, 1);
+INSERT INTO ecommerce.ordine_has_prodotti (ordine, prodotto, prezzo, quantita) VALUES (4, 15, 20.00, 3);

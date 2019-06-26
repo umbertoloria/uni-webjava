@@ -94,3 +94,34 @@
 	}
 
 }
+
+main #dashboard {
+	width: 970px;
+	margin: 0 30px 0 0;
+}
+
+main #dashboard > div a.image img {
+	height: 190px;
+}
+
+main #filtri {
+	align-self: start;
+	float: right;
+	display: block;
+	width: 200px;
+	padding: 30px;
+	box-sizing: border-box;
+	/*border: 1px solid #ddd;*/
+	/*background: #ddd;*/
+	background: #fff;
+	border-radius: 3px;
+}
+
+main #filtri label {
+	display: block;
+	margin-bottom: 20px;
+}
+
+main #filtri label input {
+	width: 100%;
+}

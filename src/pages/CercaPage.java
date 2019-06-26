@@ -36,8 +36,10 @@ public class CercaPage extends GenericPage {
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("filtri", true);
 		req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.search(ss)));
 		req.getRequestDispatcher("parts/Dashboard.jsp").include(req, resp);
+		req.removeAttribute("filtri");
 		req.removeAttribute("prodotti");
 	}
 

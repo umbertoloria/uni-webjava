@@ -47,9 +47,11 @@ public class SottocategoriaPage extends GenericPage {
 	}
 
 	void fillPage(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("filtri", true);
 		req.setAttribute("title", sottocategoria.nome);
 		req.setAttribute("prodotti", ProdottoContainer.getFullInfo(ProdottoDAO.getFromSottocategoria(sottocategoria)));
 		req.getRequestDispatcher("parts/Dashboard.jsp").include(req, resp);
+		req.removeAttribute("filtri");
 		req.removeAttribute("title");
 		req.removeAttribute("prodotti");
 	}
