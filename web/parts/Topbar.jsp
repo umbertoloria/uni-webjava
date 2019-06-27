@@ -1,7 +1,7 @@
 <%@ page import="model.bean.Categoria" %>
 <%@ page import="model.bean.Sottocategoria" %>
-<%@ page import="util.TopbarCategoria" %>
-<%@ page import="util.TopbarContainer" %>
+<%@ page import="model.container.TopbarCategoriaContainer" %>
+<%@ page import="model.container.TopbarContainer" %>
 <%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -62,7 +62,7 @@
 					Integer activeCategoria = (Integer) request.getAttribute("topbar_categoria");
 					Integer activeSottocategoria = (Integer) request.getAttribute("topbar_sottocategoria");
 					TopbarContainer topbar = (TopbarContainer) request.getAttribute("topbar_categorie_data");
-					for (TopbarCategoria topbarCategoria : topbar) {
+					for (TopbarCategoriaContainer topbarCategoria : topbar) {
 						Categoria cat = topbarCategoria.getCategoria();
 						if (activeCategoria != null && activeCategoria == cat.id) {
 							out.println("<li class=\"active\">");

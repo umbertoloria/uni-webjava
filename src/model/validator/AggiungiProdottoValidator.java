@@ -1,7 +1,5 @@
 package model.validator;
 
-import util.RegularExpressions;
-
 public class AggiungiProdottoValidator {
 
 	public final String nomeMsg, descrizioneMsg, prezzoMsg;
@@ -19,7 +17,7 @@ public class AggiungiProdottoValidator {
 		} else {
 			descrizioneMsg = null;
 		}
-		if (!prezzo.matches(RegularExpressions.PREZZO)) {
+		if (!prezzo.matches("^\\d+\\.\\d{2}$")) {
 			prezzoMsg = "Prezzo non valido";
 		} else {
 			prezzoMsg = null;

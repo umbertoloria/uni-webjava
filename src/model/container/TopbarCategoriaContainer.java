@@ -1,4 +1,4 @@
-package util;
+package model.container;
 
 import model.bean.Categoria;
 import model.bean.Sottocategoria;
@@ -6,12 +6,12 @@ import model.bean.Sottocategoria;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TopbarCategoria {
+public class TopbarCategoriaContainer {
 
 	private Categoria categoria;
 	private List<Sottocategoria> sottocategorie = new ArrayList<>();
 
-	public TopbarCategoria(Categoria categoria) {
+	public TopbarCategoriaContainer(Categoria categoria) {
 		this.categoria = categoria;
 	}
 

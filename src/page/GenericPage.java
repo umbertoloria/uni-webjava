@@ -4,7 +4,7 @@ import model.bean.Categoria;
 import model.bean.Sottocategoria;
 import model.dao.CategoriaDAO;
 import model.dao.SottocategoriaDAO;
-import util.TopbarContainer;
+import model.container.TopbarContainer;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

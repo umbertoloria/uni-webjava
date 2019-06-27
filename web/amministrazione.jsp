@@ -13,7 +13,8 @@
 		</ul>
 		<div class="tabs_container">
 			<div>
-				<form action="servlet_aggiungiProdotto" method="post" enctype="multipart/form-data">
+				<form action="servlet_aggiungiProdotto" method="post" enctype="multipart/form-data"
+				      onsubmit="return checkProdotto($(this))">
 					<fieldset>
 						<label>
 							<span>Nome</span>

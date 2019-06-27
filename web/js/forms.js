@@ -41,14 +41,13 @@ $(function () {
 			return;
 		}
 		ev.preventDefault();
+		const msg = form.find(".msg");
+		form.find("fieldset label label").remove();
+		msg.removeClass("shown").html("");
 		if (!validate(form.attr("action"), form)) {
 			return;
 		}
-		Notification.push("CONNESSIONE AL SERVER IN CORSO...........");
 		ajaxPostRequest(form.attr("action"), dataForm(form[0]), function (out) {
-			const msg = form.find(".msg");
-			form.find("fieldset label label").remove();
-			msg.removeClass("shown").html("");
 			error_manager(out, null, function (field, notice) {
 				if (field === 'null') {
 					form.find(".msg").addClass("shown").html(notice);

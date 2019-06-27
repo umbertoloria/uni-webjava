@@ -12,6 +12,7 @@ function checkRegistrazione(form) {
 	const email = input_email.val();
 	const password = input_password.val();
 
+	let x = true;
 
 	if (nome.length < 3) {
 		const notice = "Nome non valido: minimo 3 caratteri";
@@ -20,31 +21,32 @@ function checkRegistrazione(form) {
 		} else {
 			nome_label.html(notice);
 		}
-		return false;
-	} else if (nome > 40) {
+		x = false;
+	} else if (nome.length > 40) {
 		const notice = "Nome non valido: massimo 40 caratteri";
 		if (nome_label.length === 0) {
 			input_nome.parent().append("<label>" + notice + "</label>");
 		} else {
 			nome_label.html(notice);
 		}
-		return false;
-	} else if (email.length < 3) {
+		x = false;
+	}
+	if (email.length < 3) {
 		const notice = "E-Mail non valida: minimo 3 caratteri";
 		if (email_label.length === 0) {
 			input_email.parent().append("<label>" + notice + "</label>");
 		} else {
 			email_label.html(notice);
 		}
-		return false;
-	} else if (email > 40) {
+		x = false;
+	} else if (email.length > 40) {
 		const notice = "E-Mail non valida: massimo 40 caratteri";
 		if (email_label.length === 0) {
 			input_email.parent().append("<label>" + notice + "</label>");
 		} else {
 			email_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (email.indexOf("@") === -1) {
 		const notice = "E-Mail malformata";
 		if (email_label.length === 0) {
@@ -52,25 +54,26 @@ function checkRegistrazione(form) {
 		} else {
 			email_label.html(notice);
 		}
-		return false;
-	} else if (password.length < 3) {
+		x = false;
+	}
+	if (password.length < 3) {
 		const notice = "Password non valida: minimo 3 caratteri";
 		if (password_label.length === 0) {
 			input_password.parent().append("<label>" + notice + "</label>");
 		} else {
 			password_label.html(notice);
 		}
-		return false;
-	} else if (password > 16) {
+		x = false;
+	} else if (password.length > 16) {
 		const notice = "Password non valida: massimo 40 caratteri";
 		if (password_label.length === 0) {
 			input_password.parent().append("<label>" + notice + "</label>");
 		} else {
 			password_label.html(notice);
 		}
-		return false;
+		x = false;
 	}
-	return true;
+	return x;
 }
 
 function checkLogin(form) {
@@ -83,6 +86,8 @@ function checkLogin(form) {
 	const email = input_email.val();
 	const password = input_password.val();
 
+	let x = true;
+
 	if (email.length < 3) {
 		const notice = "E-Mail non valida: minimo 3 caratteri";
 		if (email_label.length === 0) {
@@ -90,7 +95,7 @@ function checkLogin(form) {
 		} else {
 			email_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (email > 40) {
 		const notice = "E-Mail non valida: massimo 40 caratteri";
 		if (email_label.length === 0) {
@@ -98,7 +103,7 @@ function checkLogin(form) {
 		} else {
 			email_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (email.indexOf("@") === -1) {
 		const notice = "E-Mail malformata";
 		if (email_label.length === 0) {
@@ -106,15 +111,16 @@ function checkLogin(form) {
 		} else {
 			email_label.html(notice);
 		}
-		return false;
-	} else if (password.length < 3) {
+		x = false;
+	}
+	if (password.length < 3) {
 		const notice = "Password non valida: minimo 3 caratteri";
 		if (password_label.length === 0) {
 			input_password.parent().append("<label>" + notice + "</label>");
 		} else {
 			password_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (password > 16) {
 		const notice = "Password non valida: massimo 40 caratteri";
 		if (password_label.length === 0) {
@@ -122,9 +128,9 @@ function checkLogin(form) {
 		} else {
 			password_label.html(notice);
 		}
-		return false;
+		x = false;
 	}
-	return true;
+	return x;
 
 }
 
@@ -144,7 +150,7 @@ function checkIndirizzo(form) {
 	const indirizzo = input_indirizzo.val();
 	const cap = input_cap.val();
 	const provincia = input_provincia.val();
-
+	let x = true;
 
 	if (nome.length < 3) {
 		const notice = "Nome non valido: minimo 3 caratteri";
@@ -153,7 +159,7 @@ function checkIndirizzo(form) {
 		} else {
 			nome_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (nome.length > 40) {
 		const notice = "Nome non valido: massimo 100 caratteri";
 		if (nome_label.length === 0) {
@@ -161,49 +167,52 @@ function checkIndirizzo(form) {
 		} else {
 			nome_label.html(notice);
 		}
-		return false;
-	} else if (indirizzo.length < 3) {
+		x = false;
+	}
+	if (indirizzo.length < 3) {
 		const notice = "indirizzo non valido: minimo 3 caratteri";
 		if (indirizzo_label.length === 0) {
 			input_indirizzo.parent().append("<label>" + notice + "</label>");
 		} else {
 			indirizzo_label.html(notice);
 		}
-		return false;
-	} else if (nome > 40) {
+		x = false;
+	} else if (indirizzo.length > 40) {
 		const notice = "indirizzo non valido: massimo 100 caratteri";
 		if (indirizzo_label.length === 0) {
 			input_indirizzo.parent().append("<label>" + notice + "</label>");
 		} else {
 			indirizzo_label.html(notice);
 		}
-		return false;
-	} else if (provincia.length < 3) {
-		const notice = "provincia non valida: minimo 3 caratteri";
+		x = false;
+	}
+	if (provincia.length < 3) {
+		const notice = "Provincia non valida: minimo 3 caratteri";
 		if (provincia_label.length === 0) {
 			input_provincia.parent().append("<label>" + notice + "</label>");
 		} else {
 			provincia_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (provincia.length > 40) {
-		const notice = "provincia non valido: massimo 100 caratteri";
+		const notice = "Provincia non valido: massimo 100 caratteri";
 		if (provincia_label.length === 0) {
 			input_provincia.parent().append("<label>" + notice + "</label>");
 		} else {
 			provincia_label.html(notice);
 		}
-		return false;
-	} else if (cap.length !== 5) {
+		x = false;
+	}
+	if (cap.length !== 5) {
 		const notice = "CAP non valido: sempre 5 caratteri numerici";
 		if (cap_label.length === 0) {
 			input_cap.parent().append("<label>" + notice + "</label>");
 		} else {
 			cap_label.html(notice);
 		}
-		return false;
+		x = false;
 	}
-	return true;
+	return x;
 }
 
 function checkCarta(form) {
@@ -219,6 +228,7 @@ function checkCarta(form) {
 	const cvv = input_cvv.val();
 	const saldo = input_saldo.val();
 
+	let x = true;
 
 	if (numero.length !== 16) {
 		const notice = "Numero carta non valido: richieste 16 cifre";
@@ -227,25 +237,27 @@ function checkCarta(form) {
 		} else {
 			numero_label.html(notice);
 		}
-		return false;
-	} else if (cvv.length < 3 || cvv.length > 4) {
+		x = false;
+	}
+	if (cvv.length < 3 || cvv.length > 4) {
 		const notice = "CVV non valido: richieste 3 o 4 cifre";
 		if (cvv_label.length === 0) {
 			input_cvv.parent().append("<label>" + notice + "</label>");
 		} else {
 			cvv_label.html(notice);
 		}
-		return false;
-	} else if (Number(saldo)) {
-		const notice = "CVV non valido: richieste 3 o 4 cifre";
+		x = false;
+	}
+	if (isNaN(saldo)) {
+		const notice = "Saldo non valido";
 		if (saldo_label.length === 0) {
 			input_saldo.parent().append("<label>" + notice + "</label>");
 		} else {
 			saldo_label.html(notice);
 		}
-		return false;
+		x = false;
 	}
-	return true;
+	return x;
 }
 
 function checkChangePass(form) {
@@ -258,6 +270,8 @@ function checkChangePass(form) {
 	const nuova = input_nuova.val();
 	const conferma = input_conferma.val();
 
+	let x = true;
+
 	if (nuova.length < 3) {
 		const notice = "Password non valida: minimo 3 caratteri";
 		if (nuova_label.length === 0) {
@@ -265,7 +279,7 @@ function checkChangePass(form) {
 		} else {
 			nuova_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (nuova > 16) {
 		const notice = "Password non valida: massimo 40 caratteri";
 		if (nuova_label.length === 0) {
@@ -273,17 +287,19 @@ function checkChangePass(form) {
 		} else {
 			nuova_label.html(notice);
 		}
-		return false;
-	} else if (nuova === conferma) {
+		x = false;
+	}
+	if (nuova !== conferma) {
 		const notice = "La password non coincide";
 		if (conferma_label.length === 0) {
 			input_conferma.parent().append("<label>" + notice + "</label>");
 		} else {
 			conferma_label.html(notice);
 		}
-		return false;
+		x = false;
 	}
 
+	return x;
 }
 
 
@@ -300,6 +316,8 @@ function checkRecensione(form) {
 	const titolo = input_titolo.val();
 	const commento = input_commento.val();
 
+	let x = true;
+
 	if (titolo.length < 3) {
 		const notice = "Titolo non valido: minimo 3 caratteri";
 		if (titolo_label.length === 0) {
@@ -307,7 +325,7 @@ function checkRecensione(form) {
 		} else {
 			titolo_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (titolo.length > 40) {
 		const notice = "Titolo non valida: massimo 40 caratteri";
 		if (titolo_label.length === 0) {
@@ -315,35 +333,37 @@ function checkRecensione(form) {
 		} else {
 			titolo_label.html(notice);
 		}
-		return false;
-	} else if(commento.length<3){
+		x = false;
+	}
+	if (commento.length < 3) {
 		const notice = "Commento non valido: minimo 3 caratteri";
 		if (commento_label.length === 0) {
 			input_commento.parent().append("<label>" + notice + "</label>");
 		} else {
 			commento_label.html(notice);
 		}
-		return false;
-	}else if(voto<1||voto>5){
+		x = false;
+	}
+	if (voto < 1 || voto > 5) {
 		const notice = "Voto non valido: minimo 1 massimo 5";
 		if (voto_label.length === 0) {
 			input_voto.parent().append("<label>" + notice + "</label>");
 		} else {
 			voto_label.html(notice);
 		}
-		return false;
+		x = false;
 
 	}
-	return true;
+	return x;
 
 }
 
 function checkProdotto(form) {
 	const input_nome = form.find("[name=nome]");
-	const input_descrizione= form.find("[name=descrizione]");
-	const input_prezzo= form.find("[name=prezzo]");
+	const input_descrizione = form.find("[name=descrizione]");
+	const input_prezzo = form.find("[name=prezzo]");
 
-	const nome_label = input_nome .siblings("label");
+	const nome_label = input_nome.siblings("label");
 	const descrizione_label = input_descrizione.siblings("label");
 	const prezzo_label = input_prezzo.siblings("label");
 
@@ -351,41 +371,44 @@ function checkProdotto(form) {
 	const descrizione = input_descrizione.val();
 	const prezzo = input_prezzo.val();
 
-	if (nome .length < 3) {
-		const notice = "Titolo non valido: minimo 3 caratteri";
+	let x = true;
+
+	if (nome.length < 3) {
+		const notice = "Nome non valido: minimo 3 caratteri";
 		if (nome_label.length === 0) {
 			input_nome.parent().append("<label>" + notice + "</label>");
 		} else {
 			nome_label.html(notice);
 		}
-		return false;
+		x = false;
 	} else if (nome.length > 40) {
-		const notice = "Titolo non valida: massimo 40 caratteri";
+		const notice = "Nome non valida: massimo 40 caratteri";
 		if (nome_label.length === 0) {
 			input_nome.parent().append("<label>" + notice + "</label>");
 		} else {
 			nome_label.html(notice);
 		}
-		return false;
-	} else if(descrizione.length<3){
-		const notice = "Commento non valido: minimo 3 caratteri";
+		x = false;
+	}
+	if (descrizione.length < 3) {
+		const notice = "Descrizione non valida: minimo 3 caratteri";
 		if (descrizione_label.length === 0) {
 			input_descrizione.parent().append("<label>" + notice + "</label>");
 		} else {
 			descrizione_label.html(notice);
 		}
-		return false;
-	}else if(/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?€/.test(prezzo)){
-		const notice = "Commento non valido: minimo 3 caratteri";
+		x = false;
+	}
+	if (/^\d+\.\d{2}$/.test(prezzo) === false) {
+		const notice = "Prezzo non valido";
 		if (prezzo_label.length === 0) {
 			input_prezzo.parent().append("<label>" + notice + "</label>");
 		} else {
 			prezzo_label.html(notice);
 		}
-		return false;
+		x = false;
 	}
-	return true;
-
+	return x;
 }
 
 function validate(action, form) {
@@ -407,7 +430,7 @@ function validate(action, form) {
 	if (action === "servlet_aggiungiRecensione") {
 		return checkRecensione(form);
 	}
-	if(action==="servlet_aggiungiProdotto"){
+	if (action === "servlet_aggiungiProdotto") {
 		return checkProdotto(form);
 	}
 }

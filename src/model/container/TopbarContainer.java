@@ -1,4 +1,4 @@
-package util;
+package model.container;
 
 import model.bean.Categoria;
 import model.bean.Sottocategoria;
@@ -7,23 +7,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class TopbarContainer implements Iterable<TopbarCategoria> {
+public class TopbarContainer implements Iterable<TopbarCategoriaContainer> {
 
-	private List<TopbarCategoria> categorie = new ArrayList<>();
+	private List<TopbarCategoriaContainer> categorie = new ArrayList<>();
 
 	public void add(Categoria categoria) {
-		categorie.add(new TopbarCategoria(categoria));
+		categorie.add(new TopbarCategoriaContainer(categoria));
 	}
 
 	public void add(Categoria categoria, Sottocategoria sottocategoria) {
-		for (TopbarCategoria cat : categorie) {
+		for (TopbarCategoriaContainer cat : categorie) {
 			if (cat.relatedTo(categoria)) {
 				cat.add(sottocategoria);
 			}
 		}
 	}
 
-	public Iterator<TopbarCategoria> iterator() {
+	public Iterator<TopbarCategoriaContainer> iterator() {
 		return categorie.iterator();
 	}
 
